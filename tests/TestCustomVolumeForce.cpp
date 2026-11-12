@@ -64,7 +64,7 @@ void testVolume() {
         double energy = context.getState(State::Energy).getPotentialEnergy();
         ASSERT_EQUAL_TOL(2*a[0]*b[1]*c[2], energy, 1e-6);
     }
-    double energy = context.getState(State::Energy, false, 1<<0).getPotentialEnergy();
+    double energy = context.getState(State::Energy, false, std::vector<int>(1, 1<<0)).getPotentialEnergy();
     ASSERT_EQUAL_TOL(0.0, energy, 1e-6);
 }
 

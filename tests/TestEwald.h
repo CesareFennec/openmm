@@ -304,8 +304,8 @@ void testTriclinic2() {
     VerletIntegrator integ2(0.001);
     Context context2(system, integ2, Platform::getPlatform("Reference"));
     context2.setPositions(positions);
-    State state1 = context1.getState(State::Forces | State::Energy, false, 2);
-    State state2 = context2.getState(State::Forces | State::Energy, false, 2);
+    State state1 = context1.getState(State::Forces | State::Energy, false, std::vector<int>(1, 2));
+    State state2 = context2.getState(State::Forces | State::Energy, false, std::vector<int>(1, 2));
     ASSERT_EQUAL_TOL(state2.getPotentialEnergy(), state1.getPotentialEnergy(), 1e-4);
     for (int i = 0; i < numParticles; i++)
         ASSERT_EQUAL_VEC(state2.getForces()[i], state1.getForces()[i], 1e-4);

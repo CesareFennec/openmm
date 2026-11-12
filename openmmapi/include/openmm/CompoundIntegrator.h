@@ -185,7 +185,7 @@ public:
      * 
      * This method returns the integration force groups for the current Integator.
      */
-    int getIntegrationForceGroups() const;
+    std::vector<int> getIntegrationForceGroups() const;
     /**
      * Set which force groups to use for integration.  By default, all force groups
      * are included.  This is interpreted as a set of bit flags: the forces from group i

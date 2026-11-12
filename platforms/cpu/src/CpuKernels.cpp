@@ -1144,7 +1144,7 @@ void CpuCalcConstantPotentialForceKernel::getCharges(ContextImpl& context, std::
     // Make sure that positions in posq, and the current neighbor list, are up
     // to date, but don't compute any energies or forces, and exclude all force
     // groups so that no kernels will get executed.
-    context.calcForcesAndEnergy(false, false, 0);
+    context.calcForcesAndEnergy(false, false, std::vector<int>(1, 0));
 
     Vec3* boxVectors = extractBoxVectors(context);
     vector<Vec3>& posData = extractPositions(context);

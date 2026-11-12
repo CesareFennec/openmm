@@ -521,7 +521,7 @@ void test_water2_dpme_energies_forces_no_exclusions() {
     Platform& platform = Platform::getPlatformByName("Reference");
     Context context(system, integrator, platform);
     context.setPositions(positions);
-    State state = context.getState(State::Forces | State::Energy, false, 1<<1);
+    State state = context.getState(State::Forces | State::Energy, false, std::vector<int>(1, 1<<1));
     double refenergy = state.getPotentialEnergy();
     const vector<Vec3>& refforces = state.getForces();
 
@@ -614,7 +614,7 @@ void testPME(bool triclinic, bool nonNeutral) {
     VerletIntegrator integrator(0.01);
     Context context(system, integrator, platform);
     context.setPositions(positions);
-    State refState = context.getState(State::Forces | State::Energy, false, 1<<1);
+    State refState = context.getState(State::Forces | State::Energy, false, std::vector<int>(1, 1<<1));
     
     // Now compute them with the optimized kernel.
     
@@ -703,7 +703,7 @@ void testLJPME(bool triclinic) {
     VerletIntegrator integrator(0.01);
     Context context(system, integrator, platform);
     context.setPositions(positions);
-    State refState = context.getState(State::Forces | State::Energy, false, 1<<1);
+    State refState = context.getState(State::Forces | State::Energy, false, std::vector<int>(1, 1<<1));
     
     // Now compute them with the optimized kernel.
     

@@ -933,9 +933,9 @@ void testTwoForces() {
     positions[0] = Vec3(0, 0, 0);
     positions[1] = Vec3(1.5, 0, 0);
     context.setPositions(positions);
-    State state1 = context.getState(State::Energy, false, 1<<0);
+    State state1 = context.getState(State::Energy, false, std::vector<int>(1, 1<<0));
     ASSERT_EQUAL_TOL(ONE_4PI_EPS0*(-1.5*0.5)/1.5 + 4.0*sqrt(1.2*1.0)*(pow(1.0/1.5, 12.0)-pow(1.0/1.5, 6.0)), state1.getPotentialEnergy(), TOL);
-    State state2 = context.getState(State::Energy, false, 1<<1);
+    State state2 = context.getState(State::Energy, false, std::vector<int>(1, 1<<1));
     ASSERT_EQUAL_TOL(ONE_4PI_EPS0*(0.4*0.3)/1.5 + 4.0*sqrt(0.5*1.0)*(pow(1.6/1.5, 12.0)-pow(1.6/1.5, 6.0)), state2.getPotentialEnergy(), TOL);
     State state = context.getState(State::Energy);
     ASSERT_EQUAL_TOL(state1.getPotentialEnergy()+state2.getPotentialEnergy(), state.getPotentialEnergy(), TOL);
@@ -946,9 +946,9 @@ void testTwoForces() {
     nb1->updateParametersInContext(context);
     nb2->setParticleParameters(0, 0.5, 1.6, 0.6);
     nb2->updateParametersInContext(context);
-    state1 = context.getState(State::Energy, false, 1<<0);
+    state1 = context.getState(State::Energy, false, std::vector<int>(1, 1<<0));
     ASSERT_EQUAL_TOL(ONE_4PI_EPS0*(-1.2*0.5)/1.5 + 4.0*sqrt(1.4*1.0)*(pow(1.05/1.5, 12.0)-pow(1.05/1.5, 6.0)), state1.getPotentialEnergy(), TOL);
-    state2 = context.getState(State::Energy, false, 1<<1);
+    state2 = context.getState(State::Energy, false, std::vector<int>(1, 1<<1));
     ASSERT_EQUAL_TOL(ONE_4PI_EPS0*(0.5*0.3)/1.5 + 4.0*sqrt(0.6*1.0)*(pow(1.7/1.5, 12.0)-pow(1.7/1.5, 6.0)), state2.getPotentialEnergy(), TOL);
     
     // Make sure it also works with PME.
@@ -956,8 +956,8 @@ void testTwoForces() {
     nb1->setNonbondedMethod(NonbondedForce::PME);
     nb2->setNonbondedMethod(NonbondedForce::PME);
     context.reinitialize(true);
-    state1 = context.getState(State::Energy, false, 1<<0);
-    state2 = context.getState(State::Energy, false, 1<<1);
+    state1 = context.getState(State::Energy, false, std::vector<int>(1, 1<<0));
+    state2 = context.getState(State::Energy, false, std::vector<int>(1, 1<<1));
     state = context.getState(State::Energy);
     ASSERT_EQUAL_TOL(state1.getPotentialEnergy()+state2.getPotentialEnergy(), state.getPotentialEnergy(), TOL);
 }
@@ -1129,8 +1129,8 @@ void testDirectAndReciprocal() {
     // Compute the direct and reciprocal space energies together and separately.
     
     double e1 = context.getState(State::Energy).getPotentialEnergy();
-    double e2 = context.getState(State::Energy, true, 1<<0).getPotentialEnergy();
-    double e3 = context.getState(State::Energy, true, 1<<1).getPotentialEnergy();
+    double e2 = context.getState(State::Energy, true, std::vector<int>(1, 1<<0)).getPotentialEnergy();
+    double e3 = context.getState(State::Energy, true, std::vector<int>(1, 1<<1)).getPotentialEnergy();
     ASSERT_EQUAL_TOL(e1, e2+e3, 1e-5);
     ASSERT(e2 != 0);
     ASSERT(e3 != 0);

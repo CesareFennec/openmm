@@ -378,7 +378,7 @@ void testNonbonded() {
     context1.setPositions(positions);
     context1.setParameter(ATMForce::Lambda1(), lambda);
     context1.setParameter(ATMForce::Lambda2(), lambda);
-    State state1 = context1.getState( State::Energy, false, 0 );
+    State state1 = context1.getState( State::Energy, false, std::vector<int>(1, 0) );
     double epot1 = state1.getPotentialEnergy();
     atm->getPerturbationEnergy(context1, u1, u0, energy);
     double epert1 = u1 - u0;

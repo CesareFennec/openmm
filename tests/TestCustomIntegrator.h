@@ -641,9 +641,9 @@ void testForceGroups() {
     
     // Make sure they also match the values returned by the Context.
     
-    State s = context.getState(State::Forces | State::Energy, false, 6);
-    State s1 = context.getState(State::Forces | State::Energy, false, 2);
-    State s2 = context.getState(State::Forces | State::Energy, false, 4);
+    State s = context.getState(State::Forces | State::Energy, false, std::vector<int>(1, 6));
+    State s1 = context.getState(State::Forces | State::Energy, false, std::vector<int>(1, 2));
+    State s2 = context.getState(State::Forces | State::Energy, false, std::vector<int>(1, 4));
     vector<Vec3> c, c1, c2;
     c = s.getForces();
     c1 = s1.getForces();

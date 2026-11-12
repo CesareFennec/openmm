@@ -28,6 +28,7 @@
  * -------------------------------------------------------------------------- */
 
 #include "openmm/serialization/QTBIntegratorProxy.h"
+#include "openmm/serialization/ForceGroupsSerializer.h"
 #include <OpenMM.h>
 
 using namespace std;
@@ -47,7 +48,7 @@ void QTBIntegratorProxy::serialize(const void* object, SerializationNode& node) 
     node.setDoubleProperty("cutoffFrequency", integrator.getCutoffFrequency());
     node.setDoubleProperty("defaultAdaptationRate", integrator.getDefaultAdaptationRate());
     node.setIntProperty("randomSeed", integrator.getRandomNumberSeed());
-    node.setIntProperty("integrationForceGroups", integrator.getIntegrationForceGroups());
+    setForceGroupsProperty(node, "integrationForceGroups", integrator.getIntegrationForceGroups());
     SerializationNode& particleTypes = node.createChildNode("ParticleTypes");
     for (auto type : integrator.getParticleTypes())
         particleTypes.createChildNode("Particle").setIntProperty("index", type.first).setIntProperty("type", type.second);
@@ -67,7 +68,7 @@ void* QTBIntegratorProxy::deserialize(const SerializationNode& node) const {
     integrator->setCutoffFrequency(node.getDoubleProperty("cutoffFrequency"));
     integrator->setDefaultAdaptationRate(node.getDoubleProperty("defaultAdaptationRate"));
     integrator->setRandomNumberSeed(node.getIntProperty("randomSeed"));
-    integrator->setIntegrationForceGroups(node.getIntProperty("integrationForceGroups", 0xFFFFFFFF));
+    integrator->setIntegrationForceGroups(getForceGroupsProperty(node, "integrationForceGroups", -1));
     const SerializationNode& particleTypes = node.getChildNode("ParticleTypes");
     for (auto& particle : particleTypes.getChildren())
         integrator->setParticleType(particle.getIntProperty("index"), particle.getIntProperty("type"));

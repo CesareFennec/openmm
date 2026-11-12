@@ -28,6 +28,7 @@
  * -------------------------------------------------------------------------- */
 
 #include "openmm/serialization/DrudeNoseHooverIntegratorProxy.h"
+#include "openmm/serialization/ForceGroupsSerializer.h"
 #include "openmm/serialization/SerializationNode.h"
 #include "openmm/DrudeNoseHooverIntegrator.h"
 #include <vector>
@@ -55,7 +56,7 @@ void DrudeNoseHooverIntegratorProxy::serialize(const void* object, Serialization
     node.setIntProperty("chainLength", integrator.getThermostat().getChainLength());
     node.setIntProperty("numMTS", integrator.getThermostat().getNumMultiTimeSteps());
     node.setIntProperty("numYS", integrator.getThermostat().getNumYoshidaSuzukiTimeSteps());
-    node.setIntProperty("integrationForceGroups", integrator.getIntegrationForceGroups());
+    setForceGroupsProperty(node, "integrationForceGroups", integrator.getIntegrationForceGroups());
 }
 
 void* DrudeNoseHooverIntegratorProxy::deserialize(const SerializationNode& node) const {
@@ -74,7 +75,7 @@ void* DrudeNoseHooverIntegratorProxy::deserialize(const SerializationNode& node)
     );
     integrator->setConstraintTolerance(node.getDoubleProperty("constraintTolerance"));
     integrator->setMaximumPairDistance(node.getDoubleProperty("maximumPairDistance"));
-    integrator->setIntegrationForceGroups(node.getIntProperty("integrationForceGroups", 0xFFFFFFFF));
+    integrator->setIntegrationForceGroups(getForceGroupsProperty(node, "integrationForceGroups", -1));
 
     return integrator;
 }

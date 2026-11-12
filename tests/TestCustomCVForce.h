@@ -226,7 +226,7 @@ void testReordering() {
     VerletIntegrator integrator(0.01);
     Context context(system, integrator, platform);
     context.setPositions(positions);
-    State state = context.getState(State::Energy | State::Forces, false, 1<<2);
+    State state = context.getState(State::Energy | State::Forces, false, std::vector<int>(1, 1<<2));
     Vec3 delta = positions[5]-positions[10];
     double r = sqrt(delta.dot(delta));
     ASSERT_EQUAL_TOL(2*(r+1), state.getPotentialEnergy(), 1e-5);

@@ -28,6 +28,7 @@
  * -------------------------------------------------------------------------- */
 
 #include "openmm/serialization/NoseHooverIntegratorProxy.h"
+#include "openmm/serialization/ForceGroupsSerializer.h"
 #include <vector>
 #include <OpenMM.h>
 
@@ -45,7 +46,7 @@ void NoseHooverIntegratorProxy::serialize(const void* object, SerializationNode&
     node.setDoubleProperty("constraintTolerance", integrator.getConstraintTolerance());
     node.setDoubleProperty("maximumPairDistance", integrator.getMaximumPairDistance());
     node.setBoolProperty("hasSubsystemThermostats", integrator.hasSubsystemThermostats());
-    node.setIntProperty("integrationForceGroups", integrator.getIntegrationForceGroups());
+    setForceGroupsProperty(node, "integrationForceGroups", integrator.getIntegrationForceGroups());
     if (integrator.hasSubsystemThermostats()) {
         // Serialize all thermostats separately
         for (int i = 0; i < integrator.getNumThermostats(); i++){
@@ -122,7 +123,7 @@ void* NoseHooverIntegratorProxy::deserialize(const SerializationNode& node) cons
     }
     integrator->setConstraintTolerance(node.getDoubleProperty("constraintTolerance"));
     integrator->setMaximumPairDistance(node.getDoubleProperty("maximumPairDistance"));
-    integrator->setIntegrationForceGroups(node.getIntProperty("integrationForceGroups", 0xFFFFFFFF));
+    integrator->setIntegrationForceGroups(getForceGroupsProperty(node, "integrationForceGroups", -1));
 
     return integrator;
 }

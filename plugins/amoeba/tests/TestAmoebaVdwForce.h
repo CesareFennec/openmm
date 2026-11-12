@@ -2137,8 +2137,8 @@ void testCompareToCustom(AmoebaVdwForce::PotentialFunction potential) {
     LangevinIntegrator integrator(0.0, 0.1, 0.01);
     Context context(system, integrator, platform);
     context.setPositions(positions);
-    State state1 = context.getState(State::Energy | State::Forces, true, 1);
-    State state2 = context.getState(State::Energy | State::Forces, true, 2);
+    State state1 = context.getState(State::Energy | State::Forces, true, std::vector<int>(1, 1));
+    State state2 = context.getState(State::Energy | State::Forces, true, std::vector<int>(1, 2));
     ASSERT_EQUAL_TOL(state1.getPotentialEnergy(), state2.getPotentialEnergy(), 1e-3);
     for (int i = 0; i < numParticles; i++)
         ASSERT_EQUAL_VEC(state1.getForces()[i], state2.getForces()[i], 1e-5);

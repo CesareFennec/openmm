@@ -105,7 +105,7 @@ void CompoundIntegrator::oneStep(const std::vector<Vec3>& forces) {
     integrators[currentIntegrator]->oneStep(forces);
 }
 
-int CompoundIntegrator::getIntegrationForceGroups() const {
+std::vector<int> CompoundIntegrator::getIntegrationForceGroups() const {
     return integrators[currentIntegrator]->getIntegrationForceGroups();
 }
 

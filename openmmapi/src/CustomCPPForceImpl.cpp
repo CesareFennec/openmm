@@ -44,8 +44,7 @@ void CustomCPPForceImpl::initialize(ContextImpl& context) {
 }
 
 double CustomCPPForceImpl::calcForcesAndEnergy(ContextImpl& context, bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
-    // Get the force group of this Force object.
-    int forceGroup = owner.getForceGroup();
+    // Note: forceGroup is a member of ForceImpl, filled in by ForceImpl::initialize().
     // Get the group of Topology this Force belongs to.
     int topologyGroup = forceGroup / 32;
     // Get the internal force group in its Topology.

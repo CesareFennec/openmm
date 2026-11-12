@@ -28,6 +28,7 @@
  * -------------------------------------------------------------------------- */
 
 #include "openmm/serialization/DPDIntegratorProxy.h"
+#include "openmm/serialization/ForceGroupsSerializer.h"
 #include <OpenMM.h>
 
 using namespace std;
@@ -46,7 +47,7 @@ void DPDIntegratorProxy::serialize(const void* object, SerializationNode& node) 
     node.setDoubleProperty("defaultFriction", integrator.getDefaultFriction());
     node.setDoubleProperty("defaultCutoff", integrator.getDefaultCutoff());
     node.setIntProperty("randomSeed", integrator.getRandomNumberSeed());
-    node.setIntProperty("integrationForceGroups", integrator.getIntegrationForceGroups());
+    setForceGroupsProperty(node, "integrationForceGroups", integrator.getIntegrationForceGroups());
     SerializationNode& types = node.createChildNode("ParticleTypes");
     for (auto type: integrator.getParticleTypes())
         types.createChildNode("Type").setIntProperty("particle", type.first).setIntProperty("type", type.second);
@@ -68,7 +69,7 @@ void* DPDIntegratorProxy::deserialize(const SerializationNode& node) const {
                                                             node.getDoubleProperty("stepSize"));
     integrator->setConstraintTolerance(node.getDoubleProperty("constraintTolerance"));
     integrator->setRandomNumberSeed(node.getIntProperty("randomSeed"));
-    integrator->setIntegrationForceGroups(node.getIntProperty("integrationForceGroups", 0xFFFFFFFF));
+    integrator->setIntegrationForceGroups(getForceGroupsProperty(node, "integrationForceGroups", -1));
     const SerializationNode& types = node.getChildNode("ParticleTypes");
     for (auto& type: types.getChildren())
         integrator->setParticleType(type.getIntProperty("particle"), type.getIntProperty("type"));

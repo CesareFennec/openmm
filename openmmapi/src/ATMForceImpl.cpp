@@ -204,7 +204,7 @@ void ATMForceImpl::updateParametersInContext(ContextImpl& context) {
 }
 
 void ATMForceImpl::getPerturbationEnergy(ContextImpl& context, double& u1, double& u0, double& energy) {
-    calcForcesAndEnergy(context, false, true, -1);
+    calcForcesAndEnergy(context, false, true, std::vector<int>(1, -1));
     u0 = state0Energy;
     u1 = state1Energy;
     energy = combinedEnergy;

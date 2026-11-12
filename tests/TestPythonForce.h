@@ -112,8 +112,8 @@ void testForce(bool subsetParticles) {
 
     // Check that force groups are handled correctly.
 
-    ASSERT_EQUAL_TOL(25.0, context.getState(State::Energy, false, 1).getPotentialEnergy(), 1e-6);
-    ASSERT_EQUAL_TOL(0.0, context.getState(State::Energy, false, 2).getPotentialEnergy(), 1e-6);
+    ASSERT_EQUAL_TOL(25.0, context.getState(State::Energy, false, std::vector<int>(1, 1)).getPotentialEnergy(), 1e-6);
+    ASSERT_EQUAL_TOL(0.0, context.getState(State::Energy, false, std::vector<int>(1, 2)).getPotentialEnergy(), 1e-6);
 }
 
 void runPlatformTests();
