@@ -74,7 +74,7 @@ public:
     /**
      * Set the force group this Force belongs to.
      * 
-     * @param group    the group index.  Legal values are between 0 and 31 (inclusive).
+     * @param group    the group index.  Legal values are greater than or equal to 0.
      */
     void setForceGroup(int group);
     /**

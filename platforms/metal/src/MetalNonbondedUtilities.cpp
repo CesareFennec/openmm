@@ -50,7 +50,7 @@ public:
 };
 
 MetalNonbondedUtilities::MetalNonbondedUtilities(MetalContext& context) : context(context), useCutoff(false), usePeriodic(false), useNeighborList(false), anyExclusions(false), usePadding(true),
-        forceRebuildNeighborList(true), groupFlags(0), canUsePairList(true), tilesAfterReorder(0), singlePairsAfterReorder(0) {
+        forceRebuildNeighborList(true), canUsePairList(true), tilesAfterReorder(0), singlePairsAfterReorder(0) {
     // Decide how many thread blocks to use.
 
     string errorMessage = "Error initializing nonbonded utilities";
@@ -85,7 +85,14 @@ void MetalNonbondedUtilities::addInteraction(bool usesCutoff, bool usesPeriodic,
     usePeriodic = usesPeriodic;
     this->useNeighborList |= (useNeighborList && useCutoff);
     groupCutoff[forceGroup] = cutoffDistance;
-    groupFlags |= 1<<forceGroup;
+    //groupFlags |= 1<<forceGroup;
+    // Here, I only use groupFlags to record the force groups of the nonbonded forces.
+    // Note that addInteraction() may be called several times for the same force group
+    // (for example when a NonbondedForce and a ConstantPotentialForce share group 0).
+    // The kernel source of a group is accumulated in groupKernelSource, so each group
+    // must only be recorded once, otherwise its source would be included twice.
+    if (std::find(groupFlags.begin(), groupFlags.end(), forceGroup) == groupFlags.end())
+        groupFlags.push_back(forceGroup);
     canUsePairList &= supportsPairList;
     if (kernel.size() > 0) {
         if (groupKernelSource.find(forceGroup) == groupKernelSource.end())
@@ -275,8 +282,30 @@ double MetalNonbondedUtilities::padCutoff(double cutoff) {
     return cutoff+padding;
 }
 
-void MetalNonbondedUtilities::prepareInteractions(int forceGroups) {
-    if ((forceGroups&groupFlags) == 0)
+void MetalNonbondedUtilities::prepareInteractions(const std::vector<int>& forceGroups) {
+    // Equivalent to the original "if ((forceGroups&groupFlags) == 0) return;".
+    // Note that it must also return when groupFlags is empty, i.e. when the context
+    // contains no nonbonded forces at all (this happens for the inner context of a
+    // CustomCVForce), otherwise the kernels below would not be initialized.
+    bool anyIncluded = false;
+    for (int i = 0; i < (int) groupFlags.size(); i++) {
+        if (groupFlags[i] < 0) {
+            // A dummy registration (e.g. by the DPD integrator) that only asks for the
+            // neighbor list to be built, and is not tied to any force group.
+            anyIncluded = true;
+            break;
+        }
+        // Get the group of Topology this Force belongs to.
+        int topologyGroup = groupFlags[i] / 32;
+        // Get the internal force group in its Topology.
+        int internalForceGroup = groupFlags[i] % 32;
+        // Compute force when its both Topology group and internal force group are included.
+        if ((topologyGroup < (int) forceGroups.size()) && ((forceGroups[topologyGroup]&(1<<internalForceGroup)) != 0)) {
+            anyIncluded = true;
+            break;
+        }
+    }
+    if (!anyIncluded)
         return;
     if (groupKernels.find(forceGroups) == groupKernels.end())
         createKernelsForGroups(forceGroups);
@@ -309,8 +338,30 @@ void MetalNonbondedUtilities::prepareInteractions(int forceGroups) {
         event->enqueue();
 }
 
-void MetalNonbondedUtilities::computeInteractions(int forceGroups, bool includeForces, bool includeEnergy) {
-    if ((forceGroups&groupFlags) == 0)
+void MetalNonbondedUtilities::computeInteractions(const std::vector<int>& forceGroups, bool includeForces, bool includeEnergy) {
+    // Equivalent to the original "if ((forceGroups&groupFlags) == 0) return;".
+    // Note that it must also return when groupFlags is empty, i.e. when the context
+    // contains no nonbonded forces at all (this happens for the inner context of a
+    // CustomCVForce), otherwise the kernels below would not be initialized.
+    bool anyIncluded = false;
+    for (int i = 0; i < (int) groupFlags.size(); i++) {
+        if (groupFlags[i] < 0) {
+            // A dummy registration (e.g. by the DPD integrator) that only asks for the
+            // neighbor list to be built, and is not tied to any force group.
+            anyIncluded = true;
+            break;
+        }
+        // Get the group of Topology this Force belongs to.
+        int topologyGroup = groupFlags[i] / 32;
+        // Get the internal force group in its Topology.
+        int internalForceGroup = groupFlags[i] % 32;
+        // Compute force when its both Topology group and internal force group are included.
+        if ((topologyGroup < (int) forceGroups.size()) && ((forceGroups[topologyGroup]&(1<<internalForceGroup)) != 0)) {
+            anyIncluded = true;
+            break;
+        }
+    }
+    if (!anyIncluded)
         return;
     KernelSet& kernels = groupKernels[forceGroups];
     if (kernels.hasForces && (includeForces || includeEnergy)) {
@@ -390,12 +441,29 @@ void MetalNonbondedUtilities::setAtomBlockRange(double startFraction, double end
     }
 }
 
-void MetalNonbondedUtilities::createKernelsForGroups(int groups) {
+void MetalNonbondedUtilities::createKernelsForGroups(const std::vector<int>& groups) {
     KernelSet kernels;
     string source;
-    for (int i = 0; i < 32; i++) {
-        if ((groups&(1<<i)) != 0) {
-            source += groupKernelSource[i];
+    //for (int i = 0; i < 32; i++) {
+    //    if ((groups&(1<<i)) != 0) {
+    //        cutoff = max(cutoff, groupCutoff[i]);
+    //        source += groupKernelSource[i];
+    //    }
+    //}    
+    // Here, we need to find the force group of nonbonded force included in groups.
+    for (int i = 0; i < groupFlags.size(); i++) {
+        int forceGroup = groupFlags[i];
+        // Skip dummy registrations, which have no kernel source.
+        if (forceGroup < 0)
+            continue;
+        // Get the group of Topology this Force belongs to.
+        int topologyGroup = forceGroup / 32;
+        // Get the internal force group in its Topology.
+        int internalForceGroup = forceGroup % 32;
+        // Compute force when its both Topology group and internal force group are included.
+        bool isCompute = (topologyGroup < groups.size()) && ((groups[topologyGroup]&(1<<internalForceGroup)) != 0);
+        if (isCompute) {
+            source += groupKernelSource[forceGroup];
         }
     }
     kernels.hasForces = (source.size() > 0);
@@ -489,7 +557,7 @@ void MetalNonbondedUtilities::createKernelsForGroups(int groups) {
     groupKernels[groups] = kernels;
 }
 
-ComputeKernel MetalNonbondedUtilities::createInteractionKernel(const string& source, vector<ComputeParameterInfo>& params, vector<ComputeParameterInfo>& arguments, bool useExclusions, bool isSymmetric, int groups, bool includeForces, bool includeEnergy) {
+ComputeKernel MetalNonbondedUtilities::createInteractionKernel(const string& source, vector<ComputeParameterInfo>& params, vector<ComputeParameterInfo>& arguments, bool useExclusions, bool isSymmetric, const std::vector<int>& groups, bool includeForces, bool includeEnergy) {
     map<string, string> replacements;
     replacements["COMPUTE_INTERACTION"] = source;
     const string suffixes[] = {"x", "y", "z", "w"};
@@ -572,12 +640,31 @@ ComputeKernel MetalNonbondedUtilities::createInteractionKernel(const string& sou
         defines["INCLUDE_ENERGY"] = "1";
     defines["THREAD_BLOCK_SIZE"] = context.intToString(forceThreadBlockSize);
     double maxCutoff = 0.0;
-    for (int i = 0; i < 32; i++) {
-        if ((groups&(1<<i)) != 0) {
-            double cutoff = groupCutoff[i];
+    //for (int i = 0; i < 32; i++) {
+    //    if ((groups&(1<<i)) != 0) {
+    //        double cutoff = groupCutoff[i];
+    //        maxCutoff = max(maxCutoff, cutoff);
+    //        defines["CUTOFF_"+context.intToString(i)+"_SQUARED"] = context.doubleToString(cutoff*cutoff);
+    //        defines["CUTOFF_"+context.intToString(i)] = context.doubleToString(cutoff);
+    //    }
+    //}    
+    // Here, we need to find the force group of nonbonded force included in groups.
+    for (int i = 0; i < groupFlags.size(); i++) {
+        int forceGroup = groupFlags[i];
+        // Skip dummy registrations, which have no kernel source.
+        if (forceGroup < 0)
+            continue;
+        // Get the group of Topology this Force belongs to.
+        int topologyGroup = forceGroup / 32;
+        // Get the internal force group in its Topology.
+        int internalForceGroup = forceGroup % 32;
+        // Compute force when its both Topology group and internal force group are included.
+        bool isCompute = (topologyGroup < groups.size()) && ((groups[topologyGroup]&(1<<internalForceGroup)) != 0);
+        if (isCompute) {
+            double cutoff = groupCutoff[forceGroup];
             maxCutoff = max(maxCutoff, cutoff);
-            defines["CUTOFF_"+context.intToString(i)+"_SQUARED"] = context.doubleToString(cutoff*cutoff);
-            defines["CUTOFF_"+context.intToString(i)] = context.doubleToString(cutoff);
+            defines["CUTOFF_"+context.intToString(forceGroup)+"_SQUARED"] = context.doubleToString(cutoff*cutoff);
+            defines["CUTOFF_"+context.intToString(forceGroup)] = context.doubleToString(cutoff);
         }
     }
     defines["MAX_CUTOFF"] = context.doubleToString(maxCutoff);

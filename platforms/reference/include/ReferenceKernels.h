@@ -94,7 +94,7 @@ public:
      * @param includeEnergy true if potential energy should be computed
      * @param groups        a set of bit flags for which force groups to include
      */
-    void beginComputation(ContextImpl& context, bool includeForce, bool includeEnergy, int groups);
+    void beginComputation(ContextImpl& context, bool includeForce, bool includeEnergy, const std::vector<int>& groups);
     /**
      * This is called at the end of each force/energy computation, after calcForcesAndEnergy() has been called on
      * every ForceImpl.
@@ -109,7 +109,7 @@ public:
      * calcForcesAndEnergy() methods.  That is, each force kernel may <i>either</i> return its contribution to the
      * energy directly, <i>or</i> add it to an internal buffer so that it will be included here.
      */
-    double finishComputation(ContextImpl& context, bool includeForce, bool includeEnergy, int groups, bool& valid);
+    double finishComputation(ContextImpl& context, bool includeForce, bool includeEnergy, const std::vector<int>& groups, bool& valid);
 private:
     std::vector<Vec3> savedForces;
 };
@@ -194,6 +194,12 @@ public:
      * @param forces  on exit, this contains the forces
      */
     void getForces(ContextImpl& context, std::vector<Vec3>& forces);
+    /**
+     * Set the forces on all particles. (Added by zhubin, Nov. 14, 2021)
+     *
+     * @param forces  a vector contains the forces
+     */
+    void setForces(ContextImpl& context, const std::vector<Vec3>& forces);
     /**
      * Get the current derivatives of the energy with respect to context parameters.
      *

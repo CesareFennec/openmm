@@ -28,6 +28,7 @@
  * -------------------------------------------------------------------------- */
 
 #include "openmm/serialization/DrudeLangevinIntegratorProxy.h"
+#include "openmm/serialization/ForceGroupsSerializer.h"
 #include "openmm/serialization/SerializationNode.h"
 #include "openmm/DrudeLangevinIntegrator.h"
 #include <sstream>
@@ -48,7 +49,7 @@ void DrudeLangevinIntegratorProxy::serialize(const void* object, SerializationNo
     node.setDoubleProperty("drudeTemperature", integrator.getDrudeTemperature());
     node.setDoubleProperty("drudeFriction", integrator.getDrudeFriction());
     node.setIntProperty("randomSeed", integrator.getRandomNumberSeed());
-    node.setIntProperty("integrationForceGroups", integrator.getIntegrationForceGroups());
+    setForceGroupsProperty(node, "integrationForceGroups", integrator.getIntegrationForceGroups());
 }
 
 void* DrudeLangevinIntegratorProxy::deserialize(const SerializationNode& node) const {
@@ -59,6 +60,6 @@ void* DrudeLangevinIntegratorProxy::deserialize(const SerializationNode& node) c
             node.getDoubleProperty("drudeFriction"), node.getDoubleProperty("stepSize"));
     integrator->setConstraintTolerance(node.getDoubleProperty("constraintTolerance"));
     integrator->setRandomNumberSeed(node.getIntProperty("randomSeed"));
-    integrator->setIntegrationForceGroups(node.getIntProperty("integrationForceGroups", 0xFFFFFFFF));
+    integrator->setIntegrationForceGroups(getForceGroupsProperty(node, "integrationForceGroups", -1));
     return integrator;
 }

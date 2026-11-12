@@ -600,7 +600,7 @@ void testForceGroups() {
     integrator.addComputeGlobal("oute", "energy");
     integrator.addComputeGlobal("oute1", "energy1");
     integrator.addComputeGlobal("oute2", "energy2");
-    integrator.setIntegrationForceGroups((1<<1) + (1<<2));
+    integrator.setIntegrationForceGroups(std::vector<int>(1, (1<<1) + (1<<2)));
     HarmonicBondForce* bonds = new HarmonicBondForce();
     bonds->addBond(0, 1, 1.5, 1.1);
     bonds->setForceGroup(1);
@@ -641,9 +641,9 @@ void testForceGroups() {
     
     // Make sure they also match the values returned by the Context.
     
-    State s = context.getState(State::Forces | State::Energy, false, 6);
-    State s1 = context.getState(State::Forces | State::Energy, false, 2);
-    State s2 = context.getState(State::Forces | State::Energy, false, 4);
+    State s = context.getState(State::Forces | State::Energy, false, std::vector<int>(1, 6));
+    State s1 = context.getState(State::Forces | State::Energy, false, std::vector<int>(1, 2));
+    State s2 = context.getState(State::Forces | State::Energy, false, std::vector<int>(1, 4));
     vector<Vec3> c, c1, c2;
     c = s.getForces();
     c1 = s1.getForces();

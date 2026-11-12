@@ -82,8 +82,8 @@ void testForce() {
     Context context(system, integrator, platform);
     context.setPositions(positions);
     State state1 = context.getState(State::Forces | State::Energy);
-    State state2 = context.getState(State::Forces | State::Energy, false, 1<<0);
-    State state3 = context.getState(State::Forces | State::Energy, false, 1<<1);
+    State state2 = context.getState(State::Forces | State::Energy, false, std::vector<int>(1, 1<<0));
+    State state3 = context.getState(State::Forces | State::Energy, false, std::vector<int>(1, 1<<1));
     ASSERT_EQUAL_TOL(10.5, state3.getPotentialEnergy(), 1e-6);
     ASSERT_EQUAL_TOL(state1.getPotentialEnergy(), state2.getPotentialEnergy()+state3.getPotentialEnergy(), 1e-6);
     for (int i = 0; i < numParticles; i++) {

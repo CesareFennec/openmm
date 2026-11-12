@@ -28,6 +28,7 @@
  * -------------------------------------------------------------------------- */
 
 #include "openmm/serialization/VariableLangevinIntegratorProxy.h"
+#include "openmm/serialization/ForceGroupsSerializer.h"
 #include <OpenMM.h>
 
 using namespace std;
@@ -46,7 +47,7 @@ void VariableLangevinIntegratorProxy::serialize(const void* object, Serializatio
     node.setDoubleProperty("errorTol", integrator.getErrorTolerance());
     node.setDoubleProperty("maxStepSize", integrator.getMaximumStepSize());
     node.setIntProperty("randomSeed", integrator.getRandomNumberSeed());
-    node.setIntProperty("integrationForceGroups", integrator.getIntegrationForceGroups());
+    setForceGroupsProperty(node, "integrationForceGroups", integrator.getIntegrationForceGroups());
 }
 
 void* VariableLangevinIntegratorProxy::deserialize(const SerializationNode& node) const {
@@ -59,7 +60,7 @@ void* VariableLangevinIntegratorProxy::deserialize(const SerializationNode& node
     integrator->setStepSize(node.getDoubleProperty("stepSize"));
     integrator->setConstraintTolerance(node.getDoubleProperty("constraintTolerance"));
     integrator->setRandomNumberSeed(node.getIntProperty("randomSeed"));
-    integrator->setIntegrationForceGroups(node.getIntProperty("integrationForceGroups", 0xFFFFFFFF));
+    integrator->setIntegrationForceGroups(getForceGroupsProperty(node, "integrationForceGroups", -1));
     if (version > 1)
         integrator->setMaximumStepSize(node.getDoubleProperty("maxStepSize"));
     return integrator;

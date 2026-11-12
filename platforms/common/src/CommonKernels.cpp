@@ -299,6 +299,25 @@ void CommonUpdateStateDataKernel::getForces(ContextImpl& context, vector<Vec3>& 
         forces[order[i]] = Vec3(scale*force[i], scale*force[i+paddedNumParticles], scale*force[i+paddedNumParticles*2]);
 }
 
+// Set the forces on all particles. (Added by zhubin, Nov. 14, 2021)
+// Note: in the integrator, the longForceBuffer will be used.
+// This is simillar as UpdateStateDataKernel::setForces()
+void CommonUpdateStateDataKernel::setForces(ContextImpl& context, const vector<Vec3>& forces) {
+    ContextSelector selector(cc);
+    const vector<int>& order = cc.getAtomIndex();
+    int numParticles = context.getSystem().getNumParticles();
+    int paddedNumParticles = cc.getPaddedNumAtoms();
+    long long* force = (long long*) cc.getPinnedBuffer();
+    cc.getLongForceBuffer().download(force);
+    double inverseScale = (double) 0x100000000LL;
+    for (int i = 0; i < numParticles; ++i) {
+        force[i] = inverseScale * forces[order[i]][0];
+        force[i+paddedNumParticles] = inverseScale * forces[order[i]][1];
+        force[i+paddedNumParticles*2] = inverseScale * forces[order[i]][2];
+    }
+    cc.getLongForceBuffer().upload(force);
+}
+
 void CommonUpdateStateDataKernel::getEnergyParameterDerivatives(ContextImpl& context, map<string, double>& derivs) {
     ContextSelector selector(cc);
     const vector<string>& paramDerivNames = cc.getEnergyParamDerivNames();
@@ -2693,7 +2712,10 @@ double CommonCalcCustomCVForceKernel::execute(ContextImpl& context, ContextImpl&
     int paddedNumAtoms = cc.getPaddedNumAtoms();
     vector<map<string, double> > cvDerivs(numCVs);
     for (int i = 0; i < numCVs; i++) {
-        cvValues[i] = innerContext.calcForcesAndEnergy(true, true, 1<<i);
+        // Only process the first topology.
+        if (i == 32) break;
+        cvValues[i] = innerContext.calcForcesAndEnergy(true, true, std::vector<int>(1, (1<<i)));
+        //cvValues[i] = innerContext.calcForcesAndEnergy(true, true, 1<<i);
         ContextSelector selector(cc);
         copyForcesKernel->setArg(0, cvForces[i]);
         copyForcesKernel->execute(numAtoms);
@@ -3537,9 +3559,12 @@ void CommonIntegrateDPDStepKernel::initialize(const System& system, const DPDInt
         particleTypeVec.push_back(0);
 
     // We want the NonbondedUtilities to build a neighbor list.  Add an empty interaction
-    // with a nonexistant force group to it.
+    // with a nonexistant (negative) force group to it.  Note that a negative value is used
+    // as the marker for this: force groups are always >= 0, so it cannot collide with a
+    // real force group (32 would collide with the second topology now that force groups
+    // beyond 31 are supported).
 
-    cc.getNonbondedUtilities().addInteraction(true, system.usesPeriodicBoundaryConditions(), false, maxCutoff, vector<vector<int> >(), "", 32);
+    cc.getNonbondedUtilities().addInteraction(true, system.usesPeriodicBoundaryConditions(), false, maxCutoff, vector<vector<int> >(), "", -2);
 
     // Create the arrays.
 
@@ -4667,7 +4692,7 @@ class CommonCalcCustomCPPForceKernel::StartCalculationPreComputation : public Co
 public:
     StartCalculationPreComputation(CommonCalcCustomCPPForceKernel& owner) : owner(owner) {
     }
-    void computeForceAndEnergy(bool includeForces, bool includeEnergy, int groups) {
+    void computeForceAndEnergy(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
         owner.beginComputation(includeForces, includeEnergy, groups);
     }
     CommonCalcCustomCPPForceKernel& owner;
@@ -4688,7 +4713,7 @@ class CommonCalcCustomCPPForceKernel::AddForcesPostComputation : public ComputeC
 public:
     AddForcesPostComputation(CommonCalcCustomCPPForceKernel& owner) : owner(owner) {
     }
-    double computeForceAndEnergy(bool includeForces, bool includeEnergy, int groups) {
+    double computeForceAndEnergy(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
         return owner.addForces(includeForces, includeEnergy, groups);
     }
     CommonCalcCustomCPPForceKernel& owner;
@@ -4711,7 +4736,13 @@ void CommonCalcCustomCPPForceKernel::initialize(const ContextImpl& context, Cust
     addForcesKernel->addArg(forcesArray);
     addForcesKernel->addArg(cc.getLongForceBuffer());
     addForcesKernel->addArg(cc.getAtomIndexArray());
-    forceGroupFlag = (1<<force.getOwner().getForceGroup());
+    // Record the force group of this Force as (topology, internal) so that the
+    // force group flags can be checked against the requested groups.
+    {
+        int forceGroup = force.getOwner().getForceGroup();
+        forceGroupTopology = forceGroup / 32;
+        forceGroupInternal = forceGroup % 32;
+    }
     useWorkerThread = (cc.getNumContexts() == 1);
     for (const ForceImpl* impl : context.getForceImpls())
         if (impl != &force && (dynamic_cast<const CustomCPPForceImpl*>(impl) != NULL || dynamic_cast<const PythonForceImpl*>(impl) != NULL))
@@ -4738,11 +4769,12 @@ double CommonCalcCustomCPPForceKernel::execute(ContextImpl& context, bool includ
         return 0.0;
     contextImpl.getPositions(positionsVec);
     executeOnWorkerThread(includeForces);
-    return addForces(includeForces, includeEnergy, -1);
+    return addForces(includeForces, includeEnergy, std::vector<int>(1, -1));
 }
 
-void CommonCalcCustomCPPForceKernel::beginComputation(bool includeForces, bool includeEnergy, int groups) {
-    if ((groups&forceGroupFlag) == 0)
+void CommonCalcCustomCPPForceKernel::beginComputation(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
+    bool isCompute = (forceGroupTopology < groups.size()) && ((groups[forceGroupTopology]&(1<<forceGroupInternal)) != 0);
+    if (!isCompute)
         return;
     contextImpl.getPositions(positionsVec);
 
@@ -4769,8 +4801,9 @@ void CommonCalcCustomCPPForceKernel::executeOnWorkerThread(bool includeForces) {
     }
 }
 
-double CommonCalcCustomCPPForceKernel::addForces(bool includeForces, bool includeEnergy, int groups) {
-    if ((groups&forceGroupFlag) == 0)
+double CommonCalcCustomCPPForceKernel::addForces(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
+    bool isCompute = (forceGroupTopology < groups.size()) && ((groups[forceGroupTopology]&(1<<forceGroupInternal)) != 0);
+    if (!isCompute)
         return 0;
 
     // Wait until executeOnWorkerThread() is finished.
@@ -4794,7 +4827,7 @@ class CommonCalcPythonForceKernel::StartCalculationPreComputation : public Compu
 public:
     StartCalculationPreComputation(CommonCalcPythonForceKernel& owner) : owner(owner) {
     }
-    void computeForceAndEnergy(bool includeForces, bool includeEnergy, int groups) {
+    void computeForceAndEnergy(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
         owner.beginComputation(includeForces, includeEnergy, groups);
     }
     CommonCalcPythonForceKernel& owner;
@@ -4815,7 +4848,7 @@ class CommonCalcPythonForceKernel::AddForcesPostComputation : public ComputeCont
 public:
     AddForcesPostComputation(CommonCalcPythonForceKernel& owner) : owner(owner) {
     }
-    double computeForceAndEnergy(bool includeForces, bool includeEnergy, int groups) {
+    double computeForceAndEnergy(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
         return owner.addForces(includeForces, includeEnergy, groups);
     }
     CommonCalcPythonForceKernel& owner;
@@ -4873,7 +4906,11 @@ void CommonCalcPythonForceKernel::initialize(const ContextImpl& context, const P
         addForcesKernel->addArg(cc.getLongForceBuffer());
         addForcesKernel->addArg(cc.getAtomIndexArray());
     }
-    forceGroupFlag = (1<<force.getForceGroup());
+    {
+        int forceGroup = force.getForceGroup();
+        forceGroupTopology = forceGroup / 32;
+        forceGroupInternal = forceGroup % 32;
+    }
     // Disable the worker thread until we figure out what is causing incompatibilities with PyTorch.
 //    useWorkerThread = (cc.getNumContexts() == 1);
     useWorkerThread = false;
@@ -4901,7 +4938,7 @@ double CommonCalcPythonForceKernel::execute(ContextImpl& context, bool includeFo
     if (cc.getContextIndex() != 0)
         return 0.0;
     executeOnWorkerThread(includeForces);
-    return addForces(includeForces, includeEnergy, -1);
+    return addForces(includeForces, includeEnergy, std::vector<int>(1, -1));
 }
 
 void CommonCalcPythonForceKernel::getPositions() {
@@ -4960,8 +4997,9 @@ void CommonCalcPythonForceKernel::sortParticles() {
     reorderedParticles.upload(reordered);
 }
 
-void CommonCalcPythonForceKernel::beginComputation(bool includeForces, bool includeEnergy, int groups) {
-    if ((groups&forceGroupFlag) == 0)
+void CommonCalcPythonForceKernel::beginComputation(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
+    bool isCompute = (forceGroupTopology < groups.size()) && ((groups[forceGroupTopology]&(1<<forceGroupInternal)) != 0);
+    if (!isCompute)
         return;
 
     // The actual force computation will be done on a different thread.
@@ -4987,8 +5025,9 @@ void CommonCalcPythonForceKernel::executeOnWorkerThread(bool includeForces) {
     }
 }
 
-double CommonCalcPythonForceKernel::addForces(bool includeForces, bool includeEnergy, int groups) {
-    if ((groups&forceGroupFlag) == 0)
+double CommonCalcPythonForceKernel::addForces(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
+    bool isCompute = (forceGroupTopology < groups.size()) && ((groups[forceGroupTopology]&(1<<forceGroupInternal)) != 0);
+    if (!isCompute)
         return 0;
 
     // Wait until executeOnWorkerThread() is finished.

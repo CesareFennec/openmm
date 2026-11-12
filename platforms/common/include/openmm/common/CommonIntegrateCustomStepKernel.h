@@ -127,9 +127,9 @@ private:
     ComputeArray globalValues, sumBuffer, summedValue;
     ComputeArray uniformRandoms, randomSeed, perDofEnergyParamDerivs;
     std::vector<ComputeArray> tabulatedFunctions, perDofValues;
-    std::map<int, double> savedEnergy;
-    std::map<int, ComputeArray> savedForces;
-    std::set<int> validSavedForces;
+    std::map<std::vector<int>, double> savedEnergy;
+    std::map<std::vector<int>, ComputeArray> savedForces;
+    std::set<std::vector<int>> validSavedForces;
     mutable std::vector<std::vector<mm_float4> > localPerDofValuesFloat;
     mutable std::vector<std::vector<mm_double4> > localPerDofValuesDouble;
     std::map<std::string, double> energyParamDerivs;
@@ -145,7 +145,8 @@ private:
     CompiledExpressionSet expressionSet;
     std::vector<bool> needsGlobals, needsForces, needsEnergy;
     std::vector<bool> computeBothForceAndEnergy, invalidatesForces, merged;
-    std::vector<int> forceGroupFlags, blockEnd, requiredGaussian, requiredUniform;
+    std::vector<int> blockEnd, requiredGaussian, requiredUniform;
+    std::vector<std::vector<int>> forceGroupFlags;
     std::vector<int> stepEnergyVariableIndex, globalVariableIndex, parameterVariableIndex;
     int gaussianVariableIndex, uniformVariableIndex, dtVariableIndex;
     std::vector<std::string> parameterNames;

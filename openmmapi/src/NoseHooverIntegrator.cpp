@@ -361,6 +361,14 @@ void NoseHooverIntegrator::step(int steps) {
     }
 }
 
+void NoseHooverIntegrator::oneStep(const std::vector<Vec3>& forces) {
+    if (context == NULL)
+        throw OpenMMException("This Integrator is not bound to a context!");
+    context->setForces(forces);
+    forcesAreValid = true;
+    kernel.getAs<IntegrateNoseHooverStepKernel>().execute(*context, *this);
+}
+
 void NoseHooverIntegrator::createCheckpoint(std::ostream& stream) const {
     kernel.getAs<IntegrateNoseHooverStepKernel>().createCheckpoint(*context, stream);
 }

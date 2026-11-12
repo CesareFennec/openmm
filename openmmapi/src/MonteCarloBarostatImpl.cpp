@@ -65,7 +65,7 @@ void MonteCarloBarostatImpl::updateContextState(ContextImpl& context, bool& forc
 
     // Compute the current potential energy.
 
-    int groups = context.getIntegrator().getIntegrationForceGroups();
+    std::vector<int> groups = context.getIntegrator().getIntegrationForceGroups();
     double initialEnergy = context.getOwner().getState(State::Energy, false, groups).getPotentialEnergy();
 
     // Modify the periodic box size.
@@ -130,7 +130,7 @@ double MonteCarloBarostatImpl::computeCurrentPressure(ContextImpl& context) {
     context.getPeriodicBoxVectors(box[0], box[1], box[2]);
     double volume = box[0][0]*box[1][1]*box[2][2];
     double delta = 1e-3;
-    int groups = context.getIntegrator().getIntegrationForceGroups();
+    std::vector<int> groups = context.getIntegrator().getIntegrationForceGroups();
     kernel.getAs<ApplyMonteCarloBarostatKernel>().saveCoordinates(context);
 
     // Compute the first energy.

@@ -28,6 +28,7 @@
  * -------------------------------------------------------------------------- */
 
 #include "openmm/serialization/CustomIntegratorProxy.h"
+#include "openmm/serialization/ForceGroupsSerializer.h"
 #include <OpenMM.h>
 
 using namespace std;
@@ -63,7 +64,7 @@ void CustomIntegratorProxy::serialize(const void* object, SerializationNode& nod
         functions.createChildNode("Function", &integrator.getTabulatedFunction(i)).setStringProperty("name", integrator.getTabulatedFunctionName(i));
     node.setStringProperty("kineticEnergyExpression", integrator.getKineticEnergyExpression());
     node.setIntProperty("randomSeed", integrator.getRandomNumberSeed());
-    node.setIntProperty("integrationForceGroups", integrator.getIntegrationForceGroups());
+    setForceGroupsProperty(node, "integrationForceGroups", integrator.getIntegrationForceGroups());
     node.setDoubleProperty("stepSize", integrator.getStepSize());
     node.setDoubleProperty("constraintTolerance", integrator.getConstraintTolerance());
 }
@@ -123,7 +124,7 @@ void* CustomIntegratorProxy::deserialize(const SerializationNode& node) const {
     }
     integrator->setKineticEnergyExpression(node.getStringProperty("kineticEnergyExpression"));
     integrator->setRandomNumberSeed(node.getIntProperty("randomSeed"));
-    integrator->setIntegrationForceGroups(node.getIntProperty("integrationForceGroups", 0xFFFFFFFF));
+    integrator->setIntegrationForceGroups(getForceGroupsProperty(node, "integrationForceGroups", -1));
     integrator->setConstraintTolerance(node.getDoubleProperty("constraintTolerance"));
     return integrator;
 }

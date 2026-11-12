@@ -78,6 +78,17 @@ public:
      */
     void step(int steps);
     /**
+     * Advance a simulation through time by taking one step with the providing
+     * external forces instead of the forces which is computed from force fileds
+     * based on current positions.
+     *
+     * Note that, you should call updateContextState() firstly before calling
+     * this function. (Added by zhubin, Nov. 14, 2021)
+     *
+     * @param forces the vector contains forces
+     */
+    void oneStep(const std::vector<Vec3>& forces);
+    /**
      * Add a simple Nose-Hoover Chain thermostat to control the temperature of the full system
      *
      * @param temperature the target temperature for the system.

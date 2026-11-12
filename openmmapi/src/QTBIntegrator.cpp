@@ -143,6 +143,13 @@ void QTBIntegrator::step(int steps) {
     }
 }
 
+void QTBIntegrator::oneStep(const std::vector<Vec3>& forces) {
+    if (context == NULL)
+        throw OpenMMException("This Integrator is not bound to a context!");
+    context->setForces(forces);
+    kernel.getAs<IntegrateQTBStepKernel>().execute(*context, *this);
+}
+
 void QTBIntegrator::createCheckpoint(std::ostream& stream) const {
     kernel.getAs<IntegrateQTBStepKernel>().createCheckpoint(*context, stream);
 }

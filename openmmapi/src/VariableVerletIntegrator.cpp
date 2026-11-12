@@ -87,6 +87,13 @@ void VariableVerletIntegrator::step(int steps) {
     }
 }
 
+void VariableVerletIntegrator::oneStep(const std::vector<Vec3>& forces) {
+    if (context == NULL)
+        throw OpenMMException("This Integrator is not bound to a context!");
+    context->setForces(forces);
+    setStepSize(kernel.getAs<IntegrateVariableVerletStepKernel>().execute(*context, *this, std::numeric_limits<double>::infinity()));
+}
+
 void VariableVerletIntegrator::stepTo(double time) {
     if (context == NULL)
         throw OpenMMException("This Integrator is not bound to a context!");  

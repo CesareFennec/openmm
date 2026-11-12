@@ -100,6 +100,14 @@ public:
      */
     void setStepCount(long long count);
     /**
+     * Get the current step. (Added by zhubin, Nov. 17, 2021)
+     */
+    int getStep() const;
+    /**
+     * Set the current step by modifying the platform data.
+     */
+    void setStep(int step);
+    /**
      * Get the positions of all particles.
      *
      * @param positions  on exit, this contains the particle positions
@@ -131,6 +139,12 @@ public:
      * @param forces  on exit, this contains the forces
      */
     void getForces(std::vector<Vec3>& forces);
+    /**
+     * Set the forces on all particles. (Added by zhubin, Nov. 14, 2021)
+     *
+     * @param forces  a vector contains the forces
+     */
+    void setForces(const std::vector<Vec3>& forces);
     /**
      * Get the set of all adjustable parameters and their values
      */
@@ -202,18 +216,18 @@ public:
      *
      * @param includeForces  true if forces should be calculated
      * @param includeEnergy  true if the energy should be calculated
-     * @param groups         a set of bit flags for which force groups to include.  Group i will be included
-     *                       if (groups&(1<<i)) != 0.  The default value includes all groups.
+     * @param groups         a set of bit flags for which force groups to include.
+     *                       Group i in state j will be included if (groups[j]&(1<<(i-32*j))) != 0.
      * @return the potential energy of the system, or 0 if includeEnergy is false
      */
-    double calcForcesAndEnergy(bool includeForces, bool includeEnergy, int groups=0xFFFFFFFF);
+    double calcForcesAndEnergy(bool includeForces, bool includeEnergy, const std::vector<int>& groups = std::vector<int>(1, -1));
     /**
      * Get the set of force group flags that were passed to the most recent call to calcForcesAndEnergy().
      * 
      * Note that this returns a reference, so it's possible to modify it.  Be very very cautious about
      * doing that!  Only do it if you're also modifying forces stored inside the context.
      */
-    int& getLastForceGroups();
+    std::vector<int>& getLastForceGroups();
     /**
      * Calculate the kinetic energy of the system (in kJ/mol).
      */
@@ -315,7 +329,7 @@ private:
     std::map<std::string, double> parameters;
     mutable std::vector<std::vector<int> > molecules;
     bool hasInitializedForces, hasSetPositions, integratorIsDeleted, hasMinimizeKernel;
-    int lastForceGroups;
+    std::vector<int> lastForceGroups;
     Platform* platform;
     Kernel initializeForcesKernel, updateStateDataKernel, applyConstraintsKernel, virtualSitesKernel, minimizeKernel;
     void* platformData;

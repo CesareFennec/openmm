@@ -135,6 +135,13 @@ void DPDIntegrator::step(int steps) {
     }
 }
 
+void DPDIntegrator::oneStep(const std::vector<Vec3>& forces) {
+    if (context == NULL)
+        throw OpenMMException("This Integrator is not bound to a context!");
+    context->setForces(forces);
+    kernel.getAs<IntegrateDPDStepKernel>().execute(*context, *this);
+}
+
 int DPDIntegrator::getNumTypePairs() const {
     return pairs.size();
 }

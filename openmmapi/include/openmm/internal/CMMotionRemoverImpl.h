@@ -48,7 +48,7 @@ public:
         return owner;
     }
     void updateContextState(ContextImpl& context, bool& forcesInvalid);
-    double calcForcesAndEnergy(ContextImpl& context, bool includeForces, bool includeEnergy, int groups) {
+    double calcForcesAndEnergy(ContextImpl& context, bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
         // This force doesn't apply forces to particles.
         return 0.0;
     }

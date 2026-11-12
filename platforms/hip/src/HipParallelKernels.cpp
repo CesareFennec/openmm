@@ -42,7 +42,7 @@ if (result != hipSuccess) { \
 class HipParallelCalcForcesAndEnergyKernel::BeginComputationTask : public HipContext::WorkTask {
 public:
     BeginComputationTask(ContextImpl& context, HipContext& cu, HipCalcForcesAndEnergyKernel& kernel,
-            bool includeForce, bool includeEnergy, int groups, void* pinnedMemory, hipEvent_t event) : context(context), cu(cu), kernel(kernel),
+            bool includeForce, bool includeEnergy, const std::vector<int>& groups, void* pinnedMemory, hipEvent_t event) : context(context), cu(cu), kernel(kernel),
             includeForce(includeForce), includeEnergy(includeEnergy), groups(groups), pinnedMemory(pinnedMemory), event(event) {
     }
     void execute() {
@@ -61,7 +61,7 @@ private:
     HipContext& cu;
     HipCalcForcesAndEnergyKernel& kernel;
     bool includeForce, includeEnergy;
-    int groups;
+    std::vector<int> groups;
     void* pinnedMemory;
     hipEvent_t event;
 };
@@ -69,7 +69,7 @@ private:
 class HipParallelCalcForcesAndEnergyKernel::FinishComputationTask : public HipContext::WorkTask {
 public:
     FinishComputationTask(ContextImpl& context, HipContext& cu, HipCalcForcesAndEnergyKernel& kernel,
-            bool includeForce, bool includeEnergy, int groups, double& energy, double& completionTime, long long* pinnedMemory, HipArray& contextForces,
+            bool includeForce, bool includeEnergy, const std::vector<int>& groups, double& energy, double& completionTime, long long* pinnedMemory, HipArray& contextForces,
             bool& valid, hipStream_t stream, hipEvent_t event, hipEvent_t localEvent) :
             context(context), cu(cu), kernel(kernel), includeForce(includeForce), includeEnergy(includeEnergy), groups(groups), energy(energy),
             completionTime(completionTime), pinnedMemory(pinnedMemory), contextForces(contextForces), valid(valid),
@@ -108,7 +108,7 @@ private:
     HipContext& cu;
     HipCalcForcesAndEnergyKernel& kernel;
     bool includeForce, includeEnergy;
-    int groups;
+    std::vector<int> groups;
     double& energy;
     double& completionTime;
     long long* pinnedMemory;
@@ -164,7 +164,7 @@ void HipParallelCalcForcesAndEnergyKernel::initialize(const System& system) {
     }
 }
 
-void HipParallelCalcForcesAndEnergyKernel::beginComputation(ContextImpl& context, bool includeForce, bool includeEnergy, int groups) {
+void HipParallelCalcForcesAndEnergyKernel::beginComputation(ContextImpl& context, bool includeForce, bool includeEnergy, const std::vector<int>& groups) {
     HipContext& cu = *data.contexts[0];
     ContextSelector selector(cu);
     if (!contextForces.isInitialized()) {
@@ -203,7 +203,7 @@ void HipParallelCalcForcesAndEnergyKernel::beginComputation(ContextImpl& context
     data.syncContexts();
 }
 
-double HipParallelCalcForcesAndEnergyKernel::finishComputation(ContextImpl& context, bool includeForce, bool includeEnergy, int groups, bool& valid) {
+double HipParallelCalcForcesAndEnergyKernel::finishComputation(ContextImpl& context, bool includeForce, bool includeEnergy, const std::vector<int>& groups, bool& valid) {
     for (int i = 0; i < (int) data.contexts.size(); i++) {
         HipContext& cu = *data.contexts[i];
         ComputeContext::WorkThread& thread = cu.getWorkThread();

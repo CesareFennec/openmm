@@ -73,3 +73,10 @@ void VerletIntegrator::step(int steps) {
         kernel.getAs<IntegrateVerletStepKernel>().execute(*context, *this);
     }
 }
+
+void VerletIntegrator::oneStep(const std::vector<Vec3>& forces) {
+    if (context == NULL)
+        throw OpenMMException("This Integrator is not bound to a context!");
+    context->setForces(forces);
+    kernel.getAs<IntegrateVerletStepKernel>().execute(*context, *this);
+}

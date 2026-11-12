@@ -92,7 +92,7 @@ private:
     int threadBlockSize;
     void* pinnedMemory;
 
-    int forceGroups;
+    std::vector<int> forceGroups;
     double constraintTol;
 
     double tolerance;

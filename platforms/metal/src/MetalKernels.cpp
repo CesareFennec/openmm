@@ -32,7 +32,7 @@ using namespace std;
 void MetalCalcForcesAndEnergyKernel::initialize(const System& system) {
 }
 
-void MetalCalcForcesAndEnergyKernel::beginComputation(ContextImpl& context, bool includeForces, bool includeEnergy, int groups) {
+void MetalCalcForcesAndEnergyKernel::beginComputation(ContextImpl& context, bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
     mc.setForcesValid(true);
     mc.clearAutoclearBuffers();
     mc.updateGlobalParamValues();
@@ -46,7 +46,7 @@ void MetalCalcForcesAndEnergyKernel::beginComputation(ContextImpl& context, bool
         derivs[param.first] = 0;
 }
 
-double MetalCalcForcesAndEnergyKernel::finishComputation(ContextImpl& context, bool includeForces, bool includeEnergy, int groups, bool& valid) {
+double MetalCalcForcesAndEnergyKernel::finishComputation(ContextImpl& context, bool includeForces, bool includeEnergy, const std::vector<int>& groups, bool& valid) {
     mc.getBondedUtilities().computeInteractions(groups);
     mc.getNonbondedUtilities().computeInteractions(groups, includeForces, includeEnergy);
     double sum = 0.0;

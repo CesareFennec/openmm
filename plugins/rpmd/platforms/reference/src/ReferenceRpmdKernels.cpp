@@ -70,12 +70,18 @@ void ReferenceIntegrateRPMDStepKernel::initialize(const System& system, const RP
     
     // Build a list of contractions.
     
-    groupsNotContracted = -1;
+    //groupsNotContracted = -1;
+    // RPMDIntegrator works for one surface now. 
+    groupsNotContracted = std::vector<int>(1, -1);
     const map<int, int>& contractions = integrator.getContractions();
     int maxContractedCopies = 0;
     for (auto& c : contractions) {
         int group = c.first;
-        if (((1<<group) & integrator.getIntegrationForceGroups()) == 0)
+        // Check whether the contraction group is included in the integration force groups.
+        int topologyGroup = group / 32;
+        int internalForceGroup = group % 32;
+        const std::vector<int>& integForceGroups = integrator.getIntegrationForceGroups();
+        if ((topologyGroup >= integForceGroups.size()) || ((integForceGroups[topologyGroup]&(1<<internalForceGroup)) == 0))
             continue;
         int copies = c.second;
         if (group < 0 || group > 31)
@@ -84,16 +90,20 @@ void ReferenceIntegrateRPMDStepKernel::initialize(const System& system, const RP
             throw OpenMMException("RPMDIntegrator: Number of copies for contraction cannot be greater than the total number of copies being simulated");
         if (copies != numCopies) {
             if (groupsByCopies.find(copies) == groupsByCopies.end()) {
-                groupsByCopies[copies] = 1<<group;
+                //groupsByCopies[copies] = 1<<group;
+                groupsByCopies[copies].push_back((1<<group));
                 if (copies > maxContractedCopies)
                     maxContractedCopies = copies;
             }
             else
-                groupsByCopies[copies] |= 1<<group;
-            groupsNotContracted -= 1<<group;
+                //groupsByCopies[copies] |= 1<<group;
+                groupsByCopies[copies].back() |= 1<<group;
+            //groupsNotContracted -= 1<<group;
+            groupsNotContracted[0] -= 1<<group;
         }
     }
-    groupsNotContracted &= integrator.getIntegrationForceGroups();
+    //groupsNotContracted &= integrator.getIntegrationForceGroups();
+    groupsNotContracted[0] &= integrator.getIntegrationForceGroups().back();
     
     // Create workspace for doing contractions.
     
@@ -287,7 +297,8 @@ void ReferenceIntegrateRPMDStepKernel::computeForces(ContextImpl& context, const
     
     for (auto& g : groupsByCopies) {
         int copies = g.first;
-        int groupFlags = g.second;
+        //int groupFlags = g.second;
+        std::vector<int> groupFlags = g.second;
         
         // Find the contracted positions.
         

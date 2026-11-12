@@ -45,7 +45,7 @@ static void getHipPmeParameters(HipContext& cu, bool& usePmeQueue, bool& useFixe
 void HipCalcForcesAndEnergyKernel::initialize(const System& system) {
 }
 
-void HipCalcForcesAndEnergyKernel::beginComputation(ContextImpl& context, bool includeForces, bool includeEnergy, int groups) {
+void HipCalcForcesAndEnergyKernel::beginComputation(ContextImpl& context, bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
     cu.setForcesValid(true);
     ContextSelector selector(cu);
     cu.clearAutoclearBuffers();
@@ -60,7 +60,7 @@ void HipCalcForcesAndEnergyKernel::beginComputation(ContextImpl& context, bool i
         derivs[param.first] = 0;
 }
 
-double HipCalcForcesAndEnergyKernel::finishComputation(ContextImpl& context, bool includeForces, bool includeEnergy, int groups, bool& valid) {
+double HipCalcForcesAndEnergyKernel::finishComputation(ContextImpl& context, bool includeForces, bool includeEnergy, const std::vector<int>& groups, bool& valid) {
     ContextSelector selector(cu);
     cu.getBondedUtilities().computeInteractions(groups);
     cu.getNonbondedUtilities().computeInteractions(groups, includeForces, includeEnergy);

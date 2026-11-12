@@ -165,7 +165,7 @@ public:
     /**
      * Prepare to compute interactions.  This updates the neighbor list.
      */
-    void prepareInteractions(int forceGroups);
+    void prepareInteractions(const std::vector<int>& forceGroups);
     /**
      * Compute the nonbonded interactions.
      * 
@@ -173,7 +173,7 @@ public:
      * @param includeForces  whether to compute forces
      * @param includeEnergy  whether to compute the potential energy
      */
-    void computeInteractions(int forceGroups, bool includeForces, bool includeEnergy);
+    void computeInteractions(const std::vector<int>& forceGroups, bool includeForces, bool includeEnergy);
     /**
      * Check to see if the neighbor list arrays are large enough, and make them bigger if necessary.
      *
@@ -279,13 +279,13 @@ public:
      * @param includeForces whether this kernel should compute forces
      * @param includeEnergy whether this kernel should compute potential energy
      */
-    cl::Kernel createInteractionKernel(const std::string& source, std::vector<ComputeParameterInfo>& params, std::vector<ComputeParameterInfo>& arguments, bool useExclusions, bool isSymmetric, int groups, bool includeForces, bool includeEnergy);
+    cl::Kernel createInteractionKernel(const std::string& source, std::vector<ComputeParameterInfo>& params, std::vector<ComputeParameterInfo>& arguments, bool useExclusions, bool isSymmetric, const std::vector<int>& groups, bool includeForces, bool includeEnergy);
     /**
      * Create the set of kernels that will be needed for a particular combination of force groups.
      * 
      * @param groups    the set of force groups
      */
-    void createKernelsForGroups(int groups);
+    void createKernelsForGroups(const std::vector<int>& groups);
     /**
      * Set the source code for the main kernel.  It only needs to be changed in very unusual circumstances.
      */
@@ -294,7 +294,7 @@ private:
     class KernelSet;
     class BlockSortTrait;
     OpenCLContext& context;
-    std::map<int, KernelSet> groupKernels;
+    std::map<std::vector<int>, KernelSet> groupKernels;
     OpenCLArray exclusionTiles;
     OpenCLArray exclusions;
     OpenCLArray exclusionIndices;
@@ -325,7 +325,9 @@ private:
     double maxCutoff;
     bool useCutoff, usePeriodic, deviceIsCpu, anyExclusions, usePadding, useNeighborList, forceRebuildNeighborList, useLargeBlocks, isAMD;
     int startTileIndex, startBlockIndex, numBlocks, maxExclusions, numForceThreadBlocks;
-    int forceThreadBlockSize, interactingBlocksThreadBlockSize, groupFlags, numBlockSizes;
+    int forceThreadBlockSize, interactingBlocksThreadBlockSize;
+    std::vector<int> groupFlags;
+    int numBlockSizes;
     unsigned int tilesAfterReorder;
     long long numTiles;
     std::string kernelSource;

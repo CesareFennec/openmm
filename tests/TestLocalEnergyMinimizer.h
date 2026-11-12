@@ -249,7 +249,7 @@ void testForceGroups() {
     // Minimize it and check that the bond has the correct length.
 
     VerletIntegrator integrator(0.01);
-    integrator.setIntegrationForceGroups(1<<1);
+    integrator.setIntegrationForceGroups(std::vector<int>(1, 1<<1));
     Context context(system, integrator, platform);
     context.setPositions({Vec3(0, 0, 0), Vec3(5, 0, 0)});
     LocalEnergyMinimizer::minimize(context, 1e-5);

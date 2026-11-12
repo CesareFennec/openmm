@@ -86,15 +86,15 @@ void testConvergence() {
     VerletIntegrator integrator(0.01);
     Context context(system, integrator, platform);
     context.setPositions(positions);
-    double pmeEnergy = context.getState(State::Energy, false, 1).getPotentialEnergy();
+    double pmeEnergy = context.getState(State::Energy, false, std::vector<int>(1, 1)).getPotentialEnergy();
     force->setNonbondedMethod(NonbondedForce::CutoffPeriodic);
     context.reinitialize();
     context.setPositions(positions);
-    double shortEnergy = context.getState(State::Energy, false, 1).getPotentialEnergy();
+    double shortEnergy = context.getState(State::Energy, false, std::vector<int>(1, 1)).getPotentialEnergy();
     force->setCutoffDistance(3.0);
     context.reinitialize();
     context.setPositions(positions);
-    double longEnergy = context.getState(State::Energy, false, 1).getPotentialEnergy();
+    double longEnergy = context.getState(State::Energy, false, std::vector<int>(1, 1)).getPotentialEnergy();
     ASSERT(fabs(longEnergy-pmeEnergy) < fabs(shortEnergy-pmeEnergy))
 }
 

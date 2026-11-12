@@ -92,3 +92,10 @@ void BrownianIntegrator::step(int steps) {
         kernel.getAs<IntegrateBrownianStepKernel>().execute(*context, *this);
     }
 }
+
+void BrownianIntegrator::oneStep(const std::vector<Vec3>& forces) {
+    if (context == NULL)
+        throw OpenMMException("This Integrator is not bound to a context!");
+    context->setForces(forces);
+    kernel.getAs<IntegrateBrownianStepKernel>().execute(*context, *this);
+}

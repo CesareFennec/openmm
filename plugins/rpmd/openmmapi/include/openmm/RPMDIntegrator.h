@@ -194,9 +194,10 @@ public:
      * is stored by the integrator, regardless of periodic boundary conditions.  If true, particle
      * positions will be translated so the center of every molecule lies in the same periodic box.
      * @param groups a set of bit flags for which force groups to include when computing forces
-     * and energies.  Group i will be included if (groups&(1<<i)) != 0.  The default value includes all groups.
+     * and energies.  Group i in state j will be included if (groups[j]&(1<<(i-32*j)) != 0.  
+     * The default value includes all groups of first state..
      */
-    State getState(int copy, int types, bool enforcePeriodicBox=false, int groups=0xFFFFFFFF);
+    State getState(int copy, int types, bool enforcePeriodicBox=false, const std::vector<int>& groups = std::vector<int>(1, -1));
     /**
      * Get the total energy of the ring polymer.  This includes the potential and kinetic energies of all copies,
      * plus the potential energy of the harmonic springs that link copies together.

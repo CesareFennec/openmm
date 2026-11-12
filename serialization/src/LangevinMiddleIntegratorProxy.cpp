@@ -28,6 +28,7 @@
  * -------------------------------------------------------------------------- */
 
 #include "openmm/serialization/LangevinMiddleIntegratorProxy.h"
+#include "openmm/serialization/ForceGroupsSerializer.h"
 #include <OpenMM.h>
 
 using namespace std;
@@ -45,7 +46,7 @@ void LangevinMiddleIntegratorProxy::serialize(const void* object, SerializationN
     node.setDoubleProperty("temperature", integrator.getTemperature());
     node.setDoubleProperty("friction", integrator.getFriction());
     node.setIntProperty("randomSeed", integrator.getRandomNumberSeed());
-    node.setIntProperty("integrationForceGroups", integrator.getIntegrationForceGroups());
+    setForceGroupsProperty(node, "integrationForceGroups", integrator.getIntegrationForceGroups());
 }
 
 void* LangevinMiddleIntegratorProxy::deserialize(const SerializationNode& node) const {
@@ -55,6 +56,6 @@ void* LangevinMiddleIntegratorProxy::deserialize(const SerializationNode& node) 
             node.getDoubleProperty("friction"), node.getDoubleProperty("stepSize"));
     integrator->setConstraintTolerance(node.getDoubleProperty("constraintTolerance"));
     integrator->setRandomNumberSeed(node.getIntProperty("randomSeed"));
-    integrator->setIntegrationForceGroups(node.getIntProperty("integrationForceGroups", 0xFFFFFFFF));
+    integrator->setIntegrationForceGroups(getForceGroupsProperty(node, "integrationForceGroups", -1));
     return integrator;
 }

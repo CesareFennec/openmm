@@ -107,7 +107,7 @@ public:
      */
     void updateParametersInContext(ContextImpl& context) {
     }
-    double calcForcesAndEnergy(ContextImpl& context, bool includeForces, bool includeEnergy, int groups);
+    double calcForcesAndEnergy(ContextImpl& context, bool includeForces, bool includeEnergy, const std::vector<int>& groups);
     std::vector<std::string> getKernelNames();
 private:
     Kernel kernel;

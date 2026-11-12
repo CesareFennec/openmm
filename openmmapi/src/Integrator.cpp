@@ -38,7 +38,7 @@
 
 using namespace OpenMM;
 
-Integrator::Integrator() : owner(NULL), context(NULL), forceGroups(0xFFFFFFFF) {
+Integrator::Integrator() : owner(NULL), context(NULL), forceGroups(std::vector<int>(1, -1)) {
 }
 
 Integrator::~Integrator() {
@@ -72,11 +72,11 @@ void Integrator::setConstraintTolerance(double tol) {
     constraintTol = tol;
 }
 
-int Integrator::getIntegrationForceGroups() const {
+std::vector<int> Integrator::getIntegrationForceGroups() const {
     return forceGroups;
 }
 
-void Integrator::setIntegrationForceGroups(int groups) {
+void Integrator::setIntegrationForceGroups(const std::vector<int>& groups) {
     forceGroups = groups;
 }
 

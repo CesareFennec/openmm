@@ -44,7 +44,7 @@ void testSerialization() {
 
     DrudeLangevinIntegrator integ1(301.1, 0.95, 10.5, 1.2, 0.001);
     integ1.setRandomNumberSeed(18);
-    integ1.setIntegrationForceGroups(3);
+    integ1.setIntegrationForceGroups(std::vector<int>(1, 3));
 
     // Serialize and then deserialize it.
 
@@ -60,7 +60,7 @@ void testSerialization() {
     ASSERT_EQUAL(integ1.getDrudeTemperature(), integ2.getDrudeTemperature());
     ASSERT_EQUAL(integ1.getDrudeFriction(), integ2.getDrudeFriction());
     ASSERT_EQUAL(integ1.getRandomNumberSeed(), integ2.getRandomNumberSeed());
-    ASSERT_EQUAL(integ1.getIntegrationForceGroups(), integ2.getIntegrationForceGroups());
+    ASSERT_EQUAL_CONTAINERS(integ1.getIntegrationForceGroups(), integ2.getIntegrationForceGroups());
 }
 
 int main() {

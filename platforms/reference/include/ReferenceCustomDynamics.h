@@ -53,7 +53,8 @@ private:
     std::vector<std::vector<VectorExpression> > stepVectorExpressions;
     std::vector<CustomIntegratorUtilities::Comparison> comparisons;
     std::vector<bool> invalidatesForces, needsForces, needsEnergy, computeBothForceAndEnergy;
-    std::vector<int> forceGroupFlags, blockEnd;
+    std::vector<int> blockEnd;
+    std::vector<std::vector<int>> forceGroupFlags;
     std::map<std::string, double> energyParamDerivs;
     Lepton::CompiledExpression kineticEnergyExpression;
     bool kineticEnergyNeedsForce;

@@ -346,8 +346,8 @@ int NonbondedForce::getReciprocalSpaceForceGroup() const {
 }
 
 void NonbondedForce::setReciprocalSpaceForceGroup(int group) {
-    if (group < -1 || group > 31)
-        throw OpenMMException("Force group must be between -1 and 31");
+    if (group < -1)
+        throw OpenMMException("Force group must be greater than or equal to -1");
     recipForceGroup = group;
 }
 

@@ -133,7 +133,7 @@ class CommonCalcConstantPotentialForceKernel::InvalidatePostComputation : public
 public:
     InvalidatePostComputation(ComputeContext& cc, CommonConstantPotentialSolver* solver) : cc(cc), solver(solver) {
     }
-    double computeForceAndEnergy(bool includeForces, bool includeEnergy, int groups) {
+    double computeForceAndEnergy(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
         if(!cc.getForcesValid()) {
             solver->discardSavedSolution();
         }
@@ -1717,8 +1717,13 @@ void CommonCalcConstantPotentialForceKernel::ensureValidNeighborList() {
         // If we need to try to build the neighbor list again (i.e., it needs to be made bigger),
         // getForcesValid() will return false after computeInteractions() completes.
         cc.setForcesValid(true);
-        cc.getNonbondedUtilities().prepareInteractions(1 << forceGroup);
-        cc.getNonbondedUtilities().computeInteractions(1 << forceGroup, false, false);
+        // Build the force group flags of this force for the neighbor list build.
+        int topologyGroup = forceGroup / 32;
+        int internalForceGroup = forceGroup % 32;
+        std::vector<int> groupFlags(topologyGroup+1, 0);
+        groupFlags[topologyGroup] = 1 << internalForceGroup;
+        cc.getNonbondedUtilities().prepareInteractions(groupFlags);
+        cc.getNonbondedUtilities().computeInteractions(groupFlags, false, false);
     } while(!cc.getForcesValid());
 
     if (hasElectrodes) {

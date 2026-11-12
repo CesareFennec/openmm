@@ -53,7 +53,7 @@ public:
     void updateContextState(ContextImpl& context, bool& forcesInvalid) {
         // This force field doesn't update the state directly.
     }
-    double calcForcesAndEnergy(ContextImpl& context, bool includeForces, bool includeEnergy, int groups);
+    double calcForcesAndEnergy(ContextImpl& context, bool includeForces, bool includeEnergy, const std::vector<int>& groups);
     std::map<std::string, double> getDefaultParameters() {
         return {}; // This force field doesn't define any parameters.
     }

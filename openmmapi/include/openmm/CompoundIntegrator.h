@@ -168,13 +168,24 @@ public:
      */
     void step(int steps);
     /**
+     * Advance a simulation through time by taking one step with the providing
+     * external forces instead of the forces which is computed from force fileds
+     * based on current positions.
+     *
+     * Note that, you should call updateContextState() firstly before calling
+     * this function. (Added by zhubin, Nov. 14, 2021)
+     *
+     * @param forces the vector contains forces
+     */
+    void oneStep(const std::vector<Vec3>& forces);
+    /**
      * Get which force groups to use for integration.  By default, all force groups
      * are included.  This is interpreted as a set of bit flags: the forces from group i
      * will be included if (groups&(1<<i)) != 0.
      * 
      * This method returns the integration force groups for the current Integator.
      */
-    int getIntegrationForceGroups() const;
+    std::vector<int> getIntegrationForceGroups() const;
     /**
      * Set which force groups to use for integration.  By default, all force groups
      * are included.  This is interpreted as a set of bit flags: the forces from group i
@@ -183,7 +194,7 @@ public:
      * Calling this method sets the integration force groups for all Integrators
      * containined in this CompoundIntegrator.
      */
-    void setIntegrationForceGroups(int groups);
+    void setIntegrationForceGroups(const std::vector<int>& groups);
 protected:
     /**
      * This will be called by the Context when it is created.  It informs the Integrator

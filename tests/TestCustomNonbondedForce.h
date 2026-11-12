@@ -1206,7 +1206,7 @@ void testInteractionGroupWithCutoff() {
     Context context(system, integrator, platform);
     context.setPositions(positions);
     context.setVelocitiesToTemperature(100);
-    ASSERT(context.getState(State::Energy, false, 1<<1).getPotentialEnergy() != 0.0);
+    ASSERT(context.getState(State::Energy, false, std::vector<int>(1, 1<<1)).getPotentialEnergy() != 0.0);
     State initialState = context.getState(State::Energy);
     double initialEnergy = initialState.getPotentialEnergy()+initialState.getKineticEnergy();
     for (int i = 0; i < 100; i++) {
@@ -1252,14 +1252,14 @@ void testMultipleCutoffs() {
         
         // Check the first force.
         
-        State state = context.getState(State::Forces | State::Energy, false, 1);
+        State state = context.getState(State::Forces | State::Energy, false, std::vector<int>(1, 1));
         ASSERT_EQUAL_VEC(Vec3(0, f1, 0), state.getForces()[0], TOL);
         ASSERT_EQUAL_VEC(Vec3(0, -f1, 0), state.getForces()[1], TOL);
         ASSERT_EQUAL_TOL(e1, state.getPotentialEnergy(), TOL);
         
         // Check the second force.
         
-        state = context.getState(State::Forces | State::Energy, false, 2);
+        state = context.getState(State::Forces | State::Energy, false, std::vector<int>(1, 2));
         ASSERT_EQUAL_VEC(Vec3(0, f2, 0), state.getForces()[0], TOL);
         ASSERT_EQUAL_VEC(Vec3(0, -f2, 0), state.getForces()[1], TOL);
         ASSERT_EQUAL_TOL(e2, state.getPotentialEnergy(), TOL);
@@ -1312,14 +1312,14 @@ void testMultipleSwitches() {
 
     // Check the first force.
 
-    State state = context.getState(State::Forces | State::Energy, false, 1);
+    State state = context.getState(State::Forces | State::Energy, false, std::vector<int>(1, 1));
     ASSERT_EQUAL_VEC(Vec3(0, f1, 0), state.getForces()[0], TOL);
     ASSERT_EQUAL_VEC(Vec3(0, -f1, 0), state.getForces()[1], TOL);
     ASSERT_EQUAL_TOL(e1, state.getPotentialEnergy(), TOL);
 
     // Check the second force.
 
-    state = context.getState(State::Forces | State::Energy, false, 2);
+    state = context.getState(State::Forces | State::Energy, false, std::vector<int>(1, 2));
     ASSERT_EQUAL_VEC(Vec3(0, f2, 0), state.getForces()[0], TOL);
     ASSERT_EQUAL_VEC(Vec3(0, -f2, 0), state.getForces()[1], TOL);
     ASSERT_EQUAL_TOL(e2, state.getPotentialEnergy(), TOL);
@@ -1525,8 +1525,8 @@ void testComputedValues(int mode) {
     context.setPositions(positions);
     for (double lambda : {0.0, 0.3, 0.7, 1.0, 0.3}) { // Testing 0.3 twice checks caching of long range correction coefficient
         context.setParameter("lambda", lambda);
-        double e1 = context.getState(State::Energy, false, 1<<0).getPotentialEnergy();
-        double e2 = context.getState(State::Energy, false, 1<<1).getPotentialEnergy();
+        double e1 = context.getState(State::Energy, false, std::vector<int>(1, 1<<0)).getPotentialEnergy();
+        double e2 = context.getState(State::Energy, false, std::vector<int>(1, 1<<1)).getPotentialEnergy();
         ASSERT_EQUAL_TOL(e1, e2, 1e-5);
     }
 }

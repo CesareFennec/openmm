@@ -92,7 +92,7 @@ void RPMDIntegrator::setVelocities(int copy, const vector<Vec3>& velocities) {
     hasSetVelocity = true;
 }
 
-State RPMDIntegrator::getState(int copy, int types, bool enforcePeriodicBox, int groups) {
+State RPMDIntegrator::getState(int copy, int types, bool enforcePeriodicBox, const std::vector<int>& groups) {
     if (isFirstStep) {
         // Call setPositions() on the Context so it doesn't think the user is trying to
         // run a simulation without setting positions first.  These positions will

@@ -31,7 +31,7 @@ using namespace std;
 class OpenCLParallelCalcForcesAndEnergyKernel::BeginComputationTask : public OpenCLContext::WorkTask {
 public:
     BeginComputationTask(ContextImpl& context, OpenCLContext& cl, OpenCLCalcForcesAndEnergyKernel& kernel,
-            bool includeForce, bool includeEnergy, int groups, void* pinnedMemory, int& numTiles) : context(context), cl(cl), kernel(kernel),
+            bool includeForce, bool includeEnergy, const std::vector<int>& groups, void* pinnedMemory, int& numTiles) : context(context), cl(cl), kernel(kernel),
             includeForce(includeForce), includeEnergy(includeEnergy), groups(groups), pinnedMemory(pinnedMemory), numTiles(numTiles) {
     }
     void execute() {
@@ -48,7 +48,7 @@ private:
     OpenCLContext& cl;
     OpenCLCalcForcesAndEnergyKernel& kernel;
     bool includeForce, includeEnergy;
-    int groups;
+    std::vector<int> groups;
     void* pinnedMemory;
     int& numTiles;
 };
@@ -56,7 +56,7 @@ private:
 class OpenCLParallelCalcForcesAndEnergyKernel::FinishComputationTask : public OpenCLContext::WorkTask {
 public:
     FinishComputationTask(ContextImpl& context, OpenCLContext& cl, OpenCLCalcForcesAndEnergyKernel& kernel,
-            bool includeForce, bool includeEnergy, int groups, double& energy, double& completionTime, void* pinnedMemory, bool& valid, int& numTiles) :
+            bool includeForce, bool includeEnergy, const std::vector<int>& groups, double& energy, double& completionTime, void* pinnedMemory, bool& valid, int& numTiles) :
             context(context), cl(cl), kernel(kernel), includeForce(includeForce), includeEnergy(includeEnergy), groups(groups), energy(energy),
             completionTime(completionTime), pinnedMemory(pinnedMemory), valid(valid), numTiles(numTiles) {
     }
@@ -85,7 +85,7 @@ private:
     OpenCLContext& cl;
     OpenCLCalcForcesAndEnergyKernel& kernel;
     bool includeForce, includeEnergy;
-    int groups;
+    std::vector<int> groups;
     double& energy;
     double& completionTime;
     void* pinnedMemory;
@@ -117,7 +117,7 @@ void OpenCLParallelCalcForcesAndEnergyKernel::initialize(const System& system) {
     }
 }
 
-void OpenCLParallelCalcForcesAndEnergyKernel::beginComputation(ContextImpl& context, bool includeForce, bool includeEnergy, int groups) {
+void OpenCLParallelCalcForcesAndEnergyKernel::beginComputation(ContextImpl& context, bool includeForce, bool includeEnergy, const std::vector<int>& groups) {
     OpenCLContext& cl0 = *data.contexts[0];
     int elementSize = (cl0.getUseDoublePrecision() ? sizeof(mm_double4) : sizeof(mm_float4));
     if (!contextForces.isInitialized()) {
@@ -141,7 +141,7 @@ void OpenCLParallelCalcForcesAndEnergyKernel::beginComputation(ContextImpl& cont
     }
 }
 
-double OpenCLParallelCalcForcesAndEnergyKernel::finishComputation(ContextImpl& context, bool includeForce, bool includeEnergy, int groups, bool& valid) {
+double OpenCLParallelCalcForcesAndEnergyKernel::finishComputation(ContextImpl& context, bool includeForce, bool includeEnergy, const std::vector<int>& groups, bool& valid) {
     for (int i = 0; i < (int) data.contexts.size(); i++) {
         OpenCLContext& cl = *data.contexts[i];
         ComputeContext::WorkThread& thread = cl.getWorkThread();

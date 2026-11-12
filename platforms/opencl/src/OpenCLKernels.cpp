@@ -38,7 +38,7 @@ static void getOpenCLPmeParameters(OpenCLContext& cl, bool& usePmeQueue, bool& d
 void OpenCLCalcForcesAndEnergyKernel::initialize(const System& system) {
 }
 
-void OpenCLCalcForcesAndEnergyKernel::beginComputation(ContextImpl& context, bool includeForces, bool includeEnergy, int groups) {
+void OpenCLCalcForcesAndEnergyKernel::beginComputation(ContextImpl& context, bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
     cl.setForcesValid(true);
     cl.clearAutoclearBuffers();
     cl.updateGlobalParamValues();
@@ -52,7 +52,7 @@ void OpenCLCalcForcesAndEnergyKernel::beginComputation(ContextImpl& context, boo
         derivs[param.first] = 0;
 }
 
-double OpenCLCalcForcesAndEnergyKernel::finishComputation(ContextImpl& context, bool includeForces, bool includeEnergy, int groups, bool& valid) {
+double OpenCLCalcForcesAndEnergyKernel::finishComputation(ContextImpl& context, bool includeForces, bool includeEnergy, const std::vector<int>& groups, bool& valid) {
     cl.getBondedUtilities().computeInteractions(groups);
     cl.getNonbondedUtilities().computeInteractions(groups, includeForces, includeEnergy);
     double sum = 0.0;

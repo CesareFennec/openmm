@@ -84,7 +84,7 @@ Platform& Context::getPlatform() {
     return impl->getPlatform();
 }
 
-State Context::getState(int types, bool enforcePeriodicBox, int groups) const {
+State Context::getState(int types, bool enforcePeriodicBox, const std::vector<int>& groups) const {
     State::StateBuilder builder(impl->getTime(), impl->getStepCount());
     Vec3 periodicBoxSize[3];
     impl->getPeriodicBoxVectors(periodicBoxSize[0], periodicBoxSize[1], periodicBoxSize[2]);
@@ -196,13 +196,20 @@ void Context::setVelocities(const vector<Vec3>& velocities) {
     impl->setVelocities(velocities);
 }
 
+// Set the forces on all particles. (Added by zhubin, Nov. 14, 2021)
+void Context::setForces(const vector<Vec3>& forces) {
+    if ((int) forces.size() != impl->getSystem().getNumParticles())
+        throw OpenMMException("Called setForces() on a Context with the wrong number of forces");
+    impl->setForces(forces);
+}
+
 void Context::setVelocitiesToTemperature(double temperature, int randomSeed) {
     const Integrator& integrator = impl->getIntegrator();
     const System& system = impl->getSystem();
     vector<Vec3> velocities = integrator.getVelocitiesForTemperature(system, temperature, randomSeed);
     double offset = integrator.getVelocityTimeOffset();
     if (offset != 0.0) {
-        impl->calcForcesAndEnergy(true, false, -1);
+        impl->calcForcesAndEnergy(true, false);
         vector<Vec3> forces;
         impl->getForces(forces);
         for (int i = 0; i < system.getNumParticles(); i++) {
@@ -279,4 +286,77 @@ const ContextImpl& Context::getImpl() const {
 
 const vector<vector<int> >& Context::getMolecules() const {
     return impl->getMolecules();
+}
+
+
+/**
+ * The following functions are added by Zhubin Hu, which are used to directly get
+ * positions/velocities/forces from platform data that stores in ContextImpl.
+ * Note that if platform is GPU, the copy from GPU device memory to main memory
+ * can not be avoid. Even the platform is CPU, there is one copy calling these.
+ */
+int Context::getStep() const {
+    return impl->getStep();
+}
+
+void Context::setStep(int step) {
+    impl->setStep(step);
+}
+
+void Context::getPeriodicBoxVectors(Vec3& a, Vec3& b, Vec3& c) {
+    impl->getPeriodicBoxVectors(a, b, c);
+}
+
+double Context::getPeriodicBoxVolume() {
+    Vec3 periodicBoxSize[3];
+    impl->getPeriodicBoxVectors(periodicBoxSize[0], periodicBoxSize[1], periodicBoxSize[2]);
+    return periodicBoxSize[0].dot(periodicBoxSize[1].cross(periodicBoxSize[2]));
+}
+
+void Context::getPositions(std::vector<Vec3>& positions, bool enforcePeriodicBox) {
+    impl->getPositions(positions);
+    if (enforcePeriodicBox) {
+        const vector<vector<int> >& molecules = impl->getMolecules();
+        Vec3 periodicBoxSize[3];
+        impl->getPeriodicBoxVectors(periodicBoxSize[0], periodicBoxSize[1], periodicBoxSize[2]);
+        for (auto& mol : molecules) {
+            // Find the molecule center.
+            Vec3 center;
+            for (int j : mol)
+                center += positions[j];
+            center *= 1.0/mol.size();
+            // Find the displacement to move it into the first periodic box.
+            Vec3 diff;
+            diff += periodicBoxSize[2]*floor(center[2]/periodicBoxSize[2][2]);
+            diff += periodicBoxSize[1]*floor((center[1]-diff[1])/periodicBoxSize[1][1]);
+            diff += periodicBoxSize[0]*floor((center[0]-diff[0])/periodicBoxSize[0][0]);
+            // Translate all the particles in the molecule.
+            for (int j : mol)
+                positions[j] -= diff;
+        }
+    }
+}
+
+void Context::getVelocities(std::vector<Vec3>& velocities) {
+    impl->getVelocities(velocities);
+}
+
+void Context::getForces(std::vector<Vec3>& forces) {
+    impl->getForces(forces);
+}
+
+double Context::getKineticEnergy() {
+    return impl->calcKineticEnergy();
+}
+
+bool Context::kineticEnergyRequiresForce() {
+    return getIntegrator().kineticEnergyRequiresForce();
+}
+
+double Context::getPotentialEnergy(bool includeForces, const std::vector<int>& groups) {
+    return impl->calcForcesAndEnergy(includeForces, true, groups);
+}
+
+bool Context::updateContextState() {
+    return impl->updateContextState();
 }

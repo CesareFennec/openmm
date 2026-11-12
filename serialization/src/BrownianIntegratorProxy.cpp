@@ -28,6 +28,7 @@
  * -------------------------------------------------------------------------- */
 
 #include "openmm/serialization/BrownianIntegratorProxy.h"
+#include "openmm/serialization/ForceGroupsSerializer.h"
 #include <OpenMM.h>
 
 using namespace std;
@@ -45,7 +46,7 @@ void BrownianIntegratorProxy::serialize(const void* object, SerializationNode& n
     node.setDoubleProperty("temperature", integrator.getTemperature());
     node.setDoubleProperty("friction", integrator.getFriction());
     node.setIntProperty("randomSeed", integrator.getRandomNumberSeed());
-    node.setIntProperty("integrationForceGroups", integrator.getIntegrationForceGroups());
+    setForceGroupsProperty(node, "integrationForceGroups", integrator.getIntegrationForceGroups());
 }
 
 void* BrownianIntegratorProxy::deserialize(const SerializationNode& node) const {
@@ -56,6 +57,6 @@ void* BrownianIntegratorProxy::deserialize(const SerializationNode& node) const 
                                                             node.getDoubleProperty("stepSize"));
     integrator->setConstraintTolerance(node.getDoubleProperty("constraintTolerance"));
     integrator->setRandomNumberSeed(node.getIntProperty("randomSeed"));
-    integrator->setIntegrationForceGroups(node.getIntProperty("integrationForceGroups", 0xFFFFFFFF));
+    integrator->setIntegrationForceGroups(getForceGroupsProperty(node, "integrationForceGroups", -1));
     return integrator;
 }

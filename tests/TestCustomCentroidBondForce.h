@@ -184,8 +184,8 @@ void testComplexFunction(bool byGroups) {
         for (int j = 0; j < numParticles; j++)
             positions[j] = Vec3(5.0*genrand_real2(sfmt), 5.0*genrand_real2(sfmt), 5.0*genrand_real2(sfmt));
         context.setPositions(positions);
-        State state1 = context.getState(State::Forces | State::Energy, false, 1<<0);
-        State state2 = context.getState(State::Forces | State::Energy, false, 1<<1);
+        State state1 = context.getState(State::Forces | State::Energy, false, std::vector<int>(1, 1<<0));
+        State state2 = context.getState(State::Forces | State::Energy, false, std::vector<int>(1, 1<<1));
         ASSERT_EQUAL_TOL(state1.getPotentialEnergy(), state2.getPotentialEnergy(), TOL);
         for (int i = 0; i < numParticles; i++)
             ASSERT_EQUAL_VEC(state1.getForces()[i], state2.getForces()[i], TOL);
@@ -199,8 +199,8 @@ void testComplexFunction(bool byGroups) {
     dynamic_cast<Continuous1DFunction&>(centroid->getTabulatedFunction(0)).setFunctionParameters(table, -1, 10);
     compound->updateParametersInContext(context);
     centroid->updateParametersInContext(context);
-    State state1 = context.getState(State::Energy, false, 1<<0);
-    State state2 = context.getState(State::Energy, false, 1<<1);
+    State state1 = context.getState(State::Energy, false, std::vector<int>(1, 1<<0));
+    State state2 = context.getState(State::Energy, false, std::vector<int>(1, 1<<1));
     ASSERT_EQUAL_TOL(state1.getPotentialEnergy(), state2.getPotentialEnergy(), TOL);
 }
 

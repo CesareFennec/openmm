@@ -97,6 +97,17 @@ public:
      */
     void step(int steps);
     /**
+     * Advance a simulation through time by taking one step with the providing
+     * external forces instead of the forces which is computed from force fileds
+     * based on current positions.
+     *
+     * Note that, you should call updateContextState() firstly before calling
+     * this function. (Added by zhubin, Nov. 14, 2021)
+     *
+     * @param forces the vector contains forces
+     */
+    void oneStep(const std::vector<Vec3>& forces);
+    /**
      * Advance a simulation through time by taking a series of steps until a specified time is
      * reached.  When this method returns, the simulation time will exactly equal the time which
      * was specified.  If you call this method and specify a time that is earlier than the

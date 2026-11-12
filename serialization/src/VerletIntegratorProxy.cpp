@@ -28,6 +28,7 @@
  * -------------------------------------------------------------------------- */
 
 #include "openmm/serialization/VerletIntegratorProxy.h"
+#include "openmm/serialization/ForceGroupsSerializer.h"
 #include <OpenMM.h>
 
 using namespace std;
@@ -42,7 +43,7 @@ void VerletIntegratorProxy::serialize(const void* object, SerializationNode& nod
     const VerletIntegrator& integrator = *reinterpret_cast<const VerletIntegrator*>(object);
     node.setDoubleProperty("stepSize", integrator.getStepSize());
     node.setDoubleProperty("constraintTolerance", integrator.getConstraintTolerance());
-    node.setIntProperty("integrationForceGroups", integrator.getIntegrationForceGroups());
+    setForceGroupsProperty(node, "integrationForceGroups", integrator.getIntegrationForceGroups());
 }
 
 void* VerletIntegratorProxy::deserialize(const SerializationNode& node) const {
@@ -50,6 +51,6 @@ void* VerletIntegratorProxy::deserialize(const SerializationNode& node) const {
         throw OpenMMException("Unsupported version number");
     VerletIntegrator *integrator = new VerletIntegrator(node.getDoubleProperty("stepSize"));
     integrator->setConstraintTolerance(node.getDoubleProperty("constraintTolerance"));
-    integrator->setIntegrationForceGroups(node.getIntProperty("integrationForceGroups", 0xFFFFFFFF));
+    integrator->setIntegrationForceGroups(getForceGroupsProperty(node, "integrationForceGroups", -1));
     return integrator;
 }

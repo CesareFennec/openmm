@@ -371,6 +371,13 @@ private:
     ComputeArray tempPosq;
     ComputeArray tempForces;
     NonbondedUtilities* nonbonded;
+    // The force group of the AmoebaVdwForce this kernel belongs to.  The private
+    // NonbondedUtilities below is registered with this group, so the group flags
+    // passed to prepareInteractions()/computeInteractions() must request exactly
+    // this group in its topology.
+    int forceGroup;
+    // The group flags matching forceGroup, computed once in initialize().
+    std::vector<int> nonbondedGroupFlags;
     ComputeKernel prepareKernel, spreadKernel;
 };
 

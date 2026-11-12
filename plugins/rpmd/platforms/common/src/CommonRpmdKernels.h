@@ -88,8 +88,10 @@ private:
     ComputeContext& cc;
     bool hasInitializedKernels;
     int numCopies, numParticles, workgroupSize;
-    std::map<int, int> groupsByCopies;
-    int groupsNotContracted;
+    //std::map<int, int> groupsByCopies;
+    //int groupsNotContracted;
+    std::map<int, std::vector<int>> groupsByCopies;
+    std::vector<int> groupsNotContracted;
     ComputeArray forces;
     ComputeArray positions;
     ComputeArray velocities;

@@ -2137,8 +2137,8 @@ void testCompareToCustom(AmoebaVdwForce::PotentialFunction potential) {
     LangevinIntegrator integrator(0.0, 0.1, 0.01);
     Context context(system, integrator, platform);
     context.setPositions(positions);
-    State state1 = context.getState(State::Energy | State::Forces, true, 1);
-    State state2 = context.getState(State::Energy | State::Forces, true, 2);
+    State state1 = context.getState(State::Energy | State::Forces, true, std::vector<int>(1, 1));
+    State state2 = context.getState(State::Energy | State::Forces, true, std::vector<int>(1, 2));
     ASSERT_EQUAL_TOL(state1.getPotentialEnergy(), state2.getPotentialEnergy(), 1e-3);
     for (int i = 0; i < numParticles; i++)
         ASSERT_EQUAL_VEC(state1.getForces()[i], state2.getForces()[i], 1e-5);
@@ -2182,6 +2182,88 @@ void testParticleTypes() {
 }
 
 void setupKernels(int argc, char* argv[]);
+
+/**
+ * Verify that AmoebaVdwForce works when it is placed in a force group beyond 31,
+ * i.e. in a higher topology layer.  The energy and forces must be identical to the
+ * same system with the force in group 0, and the force must be excluded by default
+ * because the default group flags only cover the first topology.
+ *
+ * This exercises the private NonbondedUtilities of the AmoebaVdw kernel, which must
+ * be registered with (and requested by) the real force group of the force rather
+ * than a hard coded group 0.
+ */
+void testVdwForceGroupTopology() {
+    // Build the same system twice: once with the force in group 0, once in group 32.
+
+    vector<Vec3> positions;
+    OpenMM_SFMT::SFMT sfmt;
+    init_gen_rand(0, sfmt);
+    const int numParticles = 64;
+    for (int i = 0; i < numParticles; i++)
+        positions.push_back(2*Vec3(genrand_real2(sfmt), genrand_real2(sfmt), genrand_real2(sfmt)));
+
+    System system0;
+    AmoebaVdwForce* vdw0 = new AmoebaVdwForce();
+    vdw0->setNonbondedMethod(AmoebaVdwForce::CutoffPeriodic);
+    vdw0->setCutoffDistance(1.0);
+    vdw0->setPotentialFunction(AmoebaVdwForce::LennardJones);
+    vdw0->setSigmaCombiningRule("GEOMETRIC");
+    vdw0->setEpsilonCombiningRule("GEOMETRIC");
+    vdw0->setForceGroup(0);
+    system0.setDefaultPeriodicBoxVectors(Vec3(4, 0, 0), Vec3(0, 4, 0), Vec3(0, 0, 4));
+    system0.addForce(vdw0);
+
+    System system32;
+    AmoebaVdwForce* vdw32 = new AmoebaVdwForce();
+    vdw32->setNonbondedMethod(AmoebaVdwForce::CutoffPeriodic);
+    vdw32->setCutoffDistance(1.0);
+    vdw32->setPotentialFunction(AmoebaVdwForce::LennardJones);
+    vdw32->setSigmaCombiningRule("GEOMETRIC");
+    vdw32->setEpsilonCombiningRule("GEOMETRIC");
+    vdw32->setForceGroup(32);
+    system32.setDefaultPeriodicBoxVectors(Vec3(4, 0, 0), Vec3(0, 4, 0), Vec3(0, 0, 4));
+    system32.addForce(vdw32);
+
+    for (int i = 0; i < numParticles; i++) {
+        system0.addParticle(1.0);
+        system32.addParticle(1.0);
+        if (i%2 == 0) {
+            // addParticle(parentIndex, sigma, epsilon, reductionFactor)
+            vdw0->addParticle(i, 0.30, 1.0, 1.0);
+            vdw32->addParticle(i, 0.30, 1.0, 1.0);
+        }
+        else {
+            vdw0->addParticle(i, 0.35, 0.5, 1.0);
+            vdw32->addParticle(i, 0.35, 0.5, 1.0);
+        }
+    }
+
+    LangevinIntegrator integrator0(0.0, 0.1, 0.01);
+    LangevinIntegrator integrator32(0.0, 0.1, 0.01);
+    Context context0(system0, integrator0, platform);
+    Context context32(system32, integrator32, platform);
+    context0.setPositions(positions);
+    context32.setPositions(positions);
+
+    // By default only the first topology is included, so the group 32 force contributes nothing.
+
+    ASSERT_EQUAL_TOL(0.0, context32.getState(State::Energy).getPotentialEnergy(), 1e-10);
+
+    // Requesting the second topology must give exactly the same result as group 0.
+
+    vector<int> secondTopology;
+    secondTopology.push_back(0);
+    secondTopology.push_back(1);
+    State state0 = context0.getState(State::Energy | State::Forces);
+    State state32 = context32.getState(State::Energy | State::Forces, false, secondTopology);
+    ASSERT_EQUAL_TOL(state0.getPotentialEnergy(), state32.getPotentialEnergy(), 1e-6);
+    const vector<Vec3>& forces0 = state0.getForces();
+    const vector<Vec3>& forces32 = state32.getForces();
+    for (int i = 0; i < numParticles; i++)
+        ASSERT_EQUAL_VEC(forces0[i], forces32[i], 1e-5);
+}
+
 void runPlatformTests();
 
 int main(int argc, char* argv[]) {
@@ -2245,6 +2327,8 @@ int main(int argc, char* argv[]) {
         // Test specifying parameters by particle type.
         
         testParticleTypes();
+
+        testVdwForceGroupTopology();
 
         // Set lambda and the softcore power (n) to any values, while softcore alpha set to 0. 
         // The energy and forces are equal to scaling those from testVdwAmmoniaCubicMeanHhg by lambda^n;

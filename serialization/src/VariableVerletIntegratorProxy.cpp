@@ -28,6 +28,7 @@
  * -------------------------------------------------------------------------- */
 
 #include "openmm/serialization/VariableVerletIntegratorProxy.h"
+#include "openmm/serialization/ForceGroupsSerializer.h"
 #include <OpenMM.h>
 
 using namespace std;
@@ -43,7 +44,7 @@ void VariableVerletIntegratorProxy::serialize(const void* object, SerializationN
     node.setDoubleProperty("maxStepSize", integrator.getMaximumStepSize());
     node.setDoubleProperty("stepSize", integrator.getStepSize());
     node.setDoubleProperty("constraintTolerance", integrator.getConstraintTolerance());
-    node.setIntProperty("integrationForceGroups", integrator.getIntegrationForceGroups());
+    setForceGroupsProperty(node, "integrationForceGroups", integrator.getIntegrationForceGroups());
 }
 
 void* VariableVerletIntegratorProxy::deserialize(const SerializationNode& node) const {
@@ -53,7 +54,7 @@ void* VariableVerletIntegratorProxy::deserialize(const SerializationNode& node) 
     VariableVerletIntegrator *integrator = new VariableVerletIntegrator(node.getDoubleProperty("errorTol"));
     integrator->setStepSize(node.getDoubleProperty("stepSize"));
     integrator->setConstraintTolerance(node.getDoubleProperty("constraintTolerance"));
-    integrator->setIntegrationForceGroups(node.getIntProperty("integrationForceGroups", 0xFFFFFFFF));
+    integrator->setIntegrationForceGroups(getForceGroupsProperty(node, "integrationForceGroups", -1));
     if (version > 1)
         integrator->setMaximumStepSize(node.getDoubleProperty("maxStepSize"));
     return integrator;

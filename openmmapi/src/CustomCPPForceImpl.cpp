@@ -43,8 +43,15 @@ void CustomCPPForceImpl::initialize(ContextImpl& context) {
     kernel.getAs<CalcCustomCPPForceKernel>().initialize(context, *this);
 }
 
-double CustomCPPForceImpl::calcForcesAndEnergy(ContextImpl& context, bool includeForces, bool includeEnergy, int groups) {
-    if ((groups&(1<<forceGroup)) != 0)
+double CustomCPPForceImpl::calcForcesAndEnergy(ContextImpl& context, bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
+    // Note: forceGroup is a member of ForceImpl, filled in by ForceImpl::initialize().
+    // Get the group of Topology this Force belongs to.
+    int topologyGroup = forceGroup / 32;
+    // Get the internal force group in its Topology.
+    int internalForceGroup = forceGroup % 32;
+    // Compute force when its both Topology group and internal force group are included.
+    bool isCompute = (topologyGroup < groups.size()) && ((groups[topologyGroup]&(1<<internalForceGroup)) != 0);
+    if (isCompute)
         return kernel.getAs<CalcCustomCPPForceKernel>().execute(context, includeForces, includeEnergy);
     return 0.0;
 }
