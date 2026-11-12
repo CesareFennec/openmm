@@ -3559,9 +3559,12 @@ void CommonIntegrateDPDStepKernel::initialize(const System& system, const DPDInt
         particleTypeVec.push_back(0);
 
     // We want the NonbondedUtilities to build a neighbor list.  Add an empty interaction
-    // with a nonexistant force group to it.
+    // with a nonexistant (negative) force group to it.  Note that a negative value is used
+    // as the marker for this: force groups are always >= 0, so it cannot collide with a
+    // real force group (32 would collide with the second topology now that force groups
+    // beyond 31 are supported).
 
-    cc.getNonbondedUtilities().addInteraction(true, system.usesPeriodicBoundaryConditions(), false, maxCutoff, vector<vector<int> >(), "", 32);
+    cc.getNonbondedUtilities().addInteraction(true, system.usesPeriodicBoundaryConditions(), false, maxCutoff, vector<vector<int> >(), "", -2);
 
     // Create the arrays.
 

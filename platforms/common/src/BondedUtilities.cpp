@@ -183,11 +183,19 @@ string BondedUtilities::createForceSource(int forceIndex, int numBonds, int numA
 }
 
 void BondedUtilities::computeInteractions(const std::vector<int>& groups) {
+    // Equivalent to the original "if ((groups&allGroups) == 0) return;".
+    // It must also return when allGroups is empty, i.e. when the context contains
+    // no bonded forces at all, since then the kernel has not been initialized.
+    bool anyIncluded = false;
     int min = std::min<int>(groups.size(), allGroups.size());
     for (int i = 0; i < min; i++) {
-        if ((groups[i]&allGroups[i]) != 0) break;
-        if (i == (min-1)) return;
+        if ((groups[i]&allGroups[i]) != 0) {
+            anyIncluded = true;
+            break;
+        }
     }
+    if (!anyIncluded)
+        return;
     if (!hasInitializedKernels) {
         hasInitializedKernels = true;
         kernel->addArg(context.getLongForceBuffer());
