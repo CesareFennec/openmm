@@ -1,7 +1,9 @@
-__pycache__
-build
-build?
 
 # macOS
 .DS_Store
+__pycache__
+build
+build*/
 build-mod/
+build-test/
+build?
