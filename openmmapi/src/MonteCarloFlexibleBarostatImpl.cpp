@@ -65,7 +65,7 @@ void MonteCarloFlexibleBarostatImpl::updateContextState(ContextImpl& context, bo
 
     // Compute the current potential energy.
 
-    int groups = context.getIntegrator().getIntegrationForceGroups();
+    std::vector<int> groups = context.getIntegrator().getIntegrationForceGroups();
     double initialEnergy = context.getOwner().getState(State::Energy, false, groups).getPotentialEnergy();
     double pressure = context.getParameter(MonteCarloFlexibleBarostat::Pressure())*(AVOGADRO*1e-25);
 
@@ -211,7 +211,7 @@ double MonteCarloFlexibleBarostatImpl::computePressureComponent(ContextImpl& con
     }
     else
         throw OpenMMException("Illegal component index");
-    int groups = context.getIntegrator().getIntegrationForceGroups();
+    std::vector<int> groups = context.getIntegrator().getIntegrationForceGroups();
 
     // Compute the first energy.
 
@@ -254,7 +254,7 @@ double MonteCarloFlexibleBarostatImpl::computeStressComponent(ContextImpl& conte
     if (component < 0 || component > 5)
         throw OpenMMException("Illegal component index");
     int i = icomp[component], j = jcomp[component];
-    int groups = context.getIntegrator().getIntegrationForceGroups();
+    std::vector<int> groups = context.getIntegrator().getIntegrationForceGroups();
 
     Vec3 box[3];
     context.getPeriodicBoxVectors(box[0], box[1], box[2]);

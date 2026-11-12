@@ -105,9 +105,10 @@ public:
      * @param context       the context in which to execute this kernel
      * @param includeForce  true if forces should be computed
      * @param includeEnergy true if potential energy should be computed
-     * @param groups        a set of bit flags for which force groups to include
+     * @param groups        a set of bit flags for which force groups to include.
+     *                      Group i in state j will be included if (groups[j]&(1<<(i-32*j))) != 0.
      */
-    virtual void beginComputation(ContextImpl& context, bool includeForce, bool includeEnergy, int groups) = 0;
+    virtual void beginComputation(ContextImpl& context, bool includeForce, bool includeEnergy, const std::vector<int>& groups) = 0;
     /**
      * This is called at the end of each force/energy computation, after calcForcesAndEnergy() has been called on
      * every ForceImpl.
@@ -122,7 +123,7 @@ public:
      * calcForcesAndEnergy() methods.  That is, each force kernel may <i>either</i> return its contribution to the
      * energy directly, <i>or</i> add it to an internal buffer so that it will be included here.
      */
-    virtual double finishComputation(ContextImpl& context, bool includeForce, bool includeEnergy, int groups, bool& valid) = 0;
+    virtual double finishComputation(ContextImpl& context, bool includeForce, bool includeEnergy, const std::vector<int>& groups, bool& valid) = 0;
 };
 
 /**
@@ -194,6 +195,12 @@ public:
      * @param velocities  a vector containing the particle velocities
      */
     virtual void setVelocities(ContextImpl& context, const std::vector<Vec3>& velocities) = 0;
+    /**
+     * Set the forces on all particles. (Added by zhubin, Nov. 14, 2021)
+     *
+     * @param forces  a vector contains the forces
+     */
+    virtual void setForces(ContextImpl& context, const std::vector<Vec3>& forces) = 0;
     /**
      * Compute velocities, shifted in time to account for a leapfrog integrator.  The shift
      * is based on the most recently computed forces.

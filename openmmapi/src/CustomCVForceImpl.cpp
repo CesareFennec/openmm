@@ -78,8 +78,16 @@ void CustomCVForceImpl::initialize(ContextImpl& context) {
     kernel.getAs<CalcCustomCVForceKernel>().initialize(context.getSystem(), owner, getContextImpl(*innerContext));
 }
 
-double CustomCVForceImpl::calcForcesAndEnergy(ContextImpl& context, bool includeForces, bool includeEnergy, int groups) {
-    if ((groups&(1<<forceGroup)) != 0)
+double CustomCVForceImpl::calcForcesAndEnergy(ContextImpl& context, bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
+    // Get the force group of this Force object.
+    int forceGroup = owner.getForceGroup();
+    // Get the group of Topology this Force belongs to.
+    int topologyGroup = forceGroup / 32;
+    // Get the internal force group in its Topology.
+    int internalForceGroup = forceGroup % 32;
+    // Compute force when its both Topology group and internal force group are included.
+    bool isCompute = (topologyGroup < groups.size()) && ((groups[topologyGroup]&(1<<internalForceGroup)) != 0);
+    if (isCompute)
         return kernel.getAs<CalcCustomCVForceKernel>().execute(context, getContextImpl(*innerContext), includeForces, includeEnergy);
     return 0.0;
 }
@@ -110,7 +118,9 @@ void CustomCVForceImpl::getCollectiveVariableValues(ContextImpl& context, vector
     kernel.getAs<CalcCustomCVForceKernel>().copyState(context, getContextImpl(*innerContext));
     values.clear();
     for (int i = 0; i < innerSystem.getNumForces(); i++) {
-        double value = innerContext->getState(State::Energy, false, 1<<i).getPotentialEnergy();
+        // Only process the first topology.
+        if (i == 32) break;
+        double value = innerContext->getState(State::Energy, false, std::vector<int>(1, (1<<i))).getPotentialEnergy();
         values.push_back(value);
     }
 }

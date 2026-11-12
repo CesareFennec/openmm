@@ -144,6 +144,18 @@ void CustomIntegrator::step(int steps) {
     }
 }
 
+void CustomIntegrator::oneStep(const std::vector<Vec3>& forces) {
+    if (context == NULL)
+        throw OpenMMException("This Integrator is not bound to a context!");
+    globalsAreCurrent = false;
+    context->setForces(forces);
+    forcesAreValid = true;
+    // Always set the LastForceGroups to the IntegrationForceGroups, which can
+    // avoid the recomputation of forces.
+    context->getLastForceGroups() = this->getIntegrationForceGroups();
+    kernel.getAs<IntegrateCustomStepKernel>().execute(*context, *this, forcesAreValid);
+}
+
 int CustomIntegrator::addGlobalVariable(const string& name, double initialValue) {
     if (owner != NULL)
         throw OpenMMException("The integrator cannot be modified after it is bound to a context");

@@ -166,7 +166,7 @@ void CpuCalcForcesAndEnergyKernel::initialize(const System& system) {
     lastPositions.resize(system.getNumParticles(), Vec3(1e10, 1e10, 1e10));
 }
 
-void CpuCalcForcesAndEnergyKernel::beginComputation(ContextImpl& context, bool includeForce, bool includeEnergy, int groups) {
+void CpuCalcForcesAndEnergyKernel::beginComputation(ContextImpl& context, bool includeForce, bool includeEnergy, const std::vector<int>& groups) {
     referenceKernel.getAs<ReferenceCalcForcesAndEnergyKernel>().beginComputation(context, includeForce, includeEnergy, groups);
     
     // Convert positions to single precision and clear the forces.
@@ -280,7 +280,7 @@ void CpuCalcForcesAndEnergyKernel::beginComputation(ContextImpl& context, bool i
     }
 }
 
-double CpuCalcForcesAndEnergyKernel::finishComputation(ContextImpl& context, bool includeForce, bool includeEnergy, int groups, bool& valid) {
+double CpuCalcForcesAndEnergyKernel::finishComputation(ContextImpl& context, bool includeForce, bool includeEnergy, const std::vector<int>& groups, bool& valid) {
     // Sum the forces from all the threads.
     
     data.threads.execute([&] (ThreadPool& threads, int threadIndex) {

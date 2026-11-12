@@ -53,7 +53,7 @@ const static char CHECKPOINT_MAGIC_BYTES[] = "OpenMM Binary Checkpoint\n";
 
 ContextImpl::ContextImpl(Context& owner, const System& system, Integrator& integrator, Platform* platform, const map<string, string>& properties, ContextImpl* originalContext) :
         owner(owner), system(system), integrator(integrator), hasInitializedForces(false), hasSetPositions(false), integratorIsDeleted(false), hasMinimizeKernel(false),
-        lastForceGroups(-1), platform(platform), platformData(NULL) {
+        lastForceGroups(std::vector<int>(1, -1)), platform(platform), platformData(NULL) {
     int numParticles = system.getNumParticles();
     if (numParticles == 0)
         throw OpenMMException("Cannot create a Context for a System with no particles");
@@ -225,6 +225,15 @@ void ContextImpl::setStepCount(long long count) {
     updateStateDataKernel.getAs<UpdateStateDataKernel>().setStepCount(*this, count);
 }
 
+// get/set current step. (Added by zhubin, Nov. 17, 2021)
+int ContextImpl::getStep() const {
+    return (int) updateStateDataKernel.getAs<const UpdateStateDataKernel>().getStepCount(*this);
+}
+
+void ContextImpl::setStep(int step) {
+    updateStateDataKernel.getAs<UpdateStateDataKernel>().setStepCount(*this, (long long) step);
+}
+
 void ContextImpl::getPositions(std::vector<Vec3>& positions, bool allowPeriodic) {
     updateStateDataKernel.getAs<UpdateStateDataKernel>().getPositions(*this, positions, allowPeriodic);
 }
@@ -246,6 +255,11 @@ void ContextImpl::setVelocities(const std::vector<Vec3>& velocities) {
 
 void ContextImpl::getForces(std::vector<Vec3>& forces) {
     updateStateDataKernel.getAs<UpdateStateDataKernel>().getForces(*this, forces);
+}
+
+// Set the forces on all particles. (Added by zhubin, Nov. 14, 2021)
+void ContextImpl::setForces(const std::vector<Vec3>& forces) {
+    updateStateDataKernel.getAs<UpdateStateDataKernel>().setForces(*this, forces);
 }
 
 const std::map<std::string, double>& ContextImpl::getParameters() const {
@@ -299,7 +313,7 @@ void ContextImpl::computeVirtualSites() {
     virtualSitesKernel.getAs<VirtualSitesKernel>().computePositions(*this);
 }
 
-double ContextImpl::calcForcesAndEnergy(bool includeForces, bool includeEnergy, int groups) {
+double ContextImpl::calcForcesAndEnergy(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
     if (!hasSetPositions)
         throw OpenMMException("Particle positions have not been set");
     lastForceGroups = groups;
@@ -316,7 +330,7 @@ double ContextImpl::calcForcesAndEnergy(bool includeForces, bool includeEnergy, 
     }
 }
 
-int& ContextImpl::getLastForceGroups() {
+std::vector<int>& ContextImpl::getLastForceGroups() {
     return lastForceGroups;
 }
 

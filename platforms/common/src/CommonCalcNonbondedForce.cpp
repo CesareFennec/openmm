@@ -141,7 +141,7 @@ class CommonCalcNonbondedForceKernel::PmePreComputation : public ComputeContext:
 public:
     PmePreComputation(ComputeContext& cc, Kernel& pme, CalcPmeReciprocalForceKernel::IO& io) : cc(cc), pme(pme), io(io) {
     }
-    void computeForceAndEnergy(bool includeForces, bool includeEnergy, int groups) {
+    void computeForceAndEnergy(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
         Vec3 boxVectors[3];
         cc.getPeriodicBoxVectors(boxVectors[0], boxVectors[1], boxVectors[2]);
         pme.getAs<CalcPmeReciprocalForceKernel>().beginComputation(io, boxVectors, includeEnergy, true, false);
@@ -156,7 +156,7 @@ class CommonCalcNonbondedForceKernel::PmePostComputation : public ComputeContext
 public:
     PmePostComputation(Kernel& pme, CalcPmeReciprocalForceKernel::IO& io) : pme(pme), io(io) {
     }
-    double computeForceAndEnergy(bool includeForces, bool includeEnergy, int groups) {
+    double computeForceAndEnergy(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
         return pme.getAs<CalcPmeReciprocalForceKernel>().finishComputation(io);
     }
 private:
@@ -168,7 +168,7 @@ class CommonCalcNonbondedForceKernel::SyncQueuePreComputation : public ComputeCo
 public:
     SyncQueuePreComputation(ComputeContext& cc, ComputeQueue queue, ComputeEvent event, int forceGroup) : cc(cc), queue(queue), event(event), forceGroup(forceGroup) {
     }
-    void computeForceAndEnergy(bool includeForces, bool includeEnergy, int groups) {
+    void computeForceAndEnergy(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
         if ((groups&(1<<forceGroup)) != 0) {
             event->enqueue();
             event->queueWait(queue);
@@ -192,7 +192,7 @@ public:
         addEnergyKernel->addArg(cc.getEnergyBuffer());
         addEnergyKernel->addArg((int) pmeEnergyBuffer.getSize());
     }
-    double computeForceAndEnergy(bool includeForces, bool includeEnergy, int groups) {
+    double computeForceAndEnergy(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
         if ((groups&(1<<forceGroup)) != 0) {
             event->queueWait(cc.getCurrentQueue());
             if (includeEnergy)

@@ -2391,7 +2391,7 @@ class CommonCalcHippoNonbondedForceKernel::TorquePostComputation : public Comput
 public:
     TorquePostComputation(CommonCalcHippoNonbondedForceKernel& owner) : owner(owner) {
     }
-    double computeForceAndEnergy(bool includeForces, bool includeEnergy, int groups) {
+    double computeForceAndEnergy(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
         owner.addTorquesToForces();
         return 0.0;
     }

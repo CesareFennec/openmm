@@ -172,7 +172,7 @@ static double computeShiftedKineticEnergy(ContextImpl& context, vector<double>& 
 void ReferenceCalcForcesAndEnergyKernel::initialize(const System& system) {
 }
 
-void ReferenceCalcForcesAndEnergyKernel::beginComputation(ContextImpl& context, bool includeForces, bool includeEnergy, int groups) {
+void ReferenceCalcForcesAndEnergyKernel::beginComputation(ContextImpl& context, bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
     vector<Vec3>& forceData = extractForces(context);
     if (includeForces) {
         int numParticles = context.getSystem().getNumParticles();
@@ -185,7 +185,7 @@ void ReferenceCalcForcesAndEnergyKernel::beginComputation(ContextImpl& context, 
         extractEnergyParameterDerivatives(context)[param.first] = 0;
 }
 
-double ReferenceCalcForcesAndEnergyKernel::finishComputation(ContextImpl& context, bool includeForces, bool includeEnergy, int groups, bool& valid) {
+double ReferenceCalcForcesAndEnergyKernel::finishComputation(ContextImpl& context, bool includeForces, bool includeEnergy, const std::vector<int>& groups, bool& valid) {
     if (!includeForces)
         extractForces(context) = savedForces; // Restore the forces so computing the energy doesn't overwrite the forces with incorrect values.
     else
@@ -261,6 +261,17 @@ void ReferenceUpdateStateDataKernel::computeShiftedVelocities(ContextImpl& conte
 
 void ReferenceUpdateStateDataKernel::getForces(ContextImpl& context, std::vector<Vec3>& forces) {
     forces = extractForces(context);
+}
+
+// Set the forces on all particles. (Added by zhubin, Nov. 14, 2021)
+void ReferenceUpdateStateDataKernel::setForces(ContextImpl& context, const std::vector<Vec3>& forces) {
+    int numParticles = context.getSystem().getNumParticles();
+    vector<Vec3>& forceData = extractForces(context);
+    for (int i = 0; i < numParticles; ++i) {
+        forceData[i][0] = forces[i][0];
+        forceData[i][1] = forces[i][1];
+        forceData[i][2] = forces[i][2];
+    }
 }
 
 void ReferenceUpdateStateDataKernel::getEnergyParameterDerivatives(ContextImpl& context, map<string, double>& derivs) {

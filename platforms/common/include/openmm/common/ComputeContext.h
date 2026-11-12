@@ -794,7 +794,7 @@ public:
      * @param includeEnergy true if potential energy should be computed
      * @param groups        a set of bit flags for which force groups to include
      */
-    virtual void computeForceAndEnergy(bool includeForces, bool includeEnergy, int groups) = 0;
+    virtual void computeForceAndEnergy(bool includeForces, bool includeEnergy, const std::vector<int>& groups) = 0;
 };
 
 /**
@@ -813,7 +813,7 @@ public:
      * @param groups        a set of bit flags for which force groups to include
      * @return an optional contribution to add to the potential energy.
      */
-    virtual double computeForceAndEnergy(bool includeForces, bool includeEnergy, int groups) = 0;
+    virtual double computeForceAndEnergy(bool includeForces, bool includeEnergy, const std::vector<int>& groups) = 0;
 };
 
 } // namespace OpenMM

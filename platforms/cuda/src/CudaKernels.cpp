@@ -44,7 +44,7 @@ static void getCudaPmeParameters(CudaContext& cu, bool& usePmeQueue, bool& useFi
 void CudaCalcForcesAndEnergyKernel::initialize(const System& system) {
 }
 
-void CudaCalcForcesAndEnergyKernel::beginComputation(ContextImpl& context, bool includeForces, bool includeEnergy, int groups) {
+void CudaCalcForcesAndEnergyKernel::beginComputation(ContextImpl& context, bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
     cu.setForcesValid(true);
     ContextSelector selector(cu);
     cu.clearAutoclearBuffers();
@@ -59,7 +59,7 @@ void CudaCalcForcesAndEnergyKernel::beginComputation(ContextImpl& context, bool 
         derivs[param.first] = 0;
 }
 
-double CudaCalcForcesAndEnergyKernel::finishComputation(ContextImpl& context, bool includeForces, bool includeEnergy, int groups, bool& valid) {
+double CudaCalcForcesAndEnergyKernel::finishComputation(ContextImpl& context, bool includeForces, bool includeEnergy, const std::vector<int>& groups, bool& valid) {
     ContextSelector selector(cu);
     cu.getBondedUtilities().computeInteractions(groups);
     cu.getNonbondedUtilities().computeInteractions(groups, includeForces, includeEnergy);

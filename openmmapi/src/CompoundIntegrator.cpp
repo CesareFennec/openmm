@@ -97,6 +97,14 @@ void CompoundIntegrator::step(int steps) {
     integrators[currentIntegrator]->step(steps);
 }
 
+// Advance a simulation through time by taking one step with the providing
+// external forces instead of the forces which is computed from force fileds
+// based on current positions. (Added by zhubin, Nov. 17, 2021)
+// The oneStep() function has been defined in different integrators.
+void CompoundIntegrator::oneStep(const std::vector<Vec3>& forces) {
+    integrators[currentIntegrator]->oneStep(forces);
+}
+
 int CompoundIntegrator::getIntegrationForceGroups() const {
     return integrators[currentIntegrator]->getIntegrationForceGroups();
 }

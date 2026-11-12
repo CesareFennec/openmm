@@ -133,7 +133,7 @@ class CommonCalcConstantPotentialForceKernel::InvalidatePostComputation : public
 public:
     InvalidatePostComputation(ComputeContext& cc, CommonConstantPotentialSolver* solver) : cc(cc), solver(solver) {
     }
-    double computeForceAndEnergy(bool includeForces, bool includeEnergy, int groups) {
+    double computeForceAndEnergy(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
         if(!cc.getForcesValid()) {
             solver->discardSavedSolution();
         }

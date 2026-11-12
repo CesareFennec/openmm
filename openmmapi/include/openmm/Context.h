@@ -120,9 +120,10 @@ public:
      * is stored in the Context, regardless of periodic boundary conditions.  If true, particle
      * positions will be translated so the center of every molecule lies in the same periodic box.
      * @param groups a set of bit flags for which force groups to include when computing forces
-     * and energies.  Group i will be included if (groups&(1<<i)) != 0.  The default value includes all groups.
+     * and energies.  Group i in state j will be included if (groups[j]&(1<<(i-32*j)) != 0.
+     * The default value includes all groups of first state..
      */
-    State getState(int types, bool enforcePeriodicBox=false, int groups=0xFFFFFFFF) const;
+    State getState(int types, bool enforcePeriodicBox=false, const std::vector<int>& groups = std::vector<int>(1, -1)) const;
     /**
      * Copy information from a State object into this Context.  This restores the Context to
      * approximately the same state it was in when the State was created.  If the State does not include
@@ -167,6 +168,12 @@ public:
      * contains the velocity of the i'th particle.
      */
     void setVelocities(const std::vector<Vec3>& velocities);
+    /**
+     * Set the forces on all particles. (Added by zhubin, Nov. 14, 2021)
+     *
+     * @param forces  a vector contains the forces
+     */
+    void setForces(const std::vector<Vec3>& forces);
     /**
      * Set the velocities of all particles in the System to random values chosen from a Boltzmann
      * distribution at a given temperature.
@@ -282,6 +289,90 @@ public:
      * belong to exactly one molecule.
      */
     const std::vector<std::vector<int> >& getMolecules() const;
+public:
+    /**************************************************************************
+     * The following functions are added by Zhubin Hu, which are used to directly get
+     * positions/velocities/forces from platform data that stores in ContextImpl.
+     * Note that if platform is GPU, the copy from GPU device memory to main memory
+     * can not be avoid. Even the platform is CPU, there is one copy calling these.
+     **************************************************************************/
+    /**
+     * Get the current step. (Added by zhubin, Nov. 17, 2021)
+     */
+    int getStep() const;
+    /**
+     * Set the current step by modifying the platform data.
+     */
+    void setStep(int step);
+    /**
+     * Get the vectors defining the axes of the periodic box (measured in nm).  They will affect
+     * any Force that uses periodic boundary conditions.
+     *
+     * @param a      the vector defining the first edge of the periodic box
+     * @param b      the vector defining the second edge of the periodic box
+     * @param c      the vector defining the third edge of the periodic box
+     */
+    void getPeriodicBoxVectors(Vec3& a, Vec3& b, Vec3& c);
+    /**
+     * Get the volume of the periodic box (measured in nm^3).
+     */
+    double getPeriodicBoxVolume();
+    /**
+     * Get the positions of all particles.
+     *
+     * @param enforcePeriodicBox if false, the position of each particle will be whatever position
+     * is stored in the Context, regardless of periodic boundary conditions.  If true, particle
+     * @param positions  on exit, this contains the particle positions
+     */
+    void getPositions(std::vector<Vec3>& positions, bool enforcePeriodicBox = false);
+    /**
+     * Get the velocities of all particles.
+     *
+     * @param velocities  on exit, this contains the particle velocities
+     */
+    void getVelocities(std::vector<Vec3>& velocities);
+    /**
+     * Get the current forces on all particles.
+     *
+     * @param forces  on exit, this contains the forces
+     */
+    void getForces(std::vector<Vec3>& forces);
+    /**
+     * Get the current kinetic energy (in kj/mol).
+     *
+     * @return the kinetic energy of the system
+     */
+    double getKineticEnergy();
+    /**
+     * Get whether getKineticEnergy() expects forces to have been pre-computed.
+     * This is decided from OpenMM integrator. Generally, non-leapfrog integrators
+     * such as velocityVerlet, return false, while leapfrog-like integrators will
+     * return true, such as leapfrog and Langevin.
+     *
+     * @return true if pre-computed forces is required for getKineticEnergy().
+     */
+    bool kineticEnergyRequiresForce();
+    /**
+     * Get the current potential energy (in kj/mol).
+     * This function will calculate the potential energy and/or the forces of the system.
+     * If includeForces=true, use getForces() to retrieve the forces that were calculated after calling this.
+     *
+     * @param includeForces  true if forces should be calculated
+     * @param groups         a set of bit flags for which force groups to include.
+     *                       Group i in state j will be included if (groups[j]&(1<<(i-32*j)) != 0.
+     *                       The default value is all groups belong to first state.
+     * @return the potential energy of the system
+     */
+    double getPotentialEnergy(bool includeForces, const std::vector<int>& groups = std::vector<int>(1, -1));
+    /**
+     * This should be called at the start of each time step.  It calls updateContextState() on each
+     * ForceImpl in the system, allowing them to modify the values of state variables.
+     *
+     * @return true if the state was modified in any way that would cause the forces on particles
+     * to change, false otherwise
+     */
+    bool updateContextState();
+
 private:
     friend class ContextImpl;
     friend class Force;

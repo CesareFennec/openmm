@@ -91,7 +91,7 @@ public:
         for (int i = 0; i < force.getNumEnergyParameterDerivatives(); i++)
             energyParameterDerivativeNames.push_back(force.getEnergyParameterDerivativeName(i));
     }
-    double computeForceAndEnergy(bool includeForces, bool includeEnergy, int groups) {
+    double computeForceAndEnergy(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
         if ((groups&(1<<forceGroup)) == 0)
             return 0;
         if (!cc.getWorkThread().isCurrentThread())

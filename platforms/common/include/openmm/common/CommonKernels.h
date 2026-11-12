@@ -120,6 +120,12 @@ public:
      */
     void getForces(ContextImpl& context, std::vector<Vec3>& forces);
     /**
+     * Set the forces on all particles. (Added by zhubin, Nov. 14, 2021)
+     *
+     * @param forces  a vector contains the forces
+     */
+    void setForces(ContextImpl& context, const std::vector<Vec3>& forces);
+    /**
      * Get the current derivatives of the energy with respect to context parameters.
      *
      * @param derivs  on exit, this contains the derivatives
@@ -1490,7 +1496,7 @@ public:
     /**
      * The is called by the pre-computation to start the calculation running.
      */
-    void beginComputation(bool includeForces, bool includeEnergy, int groups);
+    void beginComputation(bool includeForces, bool includeEnergy, const std::vector<int>& groups);
     /**
      * This is called by the worker thread to do the computation.
      */
@@ -1498,7 +1504,7 @@ public:
     /**
      * This is called by the post-computation to add the forces to the main array.
      */
-    double addForces(bool includeForces, bool includeEnergy, int groups);
+    double addForces(bool includeForces, bool includeEnergy, const std::vector<int>& groups);
 private:
     class ExecuteTask;
     class StartCalculationPreComputation;
@@ -1542,7 +1548,7 @@ public:
     /**
      * The is called by the pre-computation to start the calculation running.
      */
-    void beginComputation(bool includeForces, bool includeEnergy, int groups);
+    void beginComputation(bool includeForces, bool includeEnergy, const std::vector<int>& groups);
     /**
      * This is called by the worker thread to do the computation.
      */
@@ -1550,7 +1556,7 @@ public:
     /**
      * This is called by the post-computation to add the forces to the main array.
      */
-    double addForces(bool includeForces, bool includeEnergy, int groups);
+    double addForces(bool includeForces, bool includeEnergy, const std::vector<int>& groups);
 private:
     class ExecuteTask;
     class StartCalculationPreComputation;

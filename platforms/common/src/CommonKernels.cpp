@@ -299,6 +299,25 @@ void CommonUpdateStateDataKernel::getForces(ContextImpl& context, vector<Vec3>& 
         forces[order[i]] = Vec3(scale*force[i], scale*force[i+paddedNumParticles], scale*force[i+paddedNumParticles*2]);
 }
 
+// Set the forces on all particles. (Added by zhubin, Nov. 14, 2021)
+// Note: in the integrator, the longForceBuffer will be used.
+// This is simillar as UpdateStateDataKernel::setForces()
+void CommonUpdateStateDataKernel::setForces(ContextImpl& context, const vector<Vec3>& forces) {
+    ContextSelector selector(cc);
+    const vector<int>& order = cc.getAtomIndex();
+    int numParticles = context.getSystem().getNumParticles();
+    int paddedNumParticles = cc.getPaddedNumAtoms();
+    long long* force = (long long*) cc.getPinnedBuffer();
+    cc.getLongForceBuffer().download(force);
+    double inverseScale = (double) 0x100000000LL;
+    for (int i = 0; i < numParticles; ++i) {
+        force[i] = inverseScale * forces[order[i]][0];
+        force[i+paddedNumParticles] = inverseScale * forces[order[i]][1];
+        force[i+paddedNumParticles*2] = inverseScale * forces[order[i]][2];
+    }
+    cc.getLongForceBuffer().upload(force);
+}
+
 void CommonUpdateStateDataKernel::getEnergyParameterDerivatives(ContextImpl& context, map<string, double>& derivs) {
     ContextSelector selector(cc);
     const vector<string>& paramDerivNames = cc.getEnergyParamDerivNames();
@@ -4667,7 +4686,7 @@ class CommonCalcCustomCPPForceKernel::StartCalculationPreComputation : public Co
 public:
     StartCalculationPreComputation(CommonCalcCustomCPPForceKernel& owner) : owner(owner) {
     }
-    void computeForceAndEnergy(bool includeForces, bool includeEnergy, int groups) {
+    void computeForceAndEnergy(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
         owner.beginComputation(includeForces, includeEnergy, groups);
     }
     CommonCalcCustomCPPForceKernel& owner;
@@ -4688,7 +4707,7 @@ class CommonCalcCustomCPPForceKernel::AddForcesPostComputation : public ComputeC
 public:
     AddForcesPostComputation(CommonCalcCustomCPPForceKernel& owner) : owner(owner) {
     }
-    double computeForceAndEnergy(bool includeForces, bool includeEnergy, int groups) {
+    double computeForceAndEnergy(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
         return owner.addForces(includeForces, includeEnergy, groups);
     }
     CommonCalcCustomCPPForceKernel& owner;
@@ -4741,7 +4760,7 @@ double CommonCalcCustomCPPForceKernel::execute(ContextImpl& context, bool includ
     return addForces(includeForces, includeEnergy, -1);
 }
 
-void CommonCalcCustomCPPForceKernel::beginComputation(bool includeForces, bool includeEnergy, int groups) {
+void CommonCalcCustomCPPForceKernel::beginComputation(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
     if ((groups&forceGroupFlag) == 0)
         return;
     contextImpl.getPositions(positionsVec);
@@ -4769,7 +4788,7 @@ void CommonCalcCustomCPPForceKernel::executeOnWorkerThread(bool includeForces) {
     }
 }
 
-double CommonCalcCustomCPPForceKernel::addForces(bool includeForces, bool includeEnergy, int groups) {
+double CommonCalcCustomCPPForceKernel::addForces(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
     if ((groups&forceGroupFlag) == 0)
         return 0;
 
@@ -4794,7 +4813,7 @@ class CommonCalcPythonForceKernel::StartCalculationPreComputation : public Compu
 public:
     StartCalculationPreComputation(CommonCalcPythonForceKernel& owner) : owner(owner) {
     }
-    void computeForceAndEnergy(bool includeForces, bool includeEnergy, int groups) {
+    void computeForceAndEnergy(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
         owner.beginComputation(includeForces, includeEnergy, groups);
     }
     CommonCalcPythonForceKernel& owner;
@@ -4815,7 +4834,7 @@ class CommonCalcPythonForceKernel::AddForcesPostComputation : public ComputeCont
 public:
     AddForcesPostComputation(CommonCalcPythonForceKernel& owner) : owner(owner) {
     }
-    double computeForceAndEnergy(bool includeForces, bool includeEnergy, int groups) {
+    double computeForceAndEnergy(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
         return owner.addForces(includeForces, includeEnergy, groups);
     }
     CommonCalcPythonForceKernel& owner;
@@ -4960,7 +4979,7 @@ void CommonCalcPythonForceKernel::sortParticles() {
     reorderedParticles.upload(reordered);
 }
 
-void CommonCalcPythonForceKernel::beginComputation(bool includeForces, bool includeEnergy, int groups) {
+void CommonCalcPythonForceKernel::beginComputation(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
     if ((groups&forceGroupFlag) == 0)
         return;
 
@@ -4987,7 +5006,7 @@ void CommonCalcPythonForceKernel::executeOnWorkerThread(bool includeForces) {
     }
 }
 
-double CommonCalcPythonForceKernel::addForces(bool includeForces, bool includeEnergy, int groups) {
+double CommonCalcPythonForceKernel::addForces(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
     if ((groups&forceGroupFlag) == 0)
         return 0;
 

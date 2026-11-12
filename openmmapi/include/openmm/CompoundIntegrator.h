@@ -168,6 +168,17 @@ public:
      */
     void step(int steps);
     /**
+     * Advance a simulation through time by taking one step with the providing
+     * external forces instead of the forces which is computed from force fileds
+     * based on current positions.
+     *
+     * Note that, you should call updateContextState() firstly before calling
+     * this function. (Added by zhubin, Nov. 14, 2021)
+     *
+     * @param forces the vector contains forces
+     */
+    void oneStep(const std::vector<Vec3>& forces);
+    /**
      * Get which force groups to use for integration.  By default, all force groups
      * are included.  This is interpreted as a set of bit flags: the forces from group i
      * will be included if (groups&(1<<i)) != 0.

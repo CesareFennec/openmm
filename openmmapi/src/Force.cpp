@@ -43,8 +43,8 @@ int Force::getForceGroup() const {
 }
 
 void Force::setForceGroup(int group) {
-    if (group < 0 || group > 31)
-        throw OpenMMException("Force group must be between 0 and 31");
+    if (group < 0)
+        throw OpenMMException("Force group must be greater than or equal to 0");
     forceGroup = group;
 }
 

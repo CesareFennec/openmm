@@ -123,8 +123,16 @@ void ATMForceImpl::initialize(ContextImpl& context) {
     kernel.getAs<CalcATMForceKernel>().initialize(context.getSystem(), owner);
 }
 
-double ATMForceImpl::calcForcesAndEnergy(ContextImpl& context, bool includeForces, bool includeEnergy, int groups) {
-    if ((groups & (1 << owner.getForceGroup())) == 0)
+double ATMForceImpl::calcForcesAndEnergy(ContextImpl& context, bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
+    // Get the force group of this Force object.
+    int forceGroup = owner.getForceGroup();
+    // Get the group of Topology this Force belongs to.
+    int topologyGroup = forceGroup / 32;
+    // Get the internal force group in its Topology.
+    int internalForceGroup = forceGroup % 32;
+    // Compute force when its both Topology group and internal force group are included.
+    bool isCompute = (topologyGroup < groups.size()) && ((groups[topologyGroup]&(1<<internalForceGroup)) != 0);
+    if (!isCompute)
         return 0.0;
 
     ContextImpl& innerContextImpl0 = getContextImpl(*innerContext0);

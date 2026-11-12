@@ -139,9 +139,20 @@ void NonbondedForceImpl::initialize(ContextImpl& context) {
     kernel.getAs<CalcNonbondedForceKernel>().initialize(context.getSystem(), owner);
 }
 
-double NonbondedForceImpl::calcForcesAndEnergy(ContextImpl& context, bool includeForces, bool includeEnergy, int groups) {
-    bool includeDirect = (includeDirectSpace && (groups&(1<<forceGroup)) != 0);
-    bool includeReciprocal = ((groups&(1<<recipForceGroup)) != 0);
+double NonbondedForceImpl::calcForcesAndEnergy(ContextImpl& context, bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
+    // Get the force group of this Force object.
+    int forceGroup = owner.getForceGroup();
+    // Get the group of Topology this Force belongs to.
+    int topologyGroup = forceGroup / 32;
+    // Get the internal force group in its Topology.
+    int internalForceGroup = forceGroup % 32;
+    // Compute force when its both Topology group and internal force group are included.
+    bool includeDirect = includeDirectSpace && (topologyGroup < groups.size()) && ((groups[topologyGroup]&(1<<internalForceGroup)) != 0);
+    bool includeReciprocal = false;
+    if (owner.getReciprocalSpaceForceGroup() >= 0) {
+        int internalReciprocalforceGroup = owner.getReciprocalSpaceForceGroup() % 32;
+        includeReciprocal = (topologyGroup < groups.size()) && ((groups[topologyGroup]&(1<<internalReciprocalforceGroup)) != 0);
+    }
     return kernel.getAs<CalcNonbondedForceKernel>().execute(context, includeForces, includeEnergy, includeDirect, includeReciprocal);
 }
 

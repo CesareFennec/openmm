@@ -85,17 +85,32 @@ public:
      */
     virtual void step(int steps) = 0;
     /**
-     * Get which force groups to use for integration.  By default, all force groups
-     * are included.  This is interpreted as a set of bit flags: the forces from group i
-     * will be included if (groups&(1<<i)) != 0.
+     * Advance a simulation through time by taking one step with the providing
+     * external forces instead of the forces which is computed from force fileds
+     * based on current positions.
+     *
+     * Note that, you should call updateContextState() firstly before calling
+     * this function. (Added by zhubin, Nov. 14, 2021)
+     *
+     * You should define it explicitly in the subclasses.
+     *
+     * @param forces the vector contains forces
      */
-    virtual int getIntegrationForceGroups() const;
+    virtual void oneStep(const std::vector<Vec3>& forces) {
+        throw OpenMMException("This Integrator doesn't support this function: oneStep()!");
+    }
     /**
-     * Set which force groups to use for integration.  By default, all force groups
-     * are included.  This is interpreted as a set of bit flags: the forces from group i
-     * will be included if (groups&(1<<i)) != 0.
+     * Get which force groups to use for integration.  By default, all force groups belongs to
+     * first state are included.  This is interpreted as a set of bit flags: the forces from Group i
+     * in state j will be included if (groups[j]&(1<<(i-32*j)) != 0.
      */
-    virtual void setIntegrationForceGroups(int groups);
+    virtual std::vector<int> getIntegrationForceGroups() const;
+    /**
+     * Set which force groups to use for integration.  By default, all force groups belongs to
+     * first state are included.  This is interpreted as a set of bit flags: the forces from Group i
+     * in state j will be included if (groups[j]&(1<<(i-32*j)) != 0.
+     */
+    virtual void setIntegrationForceGroups(const std::vector<int>& groups);
 protected:
     friend class Context;
     friend class ContextImpl;
@@ -192,7 +207,7 @@ protected:
     }
 private:
     double stepSize, constraintTol;
-    int forceGroups;
+    std::vector<int> forceGroups;
 };
 
 } // namespace OpenMM

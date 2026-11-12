@@ -67,7 +67,7 @@ void MonteCarloMembraneBarostatImpl::updateContextState(ContextImpl& context, bo
     
     // Compute the current potential energy.
     
-    int groups = context.getIntegrator().getIntegrationForceGroups();
+    std::vector<int> groups = context.getIntegrator().getIntegrationForceGroups();
     double initialEnergy = context.getOwner().getState(State::Energy, false, groups).getPotentialEnergy();
     double pressure = context.getParameter(MonteCarloMembraneBarostat::Pressure())*(AVOGADRO*1e-25);
     double tension = context.getParameter(MonteCarloMembraneBarostat::SurfaceTension())*(AVOGADRO*1e-25);
@@ -162,7 +162,7 @@ Vec3 MonteCarloMembraneBarostatImpl::computeCurrentPressure(ContextImpl& context
     context.getPeriodicBoxVectors(box[0], box[1], box[2]);
     double volume = box[0][0]*box[1][1]*box[2][2];
     double delta = 1e-3;
-    int groups = context.getIntegrator().getIntegrationForceGroups();
+    std::vector<int> groups = context.getIntegrator().getIntegrationForceGroups();
     kernel.getAs<ApplyMonteCarloBarostatKernel>().saveCoordinates(context);
     vector<double> ke;
     kernel.getAs<ApplyMonteCarloBarostatKernel>().computeKineticEnergy(context, ke);
