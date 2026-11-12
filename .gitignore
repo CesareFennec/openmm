@@ -4,3 +4,4 @@ build?
 
 # macOS
 .DS_Store
+build-mod/
