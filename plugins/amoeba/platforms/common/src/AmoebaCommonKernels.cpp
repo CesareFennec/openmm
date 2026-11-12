@@ -2032,7 +2032,7 @@ private:
 };
 
 CommonCalcAmoebaVdwForceKernel::CommonCalcAmoebaVdwForceKernel(const std::string& name, const Platform& platform, ComputeContext& cc, const System& system) :
-        CalcAmoebaVdwForceKernel(name, platform), cc(cc), system(system), hasInitializedNonbonded(false), nonbonded(NULL) {
+        CalcAmoebaVdwForceKernel(name, platform), cc(cc), system(system), hasInitializedNonbonded(false), nonbonded(NULL), forceGroup(0) {
 }
 
 CommonCalcAmoebaVdwForceKernel::~CommonCalcAmoebaVdwForceKernel() {
@@ -2044,6 +2044,16 @@ CommonCalcAmoebaVdwForceKernel::~CommonCalcAmoebaVdwForceKernel() {
 void CommonCalcAmoebaVdwForceKernel::initialize(const System& system, const AmoebaVdwForce& force) {
     ContextSelector selector(cc);
     int paddedNumAtoms = cc.getPaddedNumAtoms();
+    // Record the force group of this force, and build the group flags that request it.
+    // The private NonbondedUtilities created below is registered with the same group,
+    // so the flags must request exactly that group of its topology.
+    forceGroup = force.getForceGroup();
+    {
+        int topologyGroup = forceGroup / 32;
+        int internalForceGroup = forceGroup % 32;
+        nonbondedGroupFlags.assign(topologyGroup+1, 0);
+        nonbondedGroupFlags[topologyGroup] = 1 << internalForceGroup;
+    }
     bondReductionAtoms.initialize<int>(cc, paddedNumAtoms, "bondReductionAtoms");
     bondReductionFactors.initialize<float>(cc, paddedNumAtoms, "bondReductionFactors");
     scaleFactors.initialize<float>(cc, paddedNumAtoms, "scaleFactors");
@@ -2131,7 +2141,7 @@ void CommonCalcAmoebaVdwForceKernel::initialize(const System& system, const Amoe
     replacements["TAPER_C5"] = cc.doubleToString(6/pow(taperCutoff-cutoff, 5.0));
     bool useCutoff = (force.getNonbondedMethod() != AmoebaVdwForce::NoCutoff);
     nonbonded->addInteraction(useCutoff, useCutoff, true, force.getCutoffDistance(), exclusions,
-        cc.replaceStrings(CommonAmoebaKernelSources::amoebaVdwForce2, replacements), 0);
+        cc.replaceStrings(CommonAmoebaKernelSources::amoebaVdwForce2, replacements), forceGroup);
     
     // Create the other kernels.
     
@@ -2170,10 +2180,10 @@ double CommonCalcAmoebaVdwForceKernel::execute(ContextImpl& context, bool includ
     cc.getPosq().copyTo(tempPosq);
     cc.getLongForceBuffer().copyTo(tempForces);
     prepareKernel->execute(cc.getPaddedNumAtoms());
-    //nonbonded->prepareInteractions(1);
-    //nonbonded->computeInteractions(1, includeForces, includeEnergy);
-    nonbonded->prepareInteractions(std::vector<int>(1, 1));
-    nonbonded->computeInteractions(std::vector<int>(1, 1), includeForces, includeEnergy);
+    // The group flags request exactly the force group of this force (see initialize()),
+    // which is also the group the private NonbondedUtilities was registered with.
+    nonbonded->prepareInteractions(nonbondedGroupFlags);
+    nonbonded->computeInteractions(nonbondedGroupFlags, includeForces, includeEnergy);
     spreadKernel->execute(cc.getPaddedNumAtoms());
     tempPosq.copyTo(cc.getPosq());
     tempForces.copyTo(cc.getLongForceBuffer());
