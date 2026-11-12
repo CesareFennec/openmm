@@ -442,7 +442,8 @@ bool OpenCLNonbondedUtilities::updateNeighborListSize() {
         maxTiles = totalTiles;
     interactingTiles.resize(maxTiles);
     interactingAtoms.resize(OpenCLContext::TileSize*(size_t) maxTiles);
-    for (map<int, KernelSet>::iterator iter = groupKernels.begin(); iter != groupKernels.end(); ++iter) {
+    for (map<std::vector<int>, KernelSet>::iterator iter = groupKernels.begin(); iter != groupKernels.end(); ++iter) {
+    //for (map<int, KernelSet>::iterator iter = groupKernels.begin(); iter != groupKernels.end(); ++iter) {
         KernelSet& kernels = iter->second;
         if (*reinterpret_cast<cl_kernel*>(&kernels.forceKernel) != NULL) {
             kernels.forceKernel.setArg<cl::Buffer>(7, interactingTiles.getDeviceBuffer());
@@ -483,7 +484,8 @@ void OpenCLNonbondedUtilities::setAtomBlockRange(double startFraction, double en
     if (useCutoff) {
         // We are using a cutoff, and the kernels have already been created.
 
-        for (map<int, KernelSet>::iterator iter = groupKernels.begin(); iter != groupKernels.end(); ++iter) {
+        for (map<std::vector<int>, KernelSet>::iterator iter = groupKernels.begin(); iter != groupKernels.end(); ++iter) {
+    //for (map<int, KernelSet>::iterator iter = groupKernels.begin(); iter != groupKernels.end(); ++iter) {
             KernelSet& kernels = iter->second;
             if (*reinterpret_cast<cl_kernel*>(&kernels.forceKernel) != NULL) {
                 kernels.forceKernel.setArg<cl_uint>(5, startTileIndex);

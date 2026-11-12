@@ -184,7 +184,7 @@ public:
     /**
      * Prepare to compute interactions.  This updates the neighbor list.
      */
-    virtual void prepareInteractions(int forceGroups) = 0;
+    virtual void prepareInteractions(const std::vector<int>& forceGroups) = 0;
     /**
      * Compute the nonbonded interactions.
      * 
@@ -192,7 +192,7 @@ public:
      * @param includeForces  whether to compute forces
      * @param includeEnergy  whether to compute the potential energy
      */
-    virtual void computeInteractions(int forceGroups, bool includeForces, bool includeEnergy) = 0;
+    virtual void computeInteractions(const std::vector<int>& forceGroups, bool includeForces, bool includeEnergy) = 0;
     /**
      * Set the source code for the main kernel.  It only needs to be changed in very unusual circumstances.
      */

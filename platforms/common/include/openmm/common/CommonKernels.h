@@ -1516,7 +1516,7 @@ private:
     ComputeKernel addForcesKernel;
     std::vector<Vec3> positionsVec, forcesVec;
     std::vector<float> floatForces;
-    int forceGroupFlag;
+    int forceGroupTopology, forceGroupInternal;
     double energy;
     bool useWorkerThread;
 };
@@ -1572,7 +1572,7 @@ private:
     std::vector<Vec3> positionsVec;
     std::vector<double> forcesVec;
     std::vector<int> particles;
-    int numParticles, forceGroupFlag;
+    int numParticles, forceGroupTopology, forceGroupInternal;
     double energy;
     bool usePeriodic, useWorkerThread;
 };

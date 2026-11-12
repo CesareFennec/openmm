@@ -169,7 +169,11 @@ public:
     SyncQueuePreComputation(ComputeContext& cc, ComputeQueue queue, ComputeEvent event, int forceGroup) : cc(cc), queue(queue), event(event), forceGroup(forceGroup) {
     }
     void computeForceAndEnergy(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
-        if ((groups&(1<<forceGroup)) != 0) {
+        // Compute only if this force group is included in the requested groups.
+        int topologyGroup = forceGroup / 32;
+        int internalForceGroup = forceGroup % 32;
+        bool isCompute = (topologyGroup < groups.size()) && ((groups[topologyGroup]&(1<<internalForceGroup)) != 0);
+        if (isCompute) {
             event->enqueue();
             event->queueWait(queue);
         }
@@ -193,7 +197,11 @@ public:
         addEnergyKernel->addArg((int) pmeEnergyBuffer.getSize());
     }
     double computeForceAndEnergy(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
-        if ((groups&(1<<forceGroup)) != 0) {
+        // Compute only if this force group is included in the requested groups.
+        int topologyGroup = forceGroup / 32;
+        int internalForceGroup = forceGroup % 32;
+        bool isCompute = (topologyGroup < groups.size()) && ((groups[topologyGroup]&(1<<internalForceGroup)) != 0);
+        if (isCompute) {
             event->queueWait(cc.getCurrentQueue());
             if (includeEnergy)
                 addEnergyKernel->execute(pmeEnergyBuffer.getSize());

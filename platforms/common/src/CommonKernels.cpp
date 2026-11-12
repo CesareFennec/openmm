@@ -4733,7 +4733,13 @@ void CommonCalcCustomCPPForceKernel::initialize(const ContextImpl& context, Cust
     addForcesKernel->addArg(forcesArray);
     addForcesKernel->addArg(cc.getLongForceBuffer());
     addForcesKernel->addArg(cc.getAtomIndexArray());
-    forceGroupFlag = (1<<force.getOwner().getForceGroup());
+    // Record the force group of this Force as (topology, internal) so that the
+    // force group flags can be checked against the requested groups.
+    {
+        int forceGroup = force.getOwner().getForceGroup();
+        forceGroupTopology = forceGroup / 32;
+        forceGroupInternal = forceGroup % 32;
+    }
     useWorkerThread = (cc.getNumContexts() == 1);
     for (const ForceImpl* impl : context.getForceImpls())
         if (impl != &force && (dynamic_cast<const CustomCPPForceImpl*>(impl) != NULL || dynamic_cast<const PythonForceImpl*>(impl) != NULL))
@@ -4760,11 +4766,12 @@ double CommonCalcCustomCPPForceKernel::execute(ContextImpl& context, bool includ
         return 0.0;
     contextImpl.getPositions(positionsVec);
     executeOnWorkerThread(includeForces);
-    return addForces(includeForces, includeEnergy, -1);
+    return addForces(includeForces, includeEnergy, std::vector<int>(1, -1));
 }
 
 void CommonCalcCustomCPPForceKernel::beginComputation(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
-    if ((groups&forceGroupFlag) == 0)
+    bool isCompute = (forceGroupTopology < groups.size()) && ((groups[forceGroupTopology]&(1<<forceGroupInternal)) != 0);
+    if (!isCompute)
         return;
     contextImpl.getPositions(positionsVec);
 
@@ -4792,7 +4799,8 @@ void CommonCalcCustomCPPForceKernel::executeOnWorkerThread(bool includeForces) {
 }
 
 double CommonCalcCustomCPPForceKernel::addForces(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
-    if ((groups&forceGroupFlag) == 0)
+    bool isCompute = (forceGroupTopology < groups.size()) && ((groups[forceGroupTopology]&(1<<forceGroupInternal)) != 0);
+    if (!isCompute)
         return 0;
 
     // Wait until executeOnWorkerThread() is finished.
@@ -4895,7 +4903,11 @@ void CommonCalcPythonForceKernel::initialize(const ContextImpl& context, const P
         addForcesKernel->addArg(cc.getLongForceBuffer());
         addForcesKernel->addArg(cc.getAtomIndexArray());
     }
-    forceGroupFlag = (1<<force.getForceGroup());
+    {
+        int forceGroup = force.getForceGroup();
+        forceGroupTopology = forceGroup / 32;
+        forceGroupInternal = forceGroup % 32;
+    }
     // Disable the worker thread until we figure out what is causing incompatibilities with PyTorch.
 //    useWorkerThread = (cc.getNumContexts() == 1);
     useWorkerThread = false;
@@ -4923,7 +4935,7 @@ double CommonCalcPythonForceKernel::execute(ContextImpl& context, bool includeFo
     if (cc.getContextIndex() != 0)
         return 0.0;
     executeOnWorkerThread(includeForces);
-    return addForces(includeForces, includeEnergy, -1);
+    return addForces(includeForces, includeEnergy, std::vector<int>(1, -1));
 }
 
 void CommonCalcPythonForceKernel::getPositions() {
@@ -4983,7 +4995,8 @@ void CommonCalcPythonForceKernel::sortParticles() {
 }
 
 void CommonCalcPythonForceKernel::beginComputation(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
-    if ((groups&forceGroupFlag) == 0)
+    bool isCompute = (forceGroupTopology < groups.size()) && ((groups[forceGroupTopology]&(1<<forceGroupInternal)) != 0);
+    if (!isCompute)
         return;
 
     // The actual force computation will be done on a different thread.
@@ -5010,7 +5023,8 @@ void CommonCalcPythonForceKernel::executeOnWorkerThread(bool includeForces) {
 }
 
 double CommonCalcPythonForceKernel::addForces(bool includeForces, bool includeEnergy, const std::vector<int>& groups) {
-    if ((groups&forceGroupFlag) == 0)
+    bool isCompute = (forceGroupTopology < groups.size()) && ((groups[forceGroupTopology]&(1<<forceGroupInternal)) != 0);
+    if (!isCompute)
         return 0;
 
     // Wait until executeOnWorkerThread() is finished.
