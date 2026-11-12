@@ -301,11 +301,19 @@ void CommonIntegrateCustomStepKernel::prepareForComputation(ContextImpl& context
                 energyName[step] = energyGroupName[forceGroup[step]];
                 stepEnergyVariableIndex[step] = expressionSet.getVariableIndex(energyName[step]);
             }
-            if (forceGroup[step] > -1)
-                forceGroupFlags[step] = 1<<forceGroup[step];
-            if (forceGroupFlags[step] == -2 && step > 0)
-                forceGroupFlags[step] = forceGroupFlags[step-1];
-            if (forceGroupFlags[step] != -2 && savedForces.find(forceGroupFlags[step]) == savedForces.end()) {
+            // if forceGroup[step] = -1, then compute the force groups defined by Integrator.
+            if (forceGroup[step] > -1) {           
+                int topologyGroup = forceGroup[step] / 32;
+                int internalForceGroup = forceGroup[step] % 32;
+                forceGroupFlags[step].resize((topologyGroup+1), 0);
+                forceGroupFlags[step][topologyGroup] = 1<<internalForceGroup;
+                //forceGroupFlags[step] = 1<<forceGroup[step];
+            }
+            // The forceGroupFlags can not be -2.
+            //if (forceGroupFlags[step] == -2 && step > 0)
+                //forceGroupFlags[step] = forceGroupFlags[step-1];
+            //if (forceGroupFlags[step] != -2 && savedForces.find(forceGroupFlags[step]) == savedForces.end()) {
+            if (savedForces.find(forceGroupFlags[step]) == savedForces.end()) {
                 savedForces[forceGroupFlags[step]] = ComputeArray();
                 savedForces[forceGroupFlags[step]].initialize(cc, cc.getLongForceBuffer().getSize(), cc.getLongForceBuffer().getElementSize(), "savedForces");
             }
@@ -676,8 +684,10 @@ void CommonIntegrateCustomStepKernel::execute(ContextImpl& context, CustomIntegr
 
     for (int step = 0; step < numSteps; ) {
         int nextStep = step+1;
-        int forceGroups = forceGroupFlags[step];
-        int lastForceGroups = context.getLastForceGroups();
+        //int forceGroups = forceGroupFlags[step];
+        //int lastForceGroups = context.getLastForceGroups();
+        std::vector<int> forceGroups = forceGroupFlags[step];
+        std::vector<int> lastForceGroups = context.getLastForceGroups();
         bool haveForces = (!needsForces[step] || (forcesAreValid && lastForceGroups == forceGroups));
         bool haveEnergy = (!needsEnergy[step] || savedEnergy.find(forceGroups) != savedEnergy.end());
         if (!haveForces || !haveEnergy) {

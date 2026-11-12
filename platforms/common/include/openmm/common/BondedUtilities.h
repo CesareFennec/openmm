@@ -127,7 +127,7 @@ public:
      * 
      * @param groups        a set of bit flags for which force groups to include
      */
-    void computeInteractions(int groups);
+    void computeInteractions(const std::vector<int>& groups);
 private:
     std::string createForceSource(int forceIndex, int numBonds, int numAtoms, int group, const std::string& computeForce);
     ComputeContext& context;
@@ -141,7 +141,8 @@ private:
     std::vector<std::vector<ComputeArray> > atomIndices;
     std::vector<std::string> prefixCode;
     std::vector<std::string> energyParameterDerivatives;
-    int numForceBuffers, maxBonds, allGroups;
+    int numForceBuffers, maxBonds;
+    std::vector<int> allGroups;
     bool hasInitializedKernels, hasInteractions;
 };
 

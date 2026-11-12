@@ -109,7 +109,7 @@ int CompoundIntegrator::getIntegrationForceGroups() const {
     return integrators[currentIntegrator]->getIntegrationForceGroups();
 }
 
-void CompoundIntegrator::setIntegrationForceGroups(int groups) {
+void CompoundIntegrator::setIntegrationForceGroups(const std::vector<int>& groups) {
     for (int i = 0; i < integrators.size(); i++)
         integrators[i]->setIntegrationForceGroups(groups);
 }

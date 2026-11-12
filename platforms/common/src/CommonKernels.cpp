@@ -2712,7 +2712,10 @@ double CommonCalcCustomCVForceKernel::execute(ContextImpl& context, ContextImpl&
     int paddedNumAtoms = cc.getPaddedNumAtoms();
     vector<map<string, double> > cvDerivs(numCVs);
     for (int i = 0; i < numCVs; i++) {
-        cvValues[i] = innerContext.calcForcesAndEnergy(true, true, 1<<i);
+        // Only process the first topology.
+        if (i == 32) break;
+        cvValues[i] = innerContext.calcForcesAndEnergy(true, true, std::vector<int>(1, (1<<i)));
+        //cvValues[i] = innerContext.calcForcesAndEnergy(true, true, 1<<i);
         ContextSelector selector(cc);
         copyForcesKernel->setArg(0, cvForces[i]);
         copyForcesKernel->execute(numAtoms);

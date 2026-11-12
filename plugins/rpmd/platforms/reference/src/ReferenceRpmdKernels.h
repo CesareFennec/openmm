@@ -87,8 +87,10 @@ private:
     std::vector<std::vector<Vec3> > forces;
     std::vector<std::vector<Vec3> > contractedPositions;
     std::vector<std::vector<Vec3> > contractedForces;
-    std::map<int, int> groupsByCopies;
-    int groupsNotContracted;
+    //std::map<int, int> groupsByCopies;
+    //int groupsNotContracted;
+    std::map<int, std::vector<int>> groupsByCopies;
+    std::vector<int> groupsNotContracted;
 };
 
 } // namespace OpenMM

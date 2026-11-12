@@ -135,7 +135,10 @@ void ReferenceCustomCVForce::calculateIxn(ContextImpl& innerContext, vector<Vec3
     vector<vector<Vec3> > cvForces;
     vector<map<string, double> > cvDerivs;
     for (int i = 0; i < numCVs; i++) {
-        cvValues[i] = innerContext.calcForcesAndEnergy(true, true, 1<<i);
+        // Only process the first topology.
+        if (i == 32) break;
+        cvValues[i] = innerContext.calcForcesAndEnergy(true, true, std::vector<int>(1, (1<<i)));            
+        //cvValues[i] = innerContext.calcForcesAndEnergy(true, true, 1<<i);
         cvForces.push_back(innerForces);
         cvDerivs.push_back(innerDerivs);
     }

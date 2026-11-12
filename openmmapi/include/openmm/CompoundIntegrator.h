@@ -194,7 +194,7 @@ public:
      * Calling this method sets the integration force groups for all Integrators
      * containined in this CompoundIntegrator.
      */
-    void setIntegrationForceGroups(int groups);
+    void setIntegrationForceGroups(const std::vector<int>& groups);
 protected:
     /**
      * This will be called by the Context when it is created.  It informs the Integrator

@@ -30,7 +30,7 @@
 using namespace OpenMM;
 using namespace std;
 
-BondedUtilities::BondedUtilities(ComputeContext& context) : context(context), numForceBuffers(0), maxBonds(0), allGroups(0), hasInitializedKernels(false) {
+BondedUtilities::BondedUtilities(ComputeContext& context) : context(context), numForceBuffers(0), maxBonds(0), hasInitializedKernels(false) {
 }
 
 void BondedUtilities::addInteraction(const vector<vector<int> >& atoms, const string& source, int group) {
@@ -38,7 +38,19 @@ void BondedUtilities::addInteraction(const vector<vector<int> >& atoms, const st
         forceAtoms.push_back(atoms);
         forceSource.push_back(source);
         forceGroup.push_back(group);
-        allGroups |= 1<<group;
+        // Get the group of Topology this Force belongs to.
+        int topologyGroup = group / 32;
+        // Get the internal force group in its Topology.
+        int internalForceGroup = group % 32;
+        int allGroup = 1 << internalForceGroup;
+        // A topologyGroup already exists.
+        if (allGroups.size() > topologyGroup)
+            allGroups[topologyGroup] |= allGroup;
+        // A new topologyGroup. 
+        else {
+            allGroups.resize((topologyGroup+1), 0);
+            allGroups.back() = allGroup;
+        }
     }
 }
 
@@ -102,7 +114,7 @@ void BondedUtilities::initialize(const System& system) {
     stringstream s;
     for (int i = 0; i < (int) prefixCode.size(); i++)
         s<<prefixCode[i];
-    s<<"KERNEL void computeBondedForces(GLOBAL mm_ulong* RESTRICT forceBuffer, GLOBAL mixed* RESTRICT energyBuffer, GLOBAL const real4* RESTRICT posq, int groups, real4 periodicBoxSize, real4 invPeriodicBoxSize, real4 periodicBoxVecX, real4 periodicBoxVecY, real4 periodicBoxVecZ";
+    s<<"KERNEL void computeBondedForces(GLOBAL mm_ulong* RESTRICT forceBuffer, GLOBAL mixed* RESTRICT energyBuffer, GLOBAL const real4* RESTRICT posq, GLOBAL const int* RESTRICT groups, real4 periodicBoxSize, real4 invPeriodicBoxSize, real4 periodicBoxVecX, real4 periodicBoxVecY, real4 periodicBoxVecZ";
     for (int force = 0; force < numForces; force++) {
         for (int i = 0; i < (int) atomIndices[force].size(); i++) {
             int indexWidth = atomIndices[force][i].getElementSize()/4;
@@ -141,7 +153,10 @@ string BondedUtilities::createForceSource(int forceIndex, int numBonds, int numA
     string suffix1[] = {""};
     string suffix4[] = {".x", ".y", ".z", ".w"};
     stringstream s;
-    s<<"if ((groups&"<<(1<<group)<<") != 0)\n";
+    int topologyGroup = group / 32 ;
+    // if ((topologyGroup < groups.size()) && (groups[topologyGroup]&(1<<(group-32*topologyGroup))) != 0))
+    // Note that here, the size of groups is groups[0].
+    s<<"if (("<<topologyGroup<<" < "<<"groups[0]) && ((groups["<<(topologyGroup+1)<<"]&"<<(1<<(group-32*topologyGroup))<<") != 0))\n";
     s<<"for (unsigned int index = GLOBAL_ID; index < "<<numBonds<<"; index += GLOBAL_SIZE) {\n";
     int startAtom = 0;
     for (int i = 0; i < (int) atomIndices[forceIndex].size(); i++) {
@@ -167,9 +182,12 @@ string BondedUtilities::createForceSource(int forceIndex, int numBonds, int numA
     return s.str();
 }
 
-void BondedUtilities::computeInteractions(int groups) {
-    if ((groups&allGroups) == 0)
-        return;
+void BondedUtilities::computeInteractions(const std::vector<int>& groups) {
+    int min = std::min<int>(groups.size(), allGroups.size());
+    for (int i = 0; i < min; i++) {
+        if ((groups[i]&allGroups[i]) != 0) break;
+        if (i == (min-1)) return;
+    }
     if (!hasInitializedKernels) {
         hasInitializedKernels = true;
         kernel->addArg(context.getLongForceBuffer());
@@ -187,7 +205,15 @@ void BondedUtilities::computeInteractions(int groups) {
     }
     if (!hasInteractions)
         return;
-    kernel->setArg(3, groups);
+    // Copy groups and insert the size of groups to first position.
+    std::vector<int> copyGroups = groups;
+    copyGroups.insert(copyGroups.begin(), copyGroups.size());
+    // Create a ComputeArray object to store copyGroups (vector<int>).
+    ComputeArray groupsBuffer;
+    groupsBuffer.initialize(context, copyGroups.size(), sizeof(int), "groupsBuffer");
+    // Copy the values in copyGroups (vector<int>) to the device memory.
+    groupsBuffer.upload(copyGroups);
+    kernel->setArg(3, groupsBuffer.getArray());
     Vec3 a, b, c;
     context.getPeriodicBoxVectors(a, b, c);
     if (context.getUseDoublePrecision()) {

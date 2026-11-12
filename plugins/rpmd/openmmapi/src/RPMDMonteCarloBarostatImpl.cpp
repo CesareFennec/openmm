@@ -71,7 +71,7 @@ void RPMDMonteCarloBarostatImpl::updateRPMDState(ContextImpl& context) {
     // Record the initial positions and energy
 
     RPMDIntegrator& integrator = dynamic_cast<RPMDIntegrator&>(context.getIntegrator());
-    int groups = integrator.getIntegrationForceGroups();
+    std::vector<int> groups = integrator.getIntegrationForceGroups();
     double initialEnergy = 0;
     int numCopies = integrator.getNumCopies();
     for (int i = 0; i < numCopies; i++) {

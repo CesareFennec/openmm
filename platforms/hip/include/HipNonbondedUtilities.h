@@ -161,7 +161,7 @@ public:
     /**
      * Prepare to compute interactions.  This updates the neighbor list.
      */
-    void prepareInteractions(int forceGroups);
+    void prepareInteractions(const std::vector<int>& forceGroups);
     /**
      * Compute the nonbonded interactions.
      *
@@ -169,7 +169,7 @@ public:
      * @param includeForces  whether to compute forces
      * @param includeEnergy  whether to compute the potential energy
      */
-    void computeInteractions(int forceGroups, bool includeForces, bool includeEnergy);
+    void computeInteractions(const std::vector<int>& forceGroups, bool includeForces, bool includeEnergy);
     /**
      * Check to see if the neighbor list arrays are large enough, and make them bigger if necessary.
      *
@@ -281,13 +281,13 @@ public:
      * @param includeForces whether this kernel should compute forces
      * @param includeEnergy whether this kernel should compute potential energy
      */
-    hipFunction_t createInteractionKernel(const std::string& source, std::vector<ComputeParameterInfo>& params, std::vector<ComputeParameterInfo>& arguments, bool useExclusions, bool isSymmetric, int groups, bool includeForces, bool includeEnergy);
+    hipFunction_t createInteractionKernel(const std::string& source, std::vector<ComputeParameterInfo>& params, std::vector<ComputeParameterInfo>& arguments, bool useExclusions, bool isSymmetric, const std::vector<int>& groups, bool includeForces, bool includeEnergy);
     /**
      * Create the set of kernels that will be needed for a particular combination of force groups.
      *
      * @param groups    the set of force groups
      */
-    void createKernelsForGroups(int groups);
+    void createKernelsForGroups(const std::vector<int>& groups);
     /**
      * Set the source code for the main kernel.  This defaults to the content of nonbonded.hip.  It only needs to be
      * changed in very unusual circumstances.
@@ -298,7 +298,7 @@ private:
     class BlockSortTrait;
     void initParamArgs();
     HipContext& context;
-    std::map<int, KernelSet> groupKernels;
+    std::map<std::vector<int>, KernelSet> groupKernels;
     HipArray exclusionTiles;
     HipArray exclusions;
     HipArray exclusionIndices;
@@ -331,7 +331,9 @@ private:
     double maxCutoff;
     bool useCutoff, usePeriodic, anyExclusions, usePadding, useNeighborList, forceRebuildNeighborList, canUsePairList, useLargeBlocks, hasInitializedParams;
     int startTileIndex, startBlockIndex, numBlocks, numTilesInBatch, maxExclusions;
-    int numForceThreadBlocks, forceThreadBlockSize, findInteractingBlocksThreadBlockSize, numAtoms, groupFlags, paramStartIndex;
+    int numForceThreadBlocks, forceThreadBlockSize, findInteractingBlocksThreadBlockSize, numAtoms;
+    std::vector<int> groupFlags;
+    int paramStartIndex;
     unsigned int maxTiles, maxSinglePairs, tilesAfterReorder, singlePairsAfterReorder;
     long long numTiles;
     std::string kernelSource;

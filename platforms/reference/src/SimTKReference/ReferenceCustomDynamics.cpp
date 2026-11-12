@@ -173,8 +173,14 @@ void ReferenceCustomDynamics::initialize(ContextImpl& context, vector<double>& m
 
     forceGroupFlags.resize(numSteps, integrator.getIntegrationForceGroups());
     for (int i = 0; i < numSteps; i++)
-        if (forceGroup[i] > -1)
-            forceGroupFlags[i] = 1<<forceGroup[i];
+        // if forceGroup[i] = -1, then compute the force groups defined by Integrator.
+        if (forceGroup[i] > -1) {
+            int topologyGroup = forceGroup[i] / 32;
+            int internalForceGroup = forceGroup[i] % 32;
+            forceGroupFlags[i].resize((topologyGroup+1), 0);
+            forceGroupFlags[i][topologyGroup] = 1<<internalForceGroup;
+        }
+        //  forceGroupFlags[i] = 1<<forceGroup[i];
 
     // Build the list of inverse masses.
 
@@ -241,15 +247,18 @@ void ReferenceCustomDynamics::update(ContextImpl& context, int numberOfAtoms, ve
     for (auto& global : globals)
         expressionSet.setVariable(expressionSet.getVariableIndex(global.first), global.second);
     oldPos = atomCoordinates;
-    map<int, double> groupEnergy;
-    map<int, vector<Vec3> > groupForces;
+    //map<int, double> groupEnergy;
+    //map<int, vector<Vec3> > groupForces;
+    map<std::vector<int>, double> groupEnergy;
+    map<std::vector<int>, vector<Vec3> > groupForces;
     if (forcesAreValid)
         groupForces[context.getLastForceGroups()] = forces;
     
     // Loop over steps and execute them.
     
     for (int step = 0; step < numSteps; ) {
-        int flags = forceGroupFlags[step];
+        //int flags = forceGroupFlags[step];
+        std::vector<int> flags = forceGroupFlags[step];
         if ((needsForces[step] && groupForces.find(flags) == groupForces.end()) || (needsEnergy[step] && groupEnergy.find(flags) == groupEnergy.end())) {
             // Recompute forces and/or energy.
             

@@ -2170,8 +2170,10 @@ double CommonCalcAmoebaVdwForceKernel::execute(ContextImpl& context, bool includ
     cc.getPosq().copyTo(tempPosq);
     cc.getLongForceBuffer().copyTo(tempForces);
     prepareKernel->execute(cc.getPaddedNumAtoms());
-    nonbonded->prepareInteractions(1);
-    nonbonded->computeInteractions(1, includeForces, includeEnergy);
+    //nonbonded->prepareInteractions(1);
+    //nonbonded->computeInteractions(1, includeForces, includeEnergy);
+    nonbonded->prepareInteractions(std::vector<int>(1, 1));
+    nonbonded->computeInteractions(std::vector<int>(1, 1), includeForces, includeEnergy);
     spreadKernel->execute(cc.getPaddedNumAtoms());
     tempPosq.copyTo(cc.getPosq());
     tempForces.copyTo(cc.getLongForceBuffer());
