@@ -49,7 +49,7 @@ void assertIntegratorsEqual(const DrudeNoseHooverIntegrator& integrator1, const 
     ASSERT_EQUAL(integrator1.getConstraintTolerance(), integrator2.getConstraintTolerance());
     ASSERT_EQUAL(integrator1.getMaximumPairDistance(), integrator2.getMaximumPairDistance());
     ASSERT_EQUAL(integrator1.getNumThermostats(), integrator2.getNumThermostats());
-    ASSERT_EQUAL(integrator1.getIntegrationForceGroups(), integrator2.getIntegrationForceGroups());
+    ASSERT_EQUAL_CONTAINERS(integrator1.getIntegrationForceGroups(), integrator2.getIntegrationForceGroups());
     for (int i = 0; i < integrator1.getNumThermostats(); i++) {
         const auto &thermostat1 = integrator1.getThermostat(i);
         const auto &thermostat2 = integrator2.getThermostat(i);
@@ -83,7 +83,7 @@ void testSerialization() {
     system.addForce(new DrudeForce());
     for (int i=0; i<10; i++) system.addParticle(1.0);
     DrudeNoseHooverIntegrator integrator(331, 0.21, 1.1, 0.1, 0.004, 5, 5, 5);
-    integrator.setIntegrationForceGroups(3);
+    integrator.setIntegrationForceGroups(std::vector<int>(1, 3));
 
     // Serialize and then deserialize it.
     stringstream buffer2;

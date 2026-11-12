@@ -50,13 +50,13 @@ using namespace std;
 
 void testSerializeVerletIntegrator() {
     VerletIntegrator *intg = new VerletIntegrator(0.00342);
-    intg->setIntegrationForceGroups(3);
+    intg->setIntegrationForceGroups(std::vector<int>(1, 3));
     stringstream ss;
     XmlSerializer::serialize<Integrator>(intg, "VerletIntegrator", ss);
     VerletIntegrator *intg2 = dynamic_cast<VerletIntegrator*>(XmlSerializer::deserialize<Integrator>(ss));
     ASSERT_EQUAL(intg->getConstraintTolerance(), intg2->getConstraintTolerance());
     ASSERT_EQUAL(intg->getStepSize(), intg2->getStepSize());
-    ASSERT_EQUAL(intg->getIntegrationForceGroups(), intg2->getIntegrationForceGroups());
+    ASSERT_EQUAL_CONTAINERS(intg->getIntegrationForceGroups(), intg2->getIntegrationForceGroups());
     delete intg;
     delete intg2;
 }
@@ -64,7 +64,7 @@ void testSerializeVerletIntegrator() {
 void testSerializeLangevinIntegrator() {
     LangevinIntegrator *intg = new LangevinIntegrator(372.4, 1.234, 0.0018);
     intg->setRandomNumberSeed(10);
-    intg->setIntegrationForceGroups(3);
+    intg->setIntegrationForceGroups(std::vector<int>(1, 3));
     stringstream ss;
     XmlSerializer::serialize<Integrator>(intg, "LangevinIntegrator", ss);
     LangevinIntegrator *intg2 = dynamic_cast<LangevinIntegrator*>(XmlSerializer::deserialize<Integrator>(ss));
@@ -73,7 +73,7 @@ void testSerializeLangevinIntegrator() {
     ASSERT_EQUAL(intg->getTemperature(), intg2->getTemperature());
     ASSERT_EQUAL(intg->getFriction(), intg2->getFriction());
     ASSERT_EQUAL(intg->getRandomNumberSeed(), intg2->getRandomNumberSeed());
-    ASSERT_EQUAL(intg->getIntegrationForceGroups(), intg2->getIntegrationForceGroups());
+    ASSERT_EQUAL_CONTAINERS(intg->getIntegrationForceGroups(), intg2->getIntegrationForceGroups());
     delete intg;
     delete intg2;
 }
@@ -81,7 +81,7 @@ void testSerializeLangevinIntegrator() {
 void testSerializeLangevinMiddleIntegrator() {
     LangevinMiddleIntegrator *intg = new LangevinMiddleIntegrator(372.4, 1.234, 0.0018);
     intg->setRandomNumberSeed(10);
-    intg->setIntegrationForceGroups(3);
+    intg->setIntegrationForceGroups(std::vector<int>(1, 3));
     stringstream ss;
     XmlSerializer::serialize<Integrator>(intg, "LangevinMiddleIntegrator", ss);
     LangevinMiddleIntegrator *intg2 = dynamic_cast<LangevinMiddleIntegrator*>(XmlSerializer::deserialize<Integrator>(ss));
@@ -90,7 +90,7 @@ void testSerializeLangevinMiddleIntegrator() {
     ASSERT_EQUAL(intg->getTemperature(), intg2->getTemperature());
     ASSERT_EQUAL(intg->getFriction(), intg2->getFriction());
     ASSERT_EQUAL(intg->getRandomNumberSeed(), intg2->getRandomNumberSeed());
-    ASSERT_EQUAL(intg->getIntegrationForceGroups(), intg2->getIntegrationForceGroups());
+    ASSERT_EQUAL_CONTAINERS(intg->getIntegrationForceGroups(), intg2->getIntegrationForceGroups());
     delete intg;
     delete intg2;
 }
@@ -98,7 +98,7 @@ void testSerializeLangevinMiddleIntegrator() {
 void testSerializeBrownianIntegrator() {
     BrownianIntegrator *intg = new BrownianIntegrator(243.1, 3.234, 0.0021);
     intg->setRandomNumberSeed(10);
-    intg->setIntegrationForceGroups(3);
+    intg->setIntegrationForceGroups(std::vector<int>(1, 3));
     stringstream ss;
     XmlSerializer::serialize<Integrator>(intg, "BrownianIntegrator", ss);
     BrownianIntegrator *intg2 = dynamic_cast<BrownianIntegrator*>(XmlSerializer::deserialize<Integrator>(ss));
@@ -107,7 +107,7 @@ void testSerializeBrownianIntegrator() {
     ASSERT_EQUAL(intg->getTemperature(), intg2->getTemperature());
     ASSERT_EQUAL(intg->getFriction(), intg2->getFriction());
     ASSERT_EQUAL(intg->getRandomNumberSeed(), intg2->getRandomNumberSeed());
-    ASSERT_EQUAL(intg->getIntegrationForceGroups(), intg2->getIntegrationForceGroups());
+    ASSERT_EQUAL_CONTAINERS(intg->getIntegrationForceGroups(), intg2->getIntegrationForceGroups());
     delete intg;
     delete intg2;
 }
@@ -115,7 +115,7 @@ void testSerializeBrownianIntegrator() {
 void testSerializeVariableVerletIntegrator() {
     VariableVerletIntegrator intg(0.04234);
     intg.setMaximumStepSize(0.32);
-    intg.setIntegrationForceGroups(3);
+    intg.setIntegrationForceGroups(std::vector<int>(1, 3));
     stringstream ss;
     XmlSerializer::serialize<Integrator>(&intg, "VariableVerletIntegrator", ss);
     VariableVerletIntegrator *intg2 = dynamic_cast<VariableVerletIntegrator*>(XmlSerializer::deserialize<Integrator>(ss));
@@ -123,7 +123,7 @@ void testSerializeVariableVerletIntegrator() {
     ASSERT_EQUAL(intg.getStepSize(), intg2->getStepSize());
     ASSERT_EQUAL(intg.getErrorTolerance(), intg2->getErrorTolerance());
     ASSERT_EQUAL(intg.getMaximumStepSize(), intg2->getMaximumStepSize());
-    ASSERT_EQUAL(intg.getIntegrationForceGroups(), intg2->getIntegrationForceGroups());
+    ASSERT_EQUAL_CONTAINERS(intg.getIntegrationForceGroups(), intg2->getIntegrationForceGroups());
     delete intg2;
 }
 
@@ -131,7 +131,7 @@ void testSerializeVariableLangevinIntegrator() {
     VariableLangevinIntegrator intg(243.1, 3.234, 0.0021);
     intg.setMaximumStepSize(0.32);
     intg.setRandomNumberSeed(10);
-    intg.setIntegrationForceGroups(3);
+    intg.setIntegrationForceGroups(std::vector<int>(1, 3));
     stringstream ss;
     XmlSerializer::serialize<Integrator>(&intg, "VariableLangevinIntegrator", ss);
     VariableLangevinIntegrator *intg2 = dynamic_cast<VariableLangevinIntegrator*>(XmlSerializer::deserialize<Integrator>(ss));
@@ -142,14 +142,14 @@ void testSerializeVariableLangevinIntegrator() {
     ASSERT_EQUAL(intg.getTemperature(), intg2->getTemperature());
     ASSERT_EQUAL(intg.getRandomNumberSeed(), intg2->getRandomNumberSeed());
     ASSERT_EQUAL(intg.getMaximumStepSize(), intg2->getMaximumStepSize());
-    ASSERT_EQUAL(intg.getIntegrationForceGroups(), intg2->getIntegrationForceGroups());
+    ASSERT_EQUAL_CONTAINERS(intg.getIntegrationForceGroups(), intg2->getIntegrationForceGroups());
     delete intg2;
 }
 
 void testSerializeCustomIntegrator() {
     CustomIntegrator *intg = new CustomIntegrator(0.002234);
     intg->setRandomNumberSeed(10);
-    intg->setIntegrationForceGroups(3);
+    intg->setIntegrationForceGroups(std::vector<int>(1, 3));
     intg->addPerDofVariable("temp",0);
     vector<Vec3> initialValues(123);
     for(int i = 0; i < 123; i++)
@@ -225,7 +225,7 @@ void testSerializeCustomIntegrator() {
     }
     ASSERT_EQUAL(intg->getKineticEnergyExpression(), intg2->getKineticEnergyExpression());
     ASSERT_EQUAL(intg->getRandomNumberSeed(), intg2->getRandomNumberSeed());
-    ASSERT_EQUAL(intg->getIntegrationForceGroups(), intg2->getIntegrationForceGroups());
+    ASSERT_EQUAL_CONTAINERS(intg->getIntegrationForceGroups(), intg2->getIntegrationForceGroups());
     ASSERT_EQUAL(intg->getStepSize(), intg2->getStepSize());
     ASSERT_EQUAL(intg->getConstraintTolerance(), intg2->getConstraintTolerance());
     ASSERT_EQUAL(intg->getNumTabulatedFunctions(), intg2->getNumTabulatedFunctions());
@@ -250,12 +250,12 @@ void testSerializeCompoundIntegrator() {
     integ.addIntegrator(new LangevinIntegrator(372.4, 1.234, 0.0018));
     integ.addIntegrator(new VerletIntegrator(0.002));
     integ.setCurrentIntegrator(1);
-    integ.setIntegrationForceGroups(3);
+    integ.setIntegrationForceGroups(std::vector<int>(1, 3));
     stringstream ss;
     XmlSerializer::serialize<Integrator>(&integ, "CompoundIntegrator", ss);
     CompoundIntegrator *integ2 = dynamic_cast<CompoundIntegrator*>(XmlSerializer::deserialize<Integrator>(ss));
     ASSERT_EQUAL(integ.getCurrentIntegrator(), integ2->getCurrentIntegrator());
-    ASSERT_EQUAL(integ.getIntegrationForceGroups(), integ2->getIntegrationForceGroups());
+    ASSERT_EQUAL_CONTAINERS(integ.getIntegrationForceGroups(), integ2->getIntegrationForceGroups());
     LangevinIntegrator& langevin1 = dynamic_cast<LangevinIntegrator&>(integ.getIntegrator(0));
     LangevinIntegrator& langevin2 = dynamic_cast<LangevinIntegrator&>(integ2->getIntegrator(0));
     ASSERT_EQUAL(langevin1.getConstraintTolerance(), langevin2.getConstraintTolerance());

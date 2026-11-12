@@ -45,7 +45,7 @@ void testSerialization() {
     integ.setCutoffFrequency(600.0);
     integ.setDefaultAdaptationRate(0.02);
     integ.setRandomNumberSeed(10);
-    integ.setIntegrationForceGroups(3);
+    integ.setIntegrationForceGroups(std::vector<int>(1, 3));
     for (int i = 0; i < 5; i++)
         integ.setParticleType(i, i%3);
     for (int i = 0; i < 3; i++)
@@ -62,7 +62,7 @@ void testSerialization() {
     ASSERT_EQUAL(integ.getCutoffFrequency(), integ2.getCutoffFrequency());
     ASSERT_EQUAL(integ.getDefaultAdaptationRate(), integ2.getDefaultAdaptationRate());
     ASSERT_EQUAL(integ.getRandomNumberSeed(), integ2.getRandomNumberSeed());
-    ASSERT_EQUAL(integ.getIntegrationForceGroups(), integ2.getIntegrationForceGroups());
+    ASSERT_EQUAL_CONTAINERS(integ.getIntegrationForceGroups(), integ2.getIntegrationForceGroups());
     ASSERT_EQUAL_CONTAINERS(integ.getParticleTypes(), integ2.getParticleTypes());
     ASSERT_EQUAL_CONTAINERS(integ.getTypeAdaptationRates(), integ2.getTypeAdaptationRates());
     delete copy;

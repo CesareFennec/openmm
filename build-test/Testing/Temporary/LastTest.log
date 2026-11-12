@@ -1,0 +1,2378 @@
+Start testing: Nov 11 13:50 CST
+----------------------------------------------------------
+50/148 Testing: TestReferenceVariableLangevinIntegrator
+50/148 Test: TestReferenceVariableLangevinIntegrator
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceVariableLangevinIntegrator"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceVariableLangevinIntegrator" start time: Nov 11 13:50 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  18.46 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceVariableLangevinIntegrator" end time: Nov 11 13:50 CST
+"TestReferenceVariableLangevinIntegrator" time elapsed: 00:00:18
+----------------------------------------------------------
+
+19/148 Testing: TestReferenceCustomManyParticleForce
+19/148 Test: TestReferenceCustomManyParticleForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceCustomManyParticleForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceCustomManyParticleForce" start time: Nov 11 13:50 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  23.55 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomManyParticleForce" end time: Nov 11 13:50 CST
+"TestReferenceCustomManyParticleForce" time elapsed: 00:00:23
+----------------------------------------------------------
+
+20/148 Testing: TestReferenceCustomNonbondedForce
+20/148 Test: TestReferenceCustomNonbondedForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceCustomNonbondedForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceCustomNonbondedForce" start time: Nov 11 13:50 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  30.32 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomNonbondedForce" end time: Nov 11 13:50 CST
+"TestReferenceCustomNonbondedForce" time elapsed: 00:00:30
+----------------------------------------------------------
+
+22/148 Testing: TestReferenceDPDIntegrator
+22/148 Test: TestReferenceDPDIntegrator
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceDPDIntegrator"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceDPDIntegrator" start time: Nov 11 13:50 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  17.12 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceDPDIntegrator" end time: Nov 11 13:50 CST
+"TestReferenceDPDIntegrator" time elapsed: 00:00:17
+----------------------------------------------------------
+
+8/148 Testing: TestReferenceConstantPotentialForce
+8/148 Test: TestReferenceConstantPotentialForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceConstantPotentialForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceConstantPotentialForce" start time: Nov 11 13:50 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  18.91 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceConstantPotentialForce" end time: Nov 11 13:50 CST
+"TestReferenceConstantPotentialForce" time elapsed: 00:00:18
+----------------------------------------------------------
+
+131/148 Testing: TestReferenceDrudeLangevinIntegrator
+131/148 Test: TestReferenceDrudeLangevinIntegrator
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceDrudeLangevinIntegrator"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/plugins/drude/platforms/reference/tests
+"TestReferenceDrudeLangevinIntegrator" start time: Nov 11 13:50 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  14.58 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceDrudeLangevinIntegrator" end time: Nov 11 13:50 CST
+"TestReferenceDrudeLangevinIntegrator" time elapsed: 00:00:14
+----------------------------------------------------------
+
+37/148 Testing: TestReferenceMonteCarloMembraneBarostat
+37/148 Test: TestReferenceMonteCarloMembraneBarostat
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceMonteCarloMembraneBarostat"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceMonteCarloMembraneBarostat" start time: Nov 11 13:50 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  11.77 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceMonteCarloMembraneBarostat" end time: Nov 11 13:50 CST
+"TestReferenceMonteCarloMembraneBarostat" time elapsed: 00:00:11
+----------------------------------------------------------
+
+36/148 Testing: TestReferenceMonteCarloFlexibleBarostat
+36/148 Test: TestReferenceMonteCarloFlexibleBarostat
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceMonteCarloFlexibleBarostat"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceMonteCarloFlexibleBarostat" start time: Nov 11 13:50 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   7.04 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceMonteCarloFlexibleBarostat" end time: Nov 11 13:51 CST
+"TestReferenceMonteCarloFlexibleBarostat" time elapsed: 00:00:07
+----------------------------------------------------------
+
+35/148 Testing: TestReferenceMonteCarloBarostat
+35/148 Test: TestReferenceMonteCarloBarostat
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceMonteCarloBarostat"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceMonteCarloBarostat" start time: Nov 11 13:50 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  10.63 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceMonteCarloBarostat" end time: Nov 11 13:51 CST
+"TestReferenceMonteCarloBarostat" time elapsed: 00:00:10
+----------------------------------------------------------
+
+133/148 Testing: TestReferenceDrudeSCFIntegrator
+133/148 Test: TestReferenceDrudeSCFIntegrator
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceDrudeSCFIntegrator"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/plugins/drude/platforms/reference/tests
+"TestReferenceDrudeSCFIntegrator" start time: Nov 11 13:50 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   6.32 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceDrudeSCFIntegrator" end time: Nov 11 13:51 CST
+"TestReferenceDrudeSCFIntegrator" time elapsed: 00:00:06
+----------------------------------------------------------
+
+30/148 Testing: TestReferenceLCPOForce
+30/148 Test: TestReferenceLCPOForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceLCPOForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceLCPOForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   5.08 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceLCPOForce" end time: Nov 11 13:51 CST
+"TestReferenceLCPOForce" time elapsed: 00:00:05
+----------------------------------------------------------
+
+116/148 Testing: TestReferenceAmoebaGeneralizedKirkwoodForce
+116/148 Test: TestReferenceAmoebaGeneralizedKirkwoodForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceAmoebaGeneralizedKirkwoodForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/plugins/amoeba/platforms/reference/tests
+"TestReferenceAmoebaGeneralizedKirkwoodForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   4.87 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceAmoebaGeneralizedKirkwoodForce" end time: Nov 11 13:51 CST
+"TestReferenceAmoebaGeneralizedKirkwoodForce" time elapsed: 00:00:04
+----------------------------------------------------------
+
+34/148 Testing: TestReferenceMonteCarloAnisotropicBarostat
+34/148 Test: TestReferenceMonteCarloAnisotropicBarostat
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceMonteCarloAnisotropicBarostat"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceMonteCarloAnisotropicBarostat" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   7.23 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceMonteCarloAnisotropicBarostat" end time: Nov 11 13:51 CST
+"TestReferenceMonteCarloAnisotropicBarostat" time elapsed: 00:00:07
+----------------------------------------------------------
+
+44/148 Testing: TestReferenceQTBIntegrator
+44/148 Test: TestReferenceQTBIntegrator
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceQTBIntegrator"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceQTBIntegrator" start time: Nov 11 13:50 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  60.46 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceQTBIntegrator" end time: Nov 11 13:51 CST
+"TestReferenceQTBIntegrator" time elapsed: 00:01:00
+----------------------------------------------------------
+
+132/148 Testing: TestReferenceDrudeNoseHoover
+132/148 Test: TestReferenceDrudeNoseHoover
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceDrudeNoseHoover"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/plugins/drude/platforms/reference/tests
+"TestReferenceDrudeNoseHoover" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   3.62 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceDrudeNoseHoover" end time: Nov 11 13:51 CST
+"TestReferenceDrudeNoseHoover" time elapsed: 00:00:03
+----------------------------------------------------------
+
+17/148 Testing: TestReferenceCustomHbondForce
+17/148 Test: TestReferenceCustomHbondForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceCustomHbondForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceCustomHbondForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   2.83 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomHbondForce" end time: Nov 11 13:51 CST
+"TestReferenceCustomHbondForce" time elapsed: 00:00:02
+----------------------------------------------------------
+
+51/148 Testing: TestReferenceVariableVerletIntegrator
+51/148 Test: TestReferenceVariableVerletIntegrator
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceVariableVerletIntegrator"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceVariableVerletIntegrator" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   3.54 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceVariableVerletIntegrator" end time: Nov 11 13:51 CST
+"TestReferenceVariableVerletIntegrator" time elapsed: 00:00:03
+----------------------------------------------------------
+
+40/148 Testing: TestReferenceNoseHooverIntegrator
+40/148 Test: TestReferenceNoseHooverIntegrator
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceNoseHooverIntegrator"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceNoseHooverIntegrator" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   1.84 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceNoseHooverIntegrator" end time: Nov 11 13:51 CST
+"TestReferenceNoseHooverIntegrator" time elapsed: 00:00:01
+----------------------------------------------------------
+
+115/148 Testing: TestReferenceAmoebaExtrapolatedPolarization
+115/148 Test: TestReferenceAmoebaExtrapolatedPolarization
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceAmoebaExtrapolatedPolarization"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/plugins/amoeba/platforms/reference/tests
+"TestReferenceAmoebaExtrapolatedPolarization" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.26 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceAmoebaExtrapolatedPolarization" end time: Nov 11 13:51 CST
+"TestReferenceAmoebaExtrapolatedPolarization" time elapsed: 00:00:00
+----------------------------------------------------------
+
+52/148 Testing: TestReferenceVerletIntegrator
+52/148 Test: TestReferenceVerletIntegrator
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceVerletIntegrator"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceVerletIntegrator" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.33 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceVerletIntegrator" end time: Nov 11 13:51 CST
+"TestReferenceVerletIntegrator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+25/148 Testing: TestReferenceGBSAOBCForce
+25/148 Test: TestReferenceGBSAOBCForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceGBSAOBCForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceGBSAOBCForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   1.08 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceGBSAOBCForce" end time: Nov 11 13:51 CST
+"TestReferenceGBSAOBCForce" time elapsed: 00:00:01
+----------------------------------------------------------
+
+1/148 Testing: TestReferenceATMForce
+1/148 Test: TestReferenceATMForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceATMForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceATMForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   1.02 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceATMForce" end time: Nov 11 13:51 CST
+"TestReferenceATMForce" time elapsed: 00:00:01
+----------------------------------------------------------
+
+53/148 Testing: TestReferenceVirtualSites
+53/148 Test: TestReferenceVirtualSites
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceVirtualSites"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceVirtualSites" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   1.57 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceVirtualSites" end time: Nov 11 13:51 CST
+"TestReferenceVirtualSites" time elapsed: 00:00:01
+----------------------------------------------------------
+
+33/148 Testing: TestReferenceLocalEnergyMinimizer
+33/148 Test: TestReferenceLocalEnergyMinimizer
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceLocalEnergyMinimizer"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceLocalEnergyMinimizer" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.94 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceLocalEnergyMinimizer" end time: Nov 11 13:51 CST
+"TestReferenceLocalEnergyMinimizer" time elapsed: 00:00:00
+----------------------------------------------------------
+
+117/148 Testing: TestReferenceAmoebaMultipoleForce
+117/148 Test: TestReferenceAmoebaMultipoleForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceAmoebaMultipoleForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/plugins/amoeba/platforms/reference/tests
+"TestReferenceAmoebaMultipoleForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.72 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceAmoebaMultipoleForce" end time: Nov 11 13:51 CST
+"TestReferenceAmoebaMultipoleForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+18/148 Testing: TestReferenceCustomIntegrator
+18/148 Test: TestReferenceCustomIntegrator
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceCustomIntegrator"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceCustomIntegrator" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.86 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomIntegrator" end time: Nov 11 13:51 CST
+"TestReferenceCustomIntegrator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+24/148 Testing: TestReferenceEwald
+24/148 Test: TestReferenceEwald
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceEwald"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceEwald" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   1.13 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceEwald" end time: Nov 11 13:51 CST
+"TestReferenceEwald" time elapsed: 00:00:01
+----------------------------------------------------------
+
+32/148 Testing: TestReferenceLangevinMiddleIntegrator
+32/148 Test: TestReferenceLangevinMiddleIntegrator
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceLangevinMiddleIntegrator"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceLangevinMiddleIntegrator" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.58 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceLangevinMiddleIntegrator" end time: Nov 11 13:51 CST
+"TestReferenceLangevinMiddleIntegrator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+23/148 Testing: TestReferenceDispersionPME
+23/148 Test: TestReferenceDispersionPME
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceDispersionPME"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceDispersionPME" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.70 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceDispersionPME" end time: Nov 11 13:51 CST
+"TestReferenceDispersionPME" time elapsed: 00:00:00
+----------------------------------------------------------
+
+48/148 Testing: TestReferenceRandom
+48/148 Test: TestReferenceRandom
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceRandom"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceRandom" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.23 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceRandom" end time: Nov 11 13:51 CST
+"TestReferenceRandom" time elapsed: 00:00:00
+----------------------------------------------------------
+
+120/148 Testing: TestReferenceHippoNonbondedForce
+120/148 Test: TestReferenceHippoNonbondedForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceHippoNonbondedForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/plugins/amoeba/platforms/reference/tests
+"TestReferenceHippoNonbondedForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.44 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceHippoNonbondedForce" end time: Nov 11 13:51 CST
+"TestReferenceHippoNonbondedForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/148 Testing: TestReferenceAndersenThermostat
+2/148 Test: TestReferenceAndersenThermostat
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceAndersenThermostat"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceAndersenThermostat" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.13 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceAndersenThermostat" end time: Nov 11 13:51 CST
+"TestReferenceAndersenThermostat" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/148 Testing: TestReferenceCheckpoints
+6/148 Test: TestReferenceCheckpoints
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceCheckpoints"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceCheckpoints" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.28 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCheckpoints" end time: Nov 11 13:51 CST
+"TestReferenceCheckpoints" time elapsed: 00:00:00
+----------------------------------------------------------
+
+16/148 Testing: TestReferenceCustomGBForce
+16/148 Test: TestReferenceCustomGBForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceCustomGBForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceCustomGBForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.19 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomGBForce" end time: Nov 11 13:51 CST
+"TestReferenceCustomGBForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/148 Testing: TestReferenceBrownianIntegrator
+3/148 Test: TestReferenceBrownianIntegrator
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceBrownianIntegrator"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceBrownianIntegrator" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.10 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceBrownianIntegrator" end time: Nov 11 13:51 CST
+"TestReferenceBrownianIntegrator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+47/148 Testing: TestReferenceRMSDForce
+47/148 Test: TestReferenceRMSDForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceRMSDForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceRMSDForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.12 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceRMSDForce" end time: Nov 11 13:51 CST
+"TestReferenceRMSDForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+39/148 Testing: TestReferenceNonbondedForce
+39/148 Test: TestReferenceNonbondedForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceNonbondedForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceNonbondedForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.72 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceNonbondedForce" end time: Nov 11 13:51 CST
+"TestReferenceNonbondedForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+119/148 Testing: TestReferenceAmoebaVdwForce
+119/148 Test: TestReferenceAmoebaVdwForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceAmoebaVdwForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/plugins/amoeba/platforms/reference/tests
+"TestReferenceAmoebaVdwForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.11 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceAmoebaVdwForce" end time: Nov 11 13:51 CST
+"TestReferenceAmoebaVdwForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+14/148 Testing: TestReferenceCustomCompoundBondForce
+14/148 Test: TestReferenceCustomCompoundBondForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceCustomCompoundBondForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceCustomCompoundBondForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.08 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomCompoundBondForce" end time: Nov 11 13:51 CST
+"TestReferenceCustomCompoundBondForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+46/148 Testing: TestReferenceRGForce
+46/148 Test: TestReferenceRGForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceRGForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceRGForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceRGForce" end time: Nov 11 13:51 CST
+"TestReferenceRGForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+13/148 Testing: TestReferenceCustomCentroidBondForce
+13/148 Test: TestReferenceCustomCentroidBondForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceCustomCentroidBondForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceCustomCentroidBondForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomCentroidBondForce" end time: Nov 11 13:51 CST
+"TestReferenceCustomCentroidBondForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+49/148 Testing: TestReferenceSettle
+49/148 Test: TestReferenceSettle
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceSettle"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceSettle" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceSettle" end time: Nov 11 13:51 CST
+"TestReferenceSettle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+41/148 Testing: TestReferenceOrientationRestraintForce
+41/148 Test: TestReferenceOrientationRestraintForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceOrientationRestraintForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceOrientationRestraintForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.12 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceOrientationRestraintForce" end time: Nov 11 13:51 CST
+"TestReferenceOrientationRestraintForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+38/148 Testing: TestReferenceNeighborList
+38/148 Test: TestReferenceNeighborList
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceNeighborList"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceNeighborList" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceNeighborList" end time: Nov 11 13:51 CST
+"TestReferenceNeighborList" time elapsed: 00:00:00
+----------------------------------------------------------
+
+45/148 Testing: TestReferenceRBTorsionForce
+45/148 Test: TestReferenceRBTorsionForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceRBTorsionForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceRBTorsionForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceRBTorsionForce" end time: Nov 11 13:51 CST
+"TestReferenceRBTorsionForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+31/148 Testing: TestReferenceLangevinIntegrator
+31/148 Test: TestReferenceLangevinIntegrator
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceLangevinIntegrator"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceLangevinIntegrator" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceLangevinIntegrator" end time: Nov 11 13:51 CST
+"TestReferenceLangevinIntegrator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/148 Testing: TestReferenceCompoundIntegrator
+7/148 Test: TestReferenceCompoundIntegrator
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceCompoundIntegrator"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceCompoundIntegrator" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCompoundIntegrator" end time: Nov 11 13:51 CST
+"TestReferenceCompoundIntegrator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+26/148 Testing: TestReferenceGayBerneForce
+26/148 Test: TestReferenceGayBerneForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceGayBerneForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceGayBerneForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceGayBerneForce" end time: Nov 11 13:51 CST
+"TestReferenceGayBerneForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/148 Testing: TestReferenceCMAPTorsionForce
+4/148 Test: TestReferenceCMAPTorsionForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceCMAPTorsionForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceCMAPTorsionForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCMAPTorsionForce" end time: Nov 11 13:51 CST
+"TestReferenceCMAPTorsionForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/148 Testing: TestReferenceCustomBondForce
+10/148 Test: TestReferenceCustomBondForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceCustomBondForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceCustomBondForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomBondForce" end time: Nov 11 13:51 CST
+"TestReferenceCustomBondForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+21/148 Testing: TestReferenceCustomTorsionForce
+21/148 Test: TestReferenceCustomTorsionForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceCustomTorsionForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceCustomTorsionForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomTorsionForce" end time: Nov 11 13:51 CST
+"TestReferenceCustomTorsionForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+15/148 Testing: TestReferenceCustomExternalForce
+15/148 Test: TestReferenceCustomExternalForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceCustomExternalForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceCustomExternalForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomExternalForce" end time: Nov 11 13:51 CST
+"TestReferenceCustomExternalForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+12/148 Testing: TestReferenceCustomCVForce
+12/148 Test: TestReferenceCustomCVForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceCustomCVForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceCustomCVForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomCVForce" end time: Nov 11 13:51 CST
+"TestReferenceCustomCVForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+118/148 Testing: TestReferenceAmoebaTorsionTorsionForce
+118/148 Test: TestReferenceAmoebaTorsionTorsionForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceAmoebaTorsionTorsionForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/plugins/amoeba/platforms/reference/tests
+"TestReferenceAmoebaTorsionTorsionForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceAmoebaTorsionTorsionForce" end time: Nov 11 13:51 CST
+"TestReferenceAmoebaTorsionTorsionForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/148 Testing: TestReferenceCustomAngleForce
+9/148 Test: TestReferenceCustomAngleForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceCustomAngleForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceCustomAngleForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomAngleForce" end time: Nov 11 13:51 CST
+"TestReferenceCustomAngleForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+130/148 Testing: TestReferenceDrudeForce
+130/148 Test: TestReferenceDrudeForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceDrudeForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/plugins/drude/platforms/reference/tests
+"TestReferenceDrudeForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceDrudeForce" end time: Nov 11 13:51 CST
+"TestReferenceDrudeForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/148 Testing: TestReferenceCMMotionRemover
+5/148 Test: TestReferenceCMMotionRemover
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceCMMotionRemover"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceCMMotionRemover" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCMMotionRemover" end time: Nov 11 13:51 CST
+"TestReferenceCMMotionRemover" time elapsed: 00:00:00
+----------------------------------------------------------
+
+11/148 Testing: TestReferenceCustomCPPForce
+11/148 Test: TestReferenceCustomCPPForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceCustomCPPForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceCustomCPPForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceCustomCPPForce" end time: Nov 11 13:51 CST
+"TestReferenceCustomCPPForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+42/148 Testing: TestReferencePeriodicTorsionForce
+42/148 Test: TestReferencePeriodicTorsionForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferencePeriodicTorsionForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferencePeriodicTorsionForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferencePeriodicTorsionForce" end time: Nov 11 13:51 CST
+"TestReferencePeriodicTorsionForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+121/148 Testing: TestReferenceWcaDispersionForce
+121/148 Test: TestReferenceWcaDispersionForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceWcaDispersionForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/plugins/amoeba/platforms/reference/tests
+"TestReferenceWcaDispersionForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceWcaDispersionForce" end time: Nov 11 13:51 CST
+"TestReferenceWcaDispersionForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+27/148 Testing: TestReferenceHarmonicAngleForce
+27/148 Test: TestReferenceHarmonicAngleForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceHarmonicAngleForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceHarmonicAngleForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceHarmonicAngleForce" end time: Nov 11 13:51 CST
+"TestReferenceHarmonicAngleForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+28/148 Testing: TestReferenceHarmonicBondForce
+28/148 Test: TestReferenceHarmonicBondForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceHarmonicBondForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceHarmonicBondForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceHarmonicBondForce" end time: Nov 11 13:51 CST
+"TestReferenceHarmonicBondForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+29/148 Testing: TestReferenceKineticEnergy
+29/148 Test: TestReferenceKineticEnergy
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceKineticEnergy"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferenceKineticEnergy" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceKineticEnergy" end time: Nov 11 13:51 CST
+"TestReferenceKineticEnergy" time elapsed: 00:00:00
+----------------------------------------------------------
+
+43/148 Testing: TestReferencePythonForce
+43/148 Test: TestReferencePythonForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferencePythonForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/reference/tests
+"TestReferencePythonForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferencePythonForce" end time: Nov 11 13:51 CST
+"TestReferencePythonForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+57/148 Testing: TestCpuCustomCPPForce
+57/148 Test: TestCpuCustomCPPForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestCpuCustomCPPForce" "single"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/cpu/tests
+"TestCpuCustomCPPForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestCpuCustomCPPForce" end time: Nov 11 13:51 CST
+"TestCpuCustomCPPForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+58/148 Testing: TestCpuCustomGBForce
+58/148 Test: TestCpuCustomGBForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestCpuCustomGBForce" "single"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/cpu/tests
+"TestCpuCustomGBForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.46 sec
+----------------------------------------------------------
+Test Passed.
+"TestCpuCustomGBForce" end time: Nov 11 13:51 CST
+"TestCpuCustomGBForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+54/148 Testing: TestCpuCheckpoints
+54/148 Test: TestCpuCheckpoints
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestCpuCheckpoints" "single"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/cpu/tests
+"TestCpuCheckpoints" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.58 sec
+----------------------------------------------------------
+Test Passed.
+"TestCpuCheckpoints" end time: Nov 11 13:51 CST
+"TestCpuCheckpoints" time elapsed: 00:00:00
+----------------------------------------------------------
+
+56/148 Testing: TestCpuConstantPotentialForce
+56/148 Test: TestCpuConstantPotentialForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestCpuConstantPotentialForce" "single"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/cpu/tests
+"TestCpuConstantPotentialForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   8.46 sec
+----------------------------------------------------------
+Test Passed.
+"TestCpuConstantPotentialForce" end time: Nov 11 13:51 CST
+"TestCpuConstantPotentialForce" time elapsed: 00:00:08
+----------------------------------------------------------
+
+61/148 Testing: TestCpuDispersionPME
+61/148 Test: TestCpuDispersionPME
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestCpuDispersionPME" "single"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/cpu/tests
+"TestCpuDispersionPME" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.62 sec
+----------------------------------------------------------
+Test Passed.
+"TestCpuDispersionPME" end time: Nov 11 13:51 CST
+"TestCpuDispersionPME" time elapsed: 00:00:00
+----------------------------------------------------------
+
+62/148 Testing: TestCpuEwald
+62/148 Test: TestCpuEwald
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestCpuEwald" "single"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/cpu/tests
+"TestCpuEwald" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.70 sec
+----------------------------------------------------------
+Test Passed.
+"TestCpuEwald" end time: Nov 11 13:51 CST
+"TestCpuEwald" time elapsed: 00:00:00
+----------------------------------------------------------
+
+60/148 Testing: TestCpuCustomNonbondedForce
+60/148 Test: TestCpuCustomNonbondedForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestCpuCustomNonbondedForce" "single"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/cpu/tests
+"TestCpuCustomNonbondedForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   9.35 sec
+----------------------------------------------------------
+Test Passed.
+"TestCpuCustomNonbondedForce" end time: Nov 11 13:51 CST
+"TestCpuCustomNonbondedForce" time elapsed: 00:00:09
+----------------------------------------------------------
+
+63/148 Testing: TestCpuGBSAOBCForce
+63/148 Test: TestCpuGBSAOBCForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestCpuGBSAOBCForce" "single"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/cpu/tests
+"TestCpuGBSAOBCForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.65 sec
+----------------------------------------------------------
+Test Passed.
+"TestCpuGBSAOBCForce" end time: Nov 11 13:51 CST
+"TestCpuGBSAOBCForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+65/148 Testing: TestCpuHarmonicAngleForce
+65/148 Test: TestCpuHarmonicAngleForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestCpuHarmonicAngleForce" "single"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/cpu/tests
+"TestCpuHarmonicAngleForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestCpuHarmonicAngleForce" end time: Nov 11 13:51 CST
+"TestCpuHarmonicAngleForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+64/148 Testing: TestCpuGayBerneForce
+64/148 Test: TestCpuGayBerneForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestCpuGayBerneForce" "single"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/cpu/tests
+"TestCpuGayBerneForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.74 sec
+----------------------------------------------------------
+Test Passed.
+"TestCpuGayBerneForce" end time: Nov 11 13:51 CST
+"TestCpuGayBerneForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+66/148 Testing: TestCpuLCPOForce
+66/148 Test: TestCpuLCPOForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestCpuLCPOForce" "single"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/cpu/tests
+"TestCpuLCPOForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   2.86 sec
+----------------------------------------------------------
+Test Passed.
+"TestCpuLCPOForce" end time: Nov 11 13:51 CST
+"TestCpuLCPOForce" time elapsed: 00:00:02
+----------------------------------------------------------
+
+59/148 Testing: TestCpuCustomManyParticleForce
+59/148 Test: TestCpuCustomManyParticleForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestCpuCustomManyParticleForce" "single"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/cpu/tests
+"TestCpuCustomManyParticleForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  15.69 sec
+----------------------------------------------------------
+Test Passed.
+"TestCpuCustomManyParticleForce" end time: Nov 11 13:51 CST
+"TestCpuCustomManyParticleForce" time elapsed: 00:00:15
+----------------------------------------------------------
+
+128/148 Testing: TestReferenceRpmd
+128/148 Test: TestReferenceRpmd
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceRpmd"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/plugins/rpmd/platforms/reference/tests
+"TestReferenceRpmd" start time: Nov 11 13:50 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  82.99 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceRpmd" end time: Nov 11 13:51 CST
+"TestReferenceRpmd" time elapsed: 00:01:22
+----------------------------------------------------------
+
+70/148 Testing: TestCpuNeighborList
+70/148 Test: TestCpuNeighborList
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestCpuNeighborList" "single"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/cpu/tests
+"TestCpuNeighborList" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Passed.
+"TestCpuNeighborList" end time: Nov 11 13:51 CST
+"TestCpuNeighborList" time elapsed: 00:00:00
+----------------------------------------------------------
+
+69/148 Testing: TestCpuLocalEnergyMinimizer
+69/148 Test: TestCpuLocalEnergyMinimizer
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestCpuLocalEnergyMinimizer" "single"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/cpu/tests
+"TestCpuLocalEnergyMinimizer" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   7.88 sec
+----------------------------------------------------------
+Test Passed.
+"TestCpuLocalEnergyMinimizer" end time: Nov 11 13:51 CST
+"TestCpuLocalEnergyMinimizer" time elapsed: 00:00:07
+----------------------------------------------------------
+
+72/148 Testing: TestCpuPeriodicTorsionForce
+72/148 Test: TestCpuPeriodicTorsionForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestCpuPeriodicTorsionForce" "single"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/cpu/tests
+"TestCpuPeriodicTorsionForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"TestCpuPeriodicTorsionForce" end time: Nov 11 13:51 CST
+"TestCpuPeriodicTorsionForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+73/148 Testing: TestCpuRBTorsionForce
+73/148 Test: TestCpuRBTorsionForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestCpuRBTorsionForce" "single"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/cpu/tests
+"TestCpuRBTorsionForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"TestCpuRBTorsionForce" end time: Nov 11 13:51 CST
+"TestCpuRBTorsionForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+71/148 Testing: TestCpuNonbondedForce
+71/148 Test: TestCpuNonbondedForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestCpuNonbondedForce" "single"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/cpu/tests
+"TestCpuNonbondedForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   8.16 sec
+----------------------------------------------------------
+Test Passed.
+"TestCpuNonbondedForce" end time: Nov 11 13:51 CST
+"TestCpuNonbondedForce" time elapsed: 00:00:08
+----------------------------------------------------------
+
+75/148 Testing: TestSerializationNode
+75/148 Test: TestSerializationNode
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializationNode"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializationNode" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializationNode" end time: Nov 11 13:51 CST
+"TestSerializationNode" time elapsed: 00:00:00
+----------------------------------------------------------
+
+76/148 Testing: TestSerializeATMForce
+76/148 Test: TestSerializeATMForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeATMForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeATMForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeATMForce" end time: Nov 11 13:51 CST
+"TestSerializeATMForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+77/148 Testing: TestSerializeAndersenThermostat
+77/148 Test: TestSerializeAndersenThermostat
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeAndersenThermostat"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeAndersenThermostat" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeAndersenThermostat" end time: Nov 11 13:51 CST
+"TestSerializeAndersenThermostat" time elapsed: 00:00:00
+----------------------------------------------------------
+
+78/148 Testing: TestSerializeCMAPTorsion
+78/148 Test: TestSerializeCMAPTorsion
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeCMAPTorsion"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeCMAPTorsion" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeCMAPTorsion" end time: Nov 11 13:51 CST
+"TestSerializeCMAPTorsion" time elapsed: 00:00:00
+----------------------------------------------------------
+
+79/148 Testing: TestSerializeCMMotionRemover
+79/148 Test: TestSerializeCMMotionRemover
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeCMMotionRemover"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeCMMotionRemover" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeCMMotionRemover" end time: Nov 11 13:51 CST
+"TestSerializeCMMotionRemover" time elapsed: 00:00:00
+----------------------------------------------------------
+
+80/148 Testing: TestSerializeConstantPotentialForce
+80/148 Test: TestSerializeConstantPotentialForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeConstantPotentialForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeConstantPotentialForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeConstantPotentialForce" end time: Nov 11 13:51 CST
+"TestSerializeConstantPotentialForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+81/148 Testing: TestSerializeCustomAngleForce
+81/148 Test: TestSerializeCustomAngleForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeCustomAngleForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeCustomAngleForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeCustomAngleForce" end time: Nov 11 13:51 CST
+"TestSerializeCustomAngleForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+82/148 Testing: TestSerializeCustomBondForce
+82/148 Test: TestSerializeCustomBondForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeCustomBondForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeCustomBondForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeCustomBondForce" end time: Nov 11 13:51 CST
+"TestSerializeCustomBondForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+83/148 Testing: TestSerializeCustomCVForce
+83/148 Test: TestSerializeCustomCVForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeCustomCVForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeCustomCVForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeCustomCVForce" end time: Nov 11 13:51 CST
+"TestSerializeCustomCVForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+84/148 Testing: TestSerializeCustomCentroidBondForce
+84/148 Test: TestSerializeCustomCentroidBondForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeCustomCentroidBondForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeCustomCentroidBondForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeCustomCentroidBondForce" end time: Nov 11 13:51 CST
+"TestSerializeCustomCentroidBondForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+85/148 Testing: TestSerializeCustomCompoundBondForce
+85/148 Test: TestSerializeCustomCompoundBondForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeCustomCompoundBondForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeCustomCompoundBondForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeCustomCompoundBondForce" end time: Nov 11 13:51 CST
+"TestSerializeCustomCompoundBondForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+86/148 Testing: TestSerializeCustomExternalForce
+86/148 Test: TestSerializeCustomExternalForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeCustomExternalForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeCustomExternalForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeCustomExternalForce" end time: Nov 11 13:51 CST
+"TestSerializeCustomExternalForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+87/148 Testing: TestSerializeCustomGBForce
+87/148 Test: TestSerializeCustomGBForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeCustomGBForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeCustomGBForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeCustomGBForce" end time: Nov 11 13:51 CST
+"TestSerializeCustomGBForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+88/148 Testing: TestSerializeCustomHbondForce
+88/148 Test: TestSerializeCustomHbondForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeCustomHbondForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeCustomHbondForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeCustomHbondForce" end time: Nov 11 13:51 CST
+"TestSerializeCustomHbondForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+89/148 Testing: TestSerializeCustomManyParticleForce
+89/148 Test: TestSerializeCustomManyParticleForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeCustomManyParticleForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeCustomManyParticleForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeCustomManyParticleForce" end time: Nov 11 13:51 CST
+"TestSerializeCustomManyParticleForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+90/148 Testing: TestSerializeCustomNonbondedForce
+90/148 Test: TestSerializeCustomNonbondedForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeCustomNonbondedForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeCustomNonbondedForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeCustomNonbondedForce" end time: Nov 11 13:51 CST
+"TestSerializeCustomNonbondedForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+91/148 Testing: TestSerializeCustomTorsionForce
+91/148 Test: TestSerializeCustomTorsionForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeCustomTorsionForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeCustomTorsionForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeCustomTorsionForce" end time: Nov 11 13:51 CST
+"TestSerializeCustomTorsionForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+92/148 Testing: TestSerializeCustomVolumeForce
+92/148 Test: TestSerializeCustomVolumeForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeCustomVolumeForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeCustomVolumeForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeCustomVolumeForce" end time: Nov 11 13:51 CST
+"TestSerializeCustomVolumeForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+93/148 Testing: TestSerializeDPDIntegrator
+93/148 Test: TestSerializeDPDIntegrator
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeDPDIntegrator"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeDPDIntegrator" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeDPDIntegrator" end time: Nov 11 13:51 CST
+"TestSerializeDPDIntegrator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+94/148 Testing: TestSerializeGBSAOBCForce
+94/148 Test: TestSerializeGBSAOBCForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeGBSAOBCForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeGBSAOBCForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeGBSAOBCForce" end time: Nov 11 13:51 CST
+"TestSerializeGBSAOBCForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+95/148 Testing: TestSerializeGayBerneForce
+95/148 Test: TestSerializeGayBerneForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeGayBerneForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeGayBerneForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeGayBerneForce" end time: Nov 11 13:51 CST
+"TestSerializeGayBerneForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+96/148 Testing: TestSerializeHarmonicAngleForce
+96/148 Test: TestSerializeHarmonicAngleForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeHarmonicAngleForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeHarmonicAngleForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeHarmonicAngleForce" end time: Nov 11 13:51 CST
+"TestSerializeHarmonicAngleForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+97/148 Testing: TestSerializeHarmonicBondForce
+97/148 Test: TestSerializeHarmonicBondForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeHarmonicBondForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeHarmonicBondForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeHarmonicBondForce" end time: Nov 11 13:51 CST
+"TestSerializeHarmonicBondForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+98/148 Testing: TestSerializeIntegrator
+98/148 Test: TestSerializeIntegrator
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeIntegrator"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeIntegrator" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeIntegrator" end time: Nov 11 13:51 CST
+"TestSerializeIntegrator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+99/148 Testing: TestSerializeLCPOForce
+99/148 Test: TestSerializeLCPOForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeLCPOForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeLCPOForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeLCPOForce" end time: Nov 11 13:51 CST
+"TestSerializeLCPOForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+100/148 Testing: TestSerializeMonteCarloAnisotropicBarostat
+100/148 Test: TestSerializeMonteCarloAnisotropicBarostat
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeMonteCarloAnisotropicBarostat"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeMonteCarloAnisotropicBarostat" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeMonteCarloAnisotropicBarostat" end time: Nov 11 13:51 CST
+"TestSerializeMonteCarloAnisotropicBarostat" time elapsed: 00:00:00
+----------------------------------------------------------
+
+101/148 Testing: TestSerializeMonteCarloBarostat
+101/148 Test: TestSerializeMonteCarloBarostat
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeMonteCarloBarostat"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeMonteCarloBarostat" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeMonteCarloBarostat" end time: Nov 11 13:51 CST
+"TestSerializeMonteCarloBarostat" time elapsed: 00:00:00
+----------------------------------------------------------
+
+102/148 Testing: TestSerializeMonteCarloFlexibleBarostat
+102/148 Test: TestSerializeMonteCarloFlexibleBarostat
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeMonteCarloFlexibleBarostat"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeMonteCarloFlexibleBarostat" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeMonteCarloFlexibleBarostat" end time: Nov 11 13:51 CST
+"TestSerializeMonteCarloFlexibleBarostat" time elapsed: 00:00:00
+----------------------------------------------------------
+
+103/148 Testing: TestSerializeMonteCarloMembraneBarostat
+103/148 Test: TestSerializeMonteCarloMembraneBarostat
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeMonteCarloMembraneBarostat"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeMonteCarloMembraneBarostat" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeMonteCarloMembraneBarostat" end time: Nov 11 13:51 CST
+"TestSerializeMonteCarloMembraneBarostat" time elapsed: 00:00:00
+----------------------------------------------------------
+
+104/148 Testing: TestSerializeNonbondedForce
+104/148 Test: TestSerializeNonbondedForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeNonbondedForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeNonbondedForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeNonbondedForce" end time: Nov 11 13:51 CST
+"TestSerializeNonbondedForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+105/148 Testing: TestSerializeNoseHooverIntegrator
+105/148 Test: TestSerializeNoseHooverIntegrator
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeNoseHooverIntegrator"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeNoseHooverIntegrator" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeNoseHooverIntegrator" end time: Nov 11 13:51 CST
+"TestSerializeNoseHooverIntegrator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+106/148 Testing: TestSerializeOrientationRestraintForce
+106/148 Test: TestSerializeOrientationRestraintForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeOrientationRestraintForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeOrientationRestraintForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeOrientationRestraintForce" end time: Nov 11 13:51 CST
+"TestSerializeOrientationRestraintForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+107/148 Testing: TestSerializePeriodicTorsionForce
+107/148 Test: TestSerializePeriodicTorsionForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializePeriodicTorsionForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializePeriodicTorsionForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializePeriodicTorsionForce" end time: Nov 11 13:51 CST
+"TestSerializePeriodicTorsionForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+108/148 Testing: TestSerializeQTBIntegrator
+108/148 Test: TestSerializeQTBIntegrator
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeQTBIntegrator"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeQTBIntegrator" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeQTBIntegrator" end time: Nov 11 13:51 CST
+"TestSerializeQTBIntegrator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+109/148 Testing: TestSerializeRBTorsionForce
+109/148 Test: TestSerializeRBTorsionForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeRBTorsionForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeRBTorsionForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeRBTorsionForce" end time: Nov 11 13:51 CST
+"TestSerializeRBTorsionForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+110/148 Testing: TestSerializeRGForce
+110/148 Test: TestSerializeRGForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeRGForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeRGForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeRGForce" end time: Nov 11 13:51 CST
+"TestSerializeRGForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+111/148 Testing: TestSerializeRMSDForce
+111/148 Test: TestSerializeRMSDForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeRMSDForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeRMSDForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeRMSDForce" end time: Nov 11 13:51 CST
+"TestSerializeRMSDForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+112/148 Testing: TestSerializeState
+112/148 Test: TestSerializeState
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeState"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeState" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeState" end time: Nov 11 13:51 CST
+"TestSerializeState" time elapsed: 00:00:00
+----------------------------------------------------------
+
+113/148 Testing: TestSerializeSystem
+113/148 Test: TestSerializeSystem
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeSystem"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeSystem" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeSystem" end time: Nov 11 13:51 CST
+"TestSerializeSystem" time elapsed: 00:00:00
+----------------------------------------------------------
+
+114/148 Testing: TestSerializeTabulatedFunctions
+114/148 Test: TestSerializeTabulatedFunctions
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeTabulatedFunctions"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/serialization/tests
+"TestSerializeTabulatedFunctions" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeTabulatedFunctions" end time: Nov 11 13:51 CST
+"TestSerializeTabulatedFunctions" time elapsed: 00:00:00
+----------------------------------------------------------
+
+122/148 Testing: TestSerializeAmoebaGeneralizedKirkwoodForce
+122/148 Test: TestSerializeAmoebaGeneralizedKirkwoodForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeAmoebaGeneralizedKirkwoodForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/plugins/amoeba/serialization/tests
+"TestSerializeAmoebaGeneralizedKirkwoodForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeAmoebaGeneralizedKirkwoodForce" end time: Nov 11 13:51 CST
+"TestSerializeAmoebaGeneralizedKirkwoodForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+123/148 Testing: TestSerializeAmoebaMultipoleForce
+123/148 Test: TestSerializeAmoebaMultipoleForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeAmoebaMultipoleForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/plugins/amoeba/serialization/tests
+"TestSerializeAmoebaMultipoleForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeAmoebaMultipoleForce" end time: Nov 11 13:51 CST
+"TestSerializeAmoebaMultipoleForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+124/148 Testing: TestSerializeAmoebaTorsionTorsionForce
+124/148 Test: TestSerializeAmoebaTorsionTorsionForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeAmoebaTorsionTorsionForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/plugins/amoeba/serialization/tests
+"TestSerializeAmoebaTorsionTorsionForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeAmoebaTorsionTorsionForce" end time: Nov 11 13:51 CST
+"TestSerializeAmoebaTorsionTorsionForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+125/148 Testing: TestSerializeAmoebaVdwForce
+125/148 Test: TestSerializeAmoebaVdwForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeAmoebaVdwForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/plugins/amoeba/serialization/tests
+"TestSerializeAmoebaVdwForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeAmoebaVdwForce" end time: Nov 11 13:51 CST
+"TestSerializeAmoebaVdwForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+126/148 Testing: TestSerializeAmoebaWcaDispersionForce
+126/148 Test: TestSerializeAmoebaWcaDispersionForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeAmoebaWcaDispersionForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/plugins/amoeba/serialization/tests
+"TestSerializeAmoebaWcaDispersionForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeAmoebaWcaDispersionForce" end time: Nov 11 13:51 CST
+"TestSerializeAmoebaWcaDispersionForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+127/148 Testing: TestSerializeHippoNonbondedForce
+127/148 Test: TestSerializeHippoNonbondedForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeHippoNonbondedForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/plugins/amoeba/serialization/tests
+"TestSerializeHippoNonbondedForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeHippoNonbondedForce" end time: Nov 11 13:51 CST
+"TestSerializeHippoNonbondedForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+134/148 Testing: TestSerializeDrudeForce
+134/148 Test: TestSerializeDrudeForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeDrudeForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/plugins/drude/serialization/tests
+"TestSerializeDrudeForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeDrudeForce" end time: Nov 11 13:51 CST
+"TestSerializeDrudeForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+135/148 Testing: TestSerializeDrudeLangevinIntegrator
+135/148 Test: TestSerializeDrudeLangevinIntegrator
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeDrudeLangevinIntegrator"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/plugins/drude/serialization/tests
+"TestSerializeDrudeLangevinIntegrator" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeDrudeLangevinIntegrator" end time: Nov 11 13:51 CST
+"TestSerializeDrudeLangevinIntegrator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+136/148 Testing: TestSerializeDrudeNoseHooverIntegrator
+136/148 Test: TestSerializeDrudeNoseHooverIntegrator
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSerializeDrudeNoseHooverIntegrator"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/plugins/drude/serialization/tests
+"TestSerializeDrudeNoseHooverIntegrator" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSerializeDrudeNoseHooverIntegrator" end time: Nov 11 13:51 CST
+"TestSerializeDrudeNoseHooverIntegrator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+137/148 Testing: TestCpuPme
+137/148 Test: TestCpuPme
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestCpuPme"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/plugins/cpupme/tests
+"TestCpuPme" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.27 sec
+----------------------------------------------------------
+Test Passed.
+"TestCpuPme" end time: Nov 11 13:51 CST
+"TestCpuPme" time elapsed: 00:00:00
+----------------------------------------------------------
+
+138/148 Testing: TestCustomVolumeForce
+138/148 Test: TestCustomVolumeForce
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestCustomVolumeForce"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/tests
+"TestCustomVolumeForce" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestCustomVolumeForce" end time: Nov 11 13:51 CST
+"TestCustomVolumeForce" time elapsed: 00:00:00
+----------------------------------------------------------
+
+139/148 Testing: TestEnforcePeriodicBox
+139/148 Test: TestEnforcePeriodicBox
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestEnforcePeriodicBox"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/tests
+"TestEnforcePeriodicBox" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestEnforcePeriodicBox" end time: Nov 11 13:51 CST
+"TestEnforcePeriodicBox" time elapsed: 00:00:00
+----------------------------------------------------------
+
+140/148 Testing: TestFindExclusions
+140/148 Test: TestFindExclusions
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestFindExclusions"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/tests
+"TestFindExclusions" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestFindExclusions" end time: Nov 11 13:51 CST
+"TestFindExclusions" time elapsed: 00:00:00
+----------------------------------------------------------
+
+141/148 Testing: TestFindMolecules
+141/148 Test: TestFindMolecules
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestFindMolecules"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/tests
+"TestFindMolecules" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestFindMolecules" end time: Nov 11 13:51 CST
+"TestFindMolecules" time elapsed: 00:00:00
+----------------------------------------------------------
+
+142/148 Testing: TestParser
+142/148 Test: TestParser
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestParser"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/tests
+"TestParser" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+square(x)
+cube(x)
+cube(x)
+6*(x)
+recip(1+(x))
+sqrt(x)
+1
+Done
+<end of output>
+Test time =   0.08 sec
+----------------------------------------------------------
+Test Passed.
+"TestParser" end time: Nov 11 13:51 CST
+"TestParser" time elapsed: 00:00:00
+----------------------------------------------------------
+
+143/148 Testing: TestSplineFitter
+143/148 Test: TestSplineFitter
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSplineFitter"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/tests
+"TestSplineFitter" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"TestSplineFitter" end time: Nov 11 13:51 CST
+"TestSplineFitter" time elapsed: 00:00:00
+----------------------------------------------------------
+
+144/148 Testing: TestSystem
+144/148 Test: TestSystem
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestSystem"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/tests
+"TestSystem" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestSystem" end time: Nov 11 13:51 CST
+"TestSystem" time elapsed: 00:00:00
+----------------------------------------------------------
+
+145/148 Testing: TestVectorExpression
+145/148 Test: TestVectorExpression
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestVectorExpression"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/tests
+"TestVectorExpression" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestVectorExpression" end time: Nov 11 13:51 CST
+"TestVectorExpression" time elapsed: 00:00:00
+----------------------------------------------------------
+
+146/148 Testing: TestVectorize
+146/148 Test: TestVectorize
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestVectorize"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/tests
+"TestVectorize" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestVectorize" end time: Nov 11 13:51 CST
+"TestVectorize" time elapsed: 00:00:00
+----------------------------------------------------------
+
+147/148 Testing: TestVectorizeAvx
+147/148 Test: TestVectorizeAvx
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestVectorizeAvx"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/tests
+"TestVectorizeAvx" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestVectorizeAvx" end time: Nov 11 13:51 CST
+"TestVectorizeAvx" time elapsed: 00:00:00
+----------------------------------------------------------
+
+148/148 Testing: TestVectorizeAvx2
+148/148 Test: TestVectorizeAvx2
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestVectorizeAvx2"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/tests
+"TestVectorizeAvx2" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"TestVectorizeAvx2" end time: Nov 11 13:51 CST
+"TestVectorizeAvx2" time elapsed: 00:00:00
+----------------------------------------------------------
+
+55/148 Testing: TestCpuCompoundIntegrator
+55/148 Test: TestCpuCompoundIntegrator
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestCpuCompoundIntegrator" "single"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/cpu/tests
+"TestCpuCompoundIntegrator" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  27.13 sec
+----------------------------------------------------------
+Test Passed.
+"TestCpuCompoundIntegrator" end time: Nov 11 13:51 CST
+"TestCpuCompoundIntegrator" time elapsed: 00:00:27
+----------------------------------------------------------
+
+74/148 Testing: TestCpuSettle
+74/148 Test: TestCpuSettle
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestCpuSettle" "single"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/cpu/tests
+"TestCpuSettle" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =   3.29 sec
+----------------------------------------------------------
+Test Passed.
+"TestCpuSettle" end time: Nov 11 13:51 CST
+"TestCpuSettle" time elapsed: 00:00:03
+----------------------------------------------------------
+
+68/148 Testing: TestCpuLangevinMiddleIntegrator
+68/148 Test: TestCpuLangevinMiddleIntegrator
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestCpuLangevinMiddleIntegrator" "single"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/cpu/tests
+"TestCpuLangevinMiddleIntegrator" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  46.16 sec
+----------------------------------------------------------
+Test Passed.
+"TestCpuLangevinMiddleIntegrator" end time: Nov 11 13:52 CST
+"TestCpuLangevinMiddleIntegrator" time elapsed: 00:00:46
+----------------------------------------------------------
+
+67/148 Testing: TestCpuLangevinIntegrator
+67/148 Test: TestCpuLangevinIntegrator
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestCpuLangevinIntegrator" "single"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/platforms/cpu/tests
+"TestCpuLangevinIntegrator" start time: Nov 11 13:51 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time =  55.72 sec
+----------------------------------------------------------
+Test Passed.
+"TestCpuLangevinIntegrator" end time: Nov 11 13:52 CST
+"TestCpuLangevinIntegrator" time elapsed: 00:00:55
+----------------------------------------------------------
+
+129/148 Testing: TestReferenceRpmdBarostats
+129/148 Test: TestReferenceRpmdBarostats
+Command: "/home/cpd-2/rev_omm/openmm/build-test/TestReferenceRpmdBarostats"
+Directory: /home/cpd-2/rev_omm/openmm/build-test/plugins/rpmd/platforms/reference/tests
+"TestReferenceRpmdBarostats" start time: Nov 11 13:50 CST
+Output:
+----------------------------------------------------------
+Done
+<end of output>
+Test time = 142.19 sec
+----------------------------------------------------------
+Test Passed.
+"TestReferenceRpmdBarostats" end time: Nov 11 13:52 CST
+"TestReferenceRpmdBarostats" time elapsed: 00:02:22
+----------------------------------------------------------
+
+End testing: Nov 11 13:52 CST

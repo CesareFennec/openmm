@@ -41,7 +41,7 @@ void testSerializeDPDIntegrator() {
 
     DPDIntegrator integrator(120.0, 1.1, 1.2, 0.05);
     integrator.setRandomNumberSeed(4);
-    integrator.setIntegrationForceGroups(3);
+    integrator.setIntegrationForceGroups(std::vector<int>(1, 3));
     integrator.setParticleType(1, 3);
     integrator.setParticleType(3, 8);
     integrator.addTypePair(0, 3, 1.5, 2.1);
@@ -61,7 +61,7 @@ void testSerializeDPDIntegrator() {
     ASSERT_EQUAL(integrator.getDefaultCutoff(), integrator2.getDefaultCutoff());
     ASSERT_EQUAL(integrator.getStepSize(), integrator2.getStepSize());
     ASSERT_EQUAL(integrator.getRandomNumberSeed(), integrator2.getRandomNumberSeed());
-    ASSERT_EQUAL(integrator.getIntegrationForceGroups(), integrator2.getIntegrationForceGroups());
+    ASSERT_EQUAL_CONTAINERS(integrator.getIntegrationForceGroups(), integrator2.getIntegrationForceGroups());
     for (int i = 0; i < 10; i++)
         ASSERT_EQUAL(integrator.getParticleType(i), integrator2.getParticleType(i));
     ASSERT_EQUAL_CONTAINERS(integrator.getParticleTypes(), integrator2.getParticleTypes());

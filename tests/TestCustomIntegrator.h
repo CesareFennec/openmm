@@ -600,7 +600,7 @@ void testForceGroups() {
     integrator.addComputeGlobal("oute", "energy");
     integrator.addComputeGlobal("oute1", "energy1");
     integrator.addComputeGlobal("oute2", "energy2");
-    integrator.setIntegrationForceGroups((1<<1) + (1<<2));
+    integrator.setIntegrationForceGroups(std::vector<int>(1, (1<<1) + (1<<2)));
     HarmonicBondForce* bonds = new HarmonicBondForce();
     bonds->addBond(0, 1, 1.5, 1.1);
     bonds->setForceGroup(1);

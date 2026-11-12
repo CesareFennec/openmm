@@ -148,11 +148,11 @@ double NonbondedForceImpl::calcForcesAndEnergy(ContextImpl& context, bool includ
     int internalForceGroup = forceGroup % 32;
     // Compute force when its both Topology group and internal force group are included.
     bool includeDirect = includeDirectSpace && (topologyGroup < groups.size()) && ((groups[topologyGroup]&(1<<internalForceGroup)) != 0);
-    bool includeReciprocal = false;
-    if (owner.getReciprocalSpaceForceGroup() >= 0) {
-        int internalReciprocalforceGroup = owner.getReciprocalSpaceForceGroup() % 32;
-        includeReciprocal = (topologyGroup < groups.size()) && ((groups[topologyGroup]&(1<<internalReciprocalforceGroup)) != 0);
-    }
+    // Note: recipForceGroup is resolved in the constructor, so that a value of -1
+    // means "use the same force group as the direct space calculation".
+    // Get the internal force group of the reciprocal space in its Topology.
+    int internalReciprocalForceGroup = recipForceGroup % 32;
+    bool includeReciprocal = (topologyGroup < groups.size()) && ((groups[topologyGroup]&(1<<internalReciprocalForceGroup)) != 0);
     return kernel.getAs<CalcNonbondedForceKernel>().execute(context, includeForces, includeEnergy, includeDirect, includeReciprocal);
 }
 

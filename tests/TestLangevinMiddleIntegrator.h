@@ -292,7 +292,7 @@ void testForceGroups() {
     System system;
     system.addParticle(1.0);
     LangevinMiddleIntegrator integrator(0.0, 1.0, 0.01);
-    integrator.setIntegrationForceGroups(1<<1);
+    integrator.setIntegrationForceGroups(std::vector<int>(1, 1<<1));
     CustomExternalForce* f1 = new CustomExternalForce("x");
     f1->addParticle(0);
     f1->setForceGroup(1);
